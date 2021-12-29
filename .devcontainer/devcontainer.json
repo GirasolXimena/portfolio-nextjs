@@ -15,7 +15,14 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"sleistner.vscode-fileutils",
+		"silvenon.mdx",
+		"ms-edgedevtools.vscode-edge-devtools",
+		"github.copilot",
+		"eamodio.gitlens",
+		"github.vscode-pull-request-github",
+		"dsznajder.es7-react-js-snippets"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -24,7 +31,7 @@
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
 		"3000": {
-			"label": "Hello Remote World",
+			"label": "Development Server",
 			"onAutoForward": "notify"
 		}
 	},
