@@ -25,3 +25,8 @@ img {
   max-width: 100%;
   display: block;
 }
+
+@page {
+  size: A4 portrait;
+}
+

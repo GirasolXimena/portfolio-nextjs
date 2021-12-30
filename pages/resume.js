@@ -4,13 +4,12 @@ import styles from '../styles/resume.module.css';
 export default function Resume() {
   return (
     <Layout>
-      <main className="resume" itemScope itemtype="http://schema.org/Person">
+      <>
+        <main className={`${styles.resume} paper ${styles.paper}`} itemScope itemType="http://schema.org/Person">
 
-        <a href="/resume.pdf" className="download-link">Download PDF</a>
-
-        <header>
-          <h1 itemProp="name">S. Roberto Andrade</h1>
-          <h2 itemProp="jobTitle">Creative Technologist</h2>
+          <header className={styles.title}>
+            <h1 itemProp="name" className={styles.name}>S. Roberto Andrade</h1>
+            <h2 itemProp="jobTitle" className={styles.title}>Creative Technologist</h2>
           <meta itemProp="alternateName" content="Robert Andrade" />
           <meta itemProp="alternateName" content="Sergio Andrade" />
           <meta itemProp="gender" content="Non-binary" />
@@ -18,17 +17,17 @@ export default function Resume() {
 
         </header>
 
-        <section className="objective">
+          <section className={`${styles.objective} ${styles.header}`}>
           <h3>Objective</h3>
           <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node. I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging. Passionate about prototyping to push products to their maximum potential incorporating principles from interaction design, motion design, and visual design. Driven to create memorable experiences for the user.</p>
         </section>
 
-        <section className="education">
+          <section className={styles.education}>
           <h3>Education</h3>
 
           <details>
             <summary>
-              <span itemProp="alumniOf" itemScope itemtype="http://schema.org/EducationalOrganization">
+                <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
                 <span itemProp="name">University of Minnesota</span>
               </span>
               Bachelor of Arts in <span itemProp="degree">French Languages &amp;</span> and Literature<span itemProp="degree">American History</span>
@@ -39,7 +38,7 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemProp="alumniOf" itemScope itemtype="http://schema.org/EducationalOrganization">
+                <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
                 <span itemProp="name">Prime Digital Academy</span>
               </span>
               <time>2018</time>
@@ -48,12 +47,12 @@ export default function Resume() {
           </details>
         </section>
 
-        <section className="work">
+          <section className={`${styles.experience} ${styles.header}`}>
           <h3>Work</h3>
 
           <details>
             <summary>
-              <span itemProp="worksFor" itemScope itemtype="http://schema.org/Oragnization">
+                <span itemProp="worksFor" itemScope itemType="http://schema.org/Oragnization">
                 <span itemProp="name">Wiley</span>
               </span>
               <span itemProp="jobTitle">Creative Technologist</span>
@@ -68,7 +67,7 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemScope itemtype="http://schema.org/Oragnization">
+                <span itemScope itemType="http://schema.org/Oragnization">
                 <span itemProp="name">Constellation Mutual</span>
               </span>
               <span itemProp="jobTitle">DevOps Product Engineer</span>
@@ -82,7 +81,7 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemScope itemtype="http://schema.org/Oragnization">
+                <span itemScope itemType="http://schema.org/Oragnization">
                 <span itemProp="name">Riley</span>
               </span>
               <span itemProp="jobTitle">Software Engineer</span>
@@ -93,7 +92,8 @@ export default function Resume() {
             </p>
           </details>
         </section>
-        <section className="skills">
+
+          <section className={`${styles.skills} ${styles.header}`}>
           <h3>Skills</h3>
           <details className='skills-category Front End'>
             <summary>
@@ -146,7 +146,8 @@ export default function Resume() {
             </ul>
           </details>
         </section>
-        <section className="interests">
+
+          <section className={`${styles.interests} ${styles.header}`}>
           <h3>Interests</h3>
           <ul>
             <li>
@@ -169,7 +170,8 @@ export default function Resume() {
             </li>
           </ul>
         </section>
-        <section className="contact">
+
+          <section className={`${styles.contact} ${styles.header}`}>
           <h3>Contact</h3>
           <ul className="contact-list">
             <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">Website: https://robertandradejr.dev/</a></li>
@@ -181,6 +183,8 @@ export default function Resume() {
           </ul>
         </section>
       </main>
+        <a href="/resume.pdf" className="download-link">Download PDF</a>
+      </>
     </Layout>
   )
 }

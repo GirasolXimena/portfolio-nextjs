@@ -1,3 +1,95 @@
 .hide, .print-only {
   display: none;
 }
+
+.paper {
+  width: 210mm;
+  height: 296mm;
+  padding: 10mm
+}
+
+.resume {
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "name name objective objective"
+    "experience experience experience experience"
+    "education skills interests contact"
+}
+
+.header {
+  overflow: scroll;
+}
+
+.title {
+  grid-area: name;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.name {
+  color: red;
+}
+.title {
+  color: blue;
+}
+
+.objective {
+  grid-area: objective;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.education {
+  grid-area: education;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.experience {
+  grid-area: experience;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.skills {
+  grid-area: skills;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.interests {
+  grid-area: interests;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+.contact {
+  grid-area: contact;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10mm;
+}
+
+@media screen {
+  .paper {
+    size: A4;
+    background: white;
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, .3);
+    margin: 5mm auto;
+  }
+}
