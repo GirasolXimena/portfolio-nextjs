@@ -4,17 +4,17 @@ import styles from '../styles/resume.module.css';
 export default function Resume() {
   return (
     <Layout>
-      <main className="resume" itemscope itemtype="http://schema.org/Person">
+      <main className="resume" itemScope itemtype="http://schema.org/Person">
 
         <a href="/resume.pdf" className="download-link">Download PDF</a>
 
         <header>
-          <h1 itemprop="name">S. Roberto Andrade</h1>
-          <h2 itemprop="jobTitle">Creative Technologist</h2>
-          <meta itemprop="alternateName" content="Robert Andrade" />
-          <meta itemprop="alternateName" content="Sergio Andrade" />
-          <meta itemprop="gender" content="Non-binary" />
-          <meta itemprop="pronouns" content="he/her/theirs" />
+          <h1 itemProp="name">S. Roberto Andrade</h1>
+          <h2 itemProp="jobTitle">Creative Technologist</h2>
+          <meta itemProp="alternateName" content="Robert Andrade" />
+          <meta itemProp="alternateName" content="Sergio Andrade" />
+          <meta itemProp="gender" content="Non-binary" />
+          <meta itemProp="pronouns" content="he/her/theirs" />
 
         </header>
 
@@ -28,10 +28,10 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization">
-                <span itemprop="name">University of Minnesota</span>
+              <span itemProp="alumniOf" itemScope itemtype="http://schema.org/EducationalOrganization">
+                <span itemProp="name">University of Minnesota</span>
               </span>
-              Bachelor of Arts in <span itemprop="degree">French Languages &amp;</span> and Literature<span itemprop="degree">American History</span>
+              Bachelor of Arts in <span itemProp="degree">French Languages &amp;</span> and Literature<span itemProp="degree">American History</span>
               <time>2010 - 2014</time>
             </summary>
             <p>Bachelor's Program focusing on Post World War II American History and French Linguistics</p>
@@ -39,8 +39,8 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemprop="alumniOf" itemscope itemtype="http://schema.org/EducationalOrganization">
-                <span itemprop="name">Prime Digital Academy</span>
+              <span itemProp="alumniOf" itemScope itemtype="http://schema.org/EducationalOrganization">
+                <span itemProp="name">Prime Digital Academy</span>
               </span>
               <time>2018</time>
             </summary>
@@ -53,13 +53,13 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemprop="worksFor" itemscope itemtype="http://schema.org/Oragnization">
-                <span itemprop="name">Wiley</span>
+              <span itemProp="worksFor" itemScope itemtype="http://schema.org/Oragnization">
+                <span itemProp="name">Wiley</span>
               </span>
-              <span itemprop="jobTitle">Creative Technologist</span>
+              <span itemProp="jobTitle">Creative Technologist</span>
               <time>2019 - Present</time>
             </summary>
-            <p itemprop="description">
+            <p itemProp="description">
               Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
               Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
 
@@ -68,13 +68,13 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemscope itemtype="http://schema.org/Oragnization">
-                <span itemprop="name">Constellation Mutual</span>
+              <span itemScope itemtype="http://schema.org/Oragnization">
+                <span itemProp="name">Constellation Mutual</span>
               </span>
-              <span itemprop="jobTitle">DevOps Product Engineer</span>
+              <span itemProp="jobTitle">DevOps Product Engineer</span>
               <time>2019</time>
             </summary>
-            <p itemprop="description">
+            <p itemProp="description">
               Product DevOps Engineer Constellation Mutual, Minneapolis MN
               Helped lay foundation for SaaS platform to connect physicians with insurance agents. Technologies: Figma, React, AWS, and Jenkins
             </p>
@@ -82,13 +82,13 @@ export default function Resume() {
 
           <details>
             <summary>
-              <span itemscope itemtype="http://schema.org/Oragnization">
-                <span itemprop="name">Riley</span>
+              <span itemScope itemtype="http://schema.org/Oragnization">
+                <span itemProp="name">Riley</span>
               </span>
-              <span itemprop="jobTitle">Software Engineer</span>
+              <span itemProp="jobTitle">Software Engineer</span>
               <time>2018 - 2019</time>
             </summary>
-            <p itemprop="description">
+            <p itemProp="description">
               Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users. Technologies: Laravel, React, HTML, and Vue.js
             </p>
           </details>
@@ -97,34 +97,34 @@ export default function Resume() {
           <h3>Skills</h3>
           <details className='skills-category Front End'>
             <summary>
-              <span itemprop="skills">
-                <span itemprop="name">Front End</span>
+              <span itemProp="skills">
+                <span itemProp="name">Front End</span>
               </span>
             </summary>
-            <ul itemprop="skills">
-              <li itemprop="name">JavaScript</li>
-              <li itemprop="name">HTML</li>
-              <li itemprop="name">CSS</li>
-              <li itemprop="name">Vue.js</li>
-              <li itemprop="name">Node.js</li>
-              <li itemprop="name">React</li>
-              <li itemprop="name">Jamstack</li>
-              <li itemprop="name">Git</li>
+            <ul itemProp="skills">
+              <li itemProp="name">JavaScript</li>
+              <li itemProp="name">HTML</li>
+              <li itemProp="name">CSS</li>
+              <li itemProp="name">Vue.js</li>
+              <li itemProp="name">Node.js</li>
+              <li itemProp="name">React</li>
+              <li itemProp="name">Jamstack</li>
+              <li itemProp="name">Git</li>
             </ul>
           </details>
           <details className='skills-category design'>
             <summary>
-              <span itemprop="skills">
-                <span itemprop="name">Design</span>
+              <span itemProp="skills">
+                <span itemProp="name">Design</span>
               </span>
             </summary>
-            <ul itemprop="skills">
-              <li itemprop="name">Design Systems</li>
-              <li itemprop="name">Interaction Design</li>
-              <li itemprop="name">Motion Design</li>
-              <li itemprop="name">Visual Design</li>
-              <li itemprop="name">Human Centered Design</li>
-              <li itemprop="name">Accessibility</li>
+            <ul itemProp="skills">
+              <li itemProp="name">Design Systems</li>
+              <li itemProp="name">Interaction Design</li>
+              <li itemProp="name">Motion Design</li>
+              <li itemProp="name">Visual Design</li>
+              <li itemProp="name">Human Centered Design</li>
+              <li itemProp="name">Accessibility</li>
             </ul>
           </details>
 
@@ -134,15 +134,15 @@ export default function Resume() {
                 <span >Tools</span>
               </span>
             </summary>
-            <ul itemprop="skills">
-              <li itemprop="name">Figma</li>
-              <li itemprop="name">Sketch</li>
-              <li itemprop="name">Adobe XD</li>
-              <li itemprop="name">Storybook</li>
-              <li itemprop="name">Adobe Illustrator</li>
-              <li itemprop="name">JIRA</li>
-              <li itemprop="name">Agile</li>
-              <li itemprop="name">Kanban</li>
+            <ul itemProp="skills">
+              <li itemProp="name">Figma</li>
+              <li itemProp="name">Sketch</li>
+              <li itemProp="name">Adobe XD</li>
+              <li itemProp="name">Storybook</li>
+              <li itemProp="name">Adobe Illustrator</li>
+              <li itemProp="name">JIRA</li>
+              <li itemProp="name">Agile</li>
+              <li itemProp="name">Kanban</li>
             </ul>
           </details>
         </section>
@@ -172,12 +172,12 @@ export default function Resume() {
         <section className="contact">
           <h3>Contact</h3>
           <ul className="contact-list">
-            <li><a href="https://robertandradejr.dev/" target="_blank" itemprop="url">Website: https://robertandradejr.dev/</a></li>
-            <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemprop="email">email: robert.andrade.developer@gmail.com</a></li>
-            <li><a href="https://github.com/RobertAndradeJr" itemprop="sameAs">Github: https://github.com/RobertAndradeJr</a></li>
-            <li><a href="https://twitter.com/abstract_coding" itemprop="sameAs">Twitter: abstract_coding</a></li>
-            <li><a href="https://www.linkedin.com/in/srobertandrade" itemprop="sameAs">LinkedIn: SRobertAndrade</a></li>
-            <li className={styles['print-only']}><span itemprop="telephone">(763) 501-9532</span></li>
+            <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">Website: https://robertandradejr.dev/</a></li>
+            <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemProp="email">email: robert.andrade.developer@gmail.com</a></li>
+            <li><a href="https://github.com/RobertAndradeJr" itemProp="sameAs">Github: https://github.com/RobertAndradeJr</a></li>
+            <li><a href="https://twitter.com/abstract_coding" itemProp="sameAs">Twitter: abstract_coding</a></li>
+            <li><a href="https://www.linkedin.com/in/srobertandrade" itemProp="sameAs">LinkedIn: SRobertAndrade</a></li>
+            <li className={styles['print-only']}><span itemProp="telephone">(763) 501-9532</span></li>
           </ul>
         </section>
       </main>
