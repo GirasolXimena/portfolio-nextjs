@@ -66,6 +66,10 @@ section .heading {
   color: green;
 }
 
+.education,
+.skills,
+.interests,
+.contact,
 .objective,
 .experience {
   border-top: 5pt solid black;
@@ -76,8 +80,18 @@ section .heading {
 .interests,
 .contact {
   margin: 0 0.25em;
-  border-top: 6pt solid black;
   overflow-y: auto;
+}
+
+section .heading,
+.objective p, 
+.experience > *,
+.education > *,
+.skills > *,
+.interests > *,
+.contact > *,
+.title {
+  margin-left: 5pt;
 }
 
 .objective {
@@ -86,6 +100,7 @@ section .heading {
 
 .education {
   grid-area: education;
+  margin-left: 0;
 }
 
 .experience {
@@ -127,12 +142,13 @@ section .heading {
 .contact {
   grid-area: contact;
   word-break: break-word;
+  margin-right: 0;
 }
 
 @media screen {
   .paper {
     size: A4;
-    background: white;
+    background-color: aqua;
     box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, .3);
     margin: 5mm auto;
   }
