@@ -5,17 +5,24 @@
 .paper {
   width: 210mm;
   height: 296mm;
-  padding: 10mm
+  padding: 10mm 7.5mm
 }
 
 .resume {
   display: grid;
-  grid-template-rows: 33% 33% 33%;
+  list-style-type: none;
+  font-size: 9pt;
+  grid-template-rows: max-content 3fr 2fr;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
     "name name objective objective"
     "experience experience experience experience"
     "education skills interests contact"
+}
+
+.resume ul {
+  list-style-type: none;
+  padding-inline-start: 0;
 }
 
 .header {
@@ -24,65 +31,101 @@
 
 .title {
   grid-area: name;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
+  place-self: start;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .name {
   color: red;
+  margin-top: -0.5em;
+  line-height: 1em;
+  font-size: 36pt;
 }
-.title {
+
+section .heading { 
+  font-size: 11pt;
+  color: purple;
+}
+
+.job-title, .degree {
+  font-size: 14pt;
+  font-weight: bold;
   color: blue;
+  margin-top: 0;
+}
+
+.date {
+  font-size: 9pt;
+  color: orange;
+}
+
+.organization {
+  font-size: 11pt;
+  font-style: italic;
+  color: green;
+}
+
+.objective,
+.experience {
+  border-top: 5pt solid black;
+}
+
+.education,
+.skills,
+.interests,
+.contact {
+  margin: 0 0.25em;
+  border-top: 6pt solid black;
+  overflow-y: auto;
 }
 
 .objective {
   grid-area: objective;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
 }
 
 .education {
   grid-area: education;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
 }
 
 .experience {
   grid-area: experience;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.experience-list {
+  margin-top: 11pt;
+  overflow: auto;
 }
 
 .skills {
   grid-area: skills;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
+}
+
+.skills ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skills ul li {
+  margin: 0.25em;
+  background-color: darkmagenta;
+}
+
+.skills ul li:after {
+  background-color: darkolivegreen;
+  content: ",";
+  margin-left: 0.25em;
 }
 
 .interests {
   grid-area: interests;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
 }
 
 .contact {
   grid-area: contact;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 10mm;
+  word-break: break-word;
 }
 
 @media screen {

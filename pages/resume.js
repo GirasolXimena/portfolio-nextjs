@@ -4,98 +4,104 @@ import styles from '../styles/resume.module.css';
 export default function Resume() {
   return (
     <Layout>
-      <>
-        <main className={`${styles.resume} paper ${styles.paper}`} itemScope itemType="http://schema.org/Person">
+      <article className={`${styles.resume} ${styles.paper}`} itemScope itemType="http://schema.org/Person">
 
-          <header className={styles.title}>
-            <h1 itemProp="name" className={styles.name}>S. Roberto Andrade</h1>
-            <h2 itemProp="jobTitle" className={styles.title}>Creative Technologist</h2>
+        <header className={styles.title}>
+          <h1 itemProp="name" className={styles.name}>S. Roberto<br />Andrade</h1>
+          <h2 itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</h2>
           <meta itemProp="alternateName" content="Robert Andrade" />
           <meta itemProp="alternateName" content="Sergio Andrade" />
           <meta itemProp="gender" content="Non-binary" />
           <meta itemProp="pronouns" content="he/her/theirs" />
-
         </header>
 
-          <section className={`${styles.objective} ${styles.header}`}>
-          <h3>Objective</h3>
+        <section className={`${styles.objective} ${styles.header}`}>
+          <h3 className={styles.heading}>Objective</h3>
           <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node. I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging. Passionate about prototyping to push products to their maximum potential incorporating principles from interaction design, motion design, and visual design. Driven to create memorable experiences for the user.</p>
         </section>
 
-          <section className={styles.education}>
-          <h3>Education</h3>
+        <section className={styles.education}>
+          <h3 className={styles.heading}>Education</h3>
 
           <details>
             <summary>
-                <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
-                <span itemProp="name">University of Minnesota</span>
+              <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
+                <span itemProp="name" className={styles.organization}>University of Minnesota</span>
               </span>
-              Bachelor of Arts in <span itemProp="degree">French Languages &amp;</span> and Literature<span itemProp="degree">American History</span>
-              <time>2010 - 2014</time>
+              <span className={styles.degree}>
+                Bachelor of Arts in <span itemProp="degree">French Language &amp; Literature</span><span itemProp="degree">American History</span>
+                <time className={styles.date}>2010 - 2014</time>
+              </span>
             </summary>
             <p>Bachelor's Program focusing on Post World War II American History and French Linguistics</p>
           </details>
 
           <details>
             <summary>
-                <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
-                <span itemProp="name">Prime Digital Academy</span>
+              <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
+                <span itemProp="name" className={styles.organization}>Prime Digital Academy</span>
               </span>
-              <time>2018</time>
+              <span className={styles.degree}>
+                Full-Stack Engineering
+              </span>
+              <time className={styles.date}>2018</time>
             </summary>
             <p>Full time full stack full engineering full course</p>
           </details>
         </section>
 
-          <section className={`${styles.experience} ${styles.header}`}>
-          <h3>Work</h3>
+        <section className={`${styles.experience} ${styles.header}`}>
+          <h3 className={`${styles['experience-title']} ${styles.heading}`}>Experience</h3>
 
-          <details>
-            <summary>
+          <div className={styles['experience-list']}>
+            <details open>
+              <summary>
                 <span itemProp="worksFor" itemScope itemType="http://schema.org/Oragnization">
-                <span itemProp="name">Wiley</span>
-              </span>
-              <span itemProp="jobTitle">Creative Technologist</span>
-              <time>2019 - Present</time>
-            </summary>
-            <p itemProp="description">
-              Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
-              Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
+                  <span className={styles.organization} itemProp="name">Wiley</span>
+                </span>
+                <span itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</span>
+                <time className={styles.date}>2019 - Present</time>
+              </summary>
+              <p itemProp="description">
+                Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
+                Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
 
-            </p>
-          </details>
+              </p>
+            </details>
 
-          <details>
-            <summary>
+            <details open>
+              <summary>
                 <span itemScope itemType="http://schema.org/Oragnization">
-                <span itemProp="name">Constellation Mutual</span>
-              </span>
-              <span itemProp="jobTitle">DevOps Product Engineer</span>
-              <time>2019</time>
-            </summary>
-            <p itemProp="description">
-              Product DevOps Engineer Constellation Mutual, Minneapolis MN
-              Helped lay foundation for SaaS platform to connect physicians with insurance agents. Technologies: Figma, React, AWS, and Jenkins
-            </p>
-          </details>
+                  <span className={styles.organization} itemProp="name">Constellation Mutual</span>
+                </span>
+                <span className={styles['job-title']} itemProp="jobTitle">DevOps Product Engineer</span>
+                <time className={styles.date}>2019</time>
+              </summary>
+              <p itemProp="description">
+                Product DevOps Engineer Constellation Mutual, Minneapolis MN
+                Helped lay foundation for SaaS platform to connect physicians with insurance agents. Technologies: Figma, React, AWS, and Jenkins
+              </p>
+            </details>
 
-          <details>
-            <summary>
+            <details open>
+              <summary>
                 <span itemScope itemType="http://schema.org/Oragnization">
-                <span itemProp="name">Riley</span>
-              </span>
-              <span itemProp="jobTitle">Software Engineer</span>
-              <time>2018 - 2019</time>
-            </summary>
-            <p itemProp="description">
-              Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users. Technologies: Laravel, React, HTML, and Vue.js
-            </p>
-          </details>
+                  <span className={styles.organization} itemProp="name">Riley</span>
+                </span>
+                <span itemProp="jobTitle" className={styles['job-title']}>Software Engineer</span>
+                <time className={styles.date}>2018 - 2019</time>
+              </summary>
+              <p itemProp="description">
+                Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users. Technologies: Laravel, React, HTML, and Vue.js
+              </p>
+            </details>
+          </div>
+
         </section>
 
-          <section className={`${styles.skills} ${styles.header}`}>
-          <h3>Skills</h3>
-          <details className='skills-category Front End'>
+        <section className={`${styles.skills} ${styles.header}`}>
+          <h3 className={styles.heading}>Skills</h3>
+          <details className='skills-category Front End' open>
             <summary>
               <span itemProp="skills">
                 <span itemProp="name">Front End</span>
@@ -109,10 +115,12 @@ export default function Resume() {
               <li itemProp="name">Node.js</li>
               <li itemProp="name">React</li>
               <li itemProp="name">Jamstack</li>
+              <li itemProp="name">Serverless</li>
               <li itemProp="name">Git</li>
             </ul>
           </details>
-          <details className='skills-category design'>
+
+          <details className='skills-category design' open>
             <summary>
               <span itemProp="skills">
                 <span itemProp="name">Design</span>
@@ -128,7 +136,7 @@ export default function Resume() {
             </ul>
           </details>
 
-          <details className="skills-category tools">
+          <details className="skills-category tools" open>
             <summary>
               <span >
                 <span >Tools</span>
@@ -147,8 +155,8 @@ export default function Resume() {
           </details>
         </section>
 
-          <section className={`${styles.interests} ${styles.header}`}>
-          <h3>Interests</h3>
+        <section className={`${styles.interests} ${styles.header}`}>
+          <h3 className={styles.heading}>Interests</h3>
           <ul>
             <li>
               Reading
@@ -171,8 +179,8 @@ export default function Resume() {
           </ul>
         </section>
 
-          <section className={`${styles.contact} ${styles.header}`}>
-          <h3>Contact</h3>
+        <section className={`${styles.contact} ${styles.header}`}>
+          <h3 className={styles.heading}>Contact</h3>
           <ul className="contact-list">
             <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">Website: https://robertandradejr.dev/</a></li>
             <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemProp="email">email: robert.andrade.developer@gmail.com</a></li>
@@ -182,9 +190,8 @@ export default function Resume() {
             <li className={styles['print-only']}><span itemProp="telephone">(763) 501-9532</span></li>
           </ul>
         </section>
-      </main>
-        <a href="/resume.pdf" className="download-link">Download PDF</a>
-      </>
+      </article>
+      <a href="/resume.pdf" className="download-link">Download PDF</a>
     </Layout>
   )
 }
