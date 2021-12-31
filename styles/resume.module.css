@@ -20,6 +20,10 @@
     "education skills interests contact"
 }
 
+.resume details summary {
+  list-style: none;
+}
+
 .resume ul {
   list-style-type: none;
   padding-inline-start: 0;

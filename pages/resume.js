@@ -23,7 +23,7 @@ export default function Resume() {
         <section className={styles.education}>
           <h3 className={styles.heading}>Education</h3>
 
-          <details>
+          <details open>
             <summary>
               <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
                 <span itemProp="name" className={styles.organization}>University of Minnesota</span>
@@ -36,7 +36,7 @@ export default function Resume() {
             <p>Bachelor's Program focusing on Post World War II American History and French Linguistics</p>
           </details>
 
-          <details>
+          <details open>
             <summary>
               <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
                 <span itemProp="name" className={styles.organization}>Prime Digital Academy</span>
