@@ -110,6 +110,7 @@ section .heading {
 
 .skills ul li {
   margin: 0.25em;
+  color: white;
   background-color: darkmagenta;
 }
 
