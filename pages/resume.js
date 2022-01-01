@@ -1,5 +1,5 @@
 import Layout from '../components/layout';
-import styles from '../styles/resume.module.css';
+import styles from '../styles/resume.module.scss';
 
 export default function Resume() {
   return (
@@ -17,7 +17,7 @@ export default function Resume() {
 
         <section className={`${styles.objective} ${styles.header}`}>
           <h3 className={styles.heading}>Objective</h3>
-          <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node. I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging. Passionate about prototyping to push products to their maximum potential incorporating principles from interaction design, motion design, and visual design. Driven to create memorable experiences for the user.</p>
+          <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node. I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging. Passionate about prototyping to push products to their maximum potential incorporating design principles and modern development practices. Driven to create memorable experiences for the user.</p>
         </section>
 
         <section className={styles.education}>
@@ -25,24 +25,24 @@ export default function Resume() {
 
           <details open>
             <summary>
+              <h4 className={styles.degree}>
+                <span itemProp="degree">French Language<br />&amp; Literature</span>,<br /><span itemProp="degree">American History</span>
+              </h4>
               <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
-                <span itemProp="name" className={styles.organization}>University of Minnesota</span>
+                <h5 itemProp="name" className={styles.organization}>University of Minnesota</h5>
               </span>
-              <span className={styles.degree}>
-                Bachelor of Arts in <span itemProp="degree">French Language &amp; Literature</span><span itemProp="degree">American History</span>
-                <time className={styles.date}>2010 - 2014</time>
-              </span>
+              <time className={styles.date}>2010 - 2014</time>
             </summary>
             <p>Bachelor's Program focusing on Post World War II American History and French Linguistics</p>
           </details>
 
           <details open>
             <summary>
-              <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
-                <span itemProp="name" className={styles.organization}>Prime Digital Academy</span>
-              </span>
-              <span className={styles.degree}>
+              <h4 className={styles.degree}>
                 Full-Stack Engineering
+              </h4>
+              <span itemProp="alumniOf" itemScope itemType="http://schema.org/EducationalOrganization">
+                <h5 itemProp="name" className={styles.organization}>Prime Digital Academy</h5>
               </span>
               <time className={styles.date}>2018</time>
             </summary>
@@ -57,24 +57,23 @@ export default function Resume() {
             <details open>
               <summary>
                 <span itemProp="worksFor" itemScope itemType="http://schema.org/Oragnization">
-                  <span className={styles.organization} itemProp="name">Wiley</span>
+                  <h5 className={styles.organization} itemProp="name">Wiley</h5>
                 </span>
-                <span itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</span>
+                <h4 itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</h4>
                 <time className={styles.date}>2019 - Present</time>
               </summary>
               <p itemProp="description">
                 Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
-                Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
-
+                <br />Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
               </p>
             </details>
 
             <details open>
               <summary>
                 <span itemScope itemType="http://schema.org/Oragnization">
-                  <span className={styles.organization} itemProp="name">Constellation Mutual</span>
+                  <h5 className={styles.organization} itemProp="name">Constellation Mutual</h5>
                 </span>
-                <span className={styles['job-title']} itemProp="jobTitle">DevOps Product Engineer</span>
+                <h4 className={styles['job-title']} itemProp="jobTitle">DevOps Product Engineer</h4>
                 <time className={styles.date}>2019</time>
               </summary>
               <p itemProp="description">
@@ -86,9 +85,9 @@ export default function Resume() {
             <details open>
               <summary>
                 <span itemScope itemType="http://schema.org/Oragnization">
-                  <span className={styles.organization} itemProp="name">Riley</span>
+                  <h5 className={styles.organization} itemProp="name">Riley</h5>
                 </span>
-                <span itemProp="jobTitle" className={styles['job-title']}>Software Engineer</span>
+                <h4 itemProp="jobTitle" className={styles['job-title']}>Software Engineer</h4>
                 <time className={styles.date}>2018 - 2019</time>
               </summary>
               <p itemProp="description">
@@ -104,7 +103,7 @@ export default function Resume() {
           <details className='skills-category Front End' open>
             <summary>
               <span itemProp="skills">
-                <span itemProp="name">Front End</span>
+                <h6 itemProp="name">Front End</h6>
               </span>
             </summary>
             <ul itemProp="skills">
@@ -123,7 +122,7 @@ export default function Resume() {
           <details className='skills-category design' open>
             <summary>
               <span itemProp="skills">
-                <span itemProp="name">Design</span>
+                <h6 itemProp="name">Design</h6>
               </span>
             </summary>
             <ul itemProp="skills">
@@ -139,7 +138,7 @@ export default function Resume() {
           <details className="skills-category tools" open>
             <summary>
               <span >
-                <span >Tools</span>
+                <h6>Tools</h6>
               </span>
             </summary>
             <ul itemProp="skills">
