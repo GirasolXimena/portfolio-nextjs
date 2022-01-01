@@ -1,7 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/layout.module.css'
-import utilStyles from '../styles/utils.module.css'
+import styles from '../styles/layout.module.scss'
 import Link from 'next/link'
 
 const name = 'S. Roberto Andrade'
