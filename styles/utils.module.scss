@@ -50,3 +50,15 @@
 .lightText {
   color: #666;
 }
+
+.paper {
+  width: 210mm;
+  height: 296mm;
+  padding: 10mm;
+  size: a4;
+
+  @media screen {
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, .3);
+    margin: 5mm auto;
+  }
+}
