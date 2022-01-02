@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/layout.module.scss'
 import Link from 'next/link'
+import utilStyles from '../styles/utils.module.scss'
 
 const name = 'S. Roberto Andrade'
 const jobTitle = 'Creative Technologist'
@@ -53,7 +54,7 @@ export default function Layout({ children, home }) {
       </header>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <div className={`${styles.backToHome} ${utilStyles.noPrint}`} >
           <Link href="/">
             <a>← Back to home</a>
           </Link>

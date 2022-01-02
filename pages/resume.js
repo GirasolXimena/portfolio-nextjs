@@ -1,6 +1,7 @@
 import Layout from '../components/layout';
 import { useState } from 'react';
 import ResumeTemplate from '../components/resumeTemplate';
+import utilStyles from '../styles/utils.module.scss';
 import { downloadResume } from '../lib/pdf';
 
 export default function Resume() {
@@ -13,10 +14,10 @@ export default function Resume() {
 
   return (
     <Layout>
-      <button onClick={() => setPretty(!pretty)}>toggle pretty</button>
+      <button className={utilStyles.noPrint} onClick={() => setPretty(!pretty)}>toggle pretty</button>
       <ResumeTemplate pretty={pretty} />
-      <button onClick={downloadResume}>create pdf</button><br />
-      <a href='/assets/Roberto-Andrade_Creative-Technologist.pdf' className="download-link">Download PDF</a>
+      <button className={utilStyles.noPrint} onClick={downloadResume}>create pdf</button><br />
+      <a className={utilStyles.noPrint} href='/assets/Roberto-Andrade_Creative-Technologist.pdf'>Download PDF</a>
     </Layout>
   )
 }
