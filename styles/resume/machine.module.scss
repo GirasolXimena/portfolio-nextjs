@@ -1,8 +1,41 @@
 .resume {
-  overflow-y: auto;
-  padding: initial;
-  margin: initial;
+  height: auto !important;
   font-family: initial;
   line-height: initial;
   font-size: initial;
+
+  h4 {
+    display: inline-block;
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .contact {
+
+    h3 {
+      font-style: normal;
+    }
+    h6 {
+      display: inline-block;
+      margin: 0.5em auto;
+      &:after {
+        content: ': ';
+        margin-right: .5em;
+      }
+    }
+  }
+
+  .experience {
+    h6 {
+      margin: 1em auto 0.25em;
+      text-transform: uppercase;
+    }
+  }
 }

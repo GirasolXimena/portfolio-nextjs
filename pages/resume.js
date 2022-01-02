@@ -13,7 +13,7 @@ export default function Resume() {
 
   return (
     <Layout>
-      <button onClick={togglePretty}>toggle pretty</button>
+      <button onClick={() => setPretty(!pretty)}>toggle pretty</button>
       <ResumeTemplate pretty={pretty} />
       <button onClick={downloadResume}>create pdf</button><br />
       <a href='/assets/Roberto-Andrade_Creative-Technologist.pdf' className="download-link">Download PDF</a>

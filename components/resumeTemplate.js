@@ -5,6 +5,7 @@ import machineStyles from '../styles/resume/machine.module.scss';
 export default ({ pretty }) => {
   const styles = pretty ? prettyStyles : machineStyles;
   const breakIfPretty = pretty ? <br /> : ' ';
+
   return (
     <article id="resume" className={`${styles.resume} ${utilStyles.paper}`} itemScope itemType="http://schema.org/Person">
 
@@ -35,7 +36,12 @@ export default ({ pretty }) => {
             </span>
             <time className={styles.date}>2010 - 2014</time>
           </summary>
-          <p>Bachelor's Program focusing on Post World War II American History and French Linguistics</p>
+          <p>Bachelor of arts with concentrations in:
+            <ul>
+              <li>Modern French linguistics and culture</li>
+              <li>US History after World War II, Chicano Studies</li>
+            </ul>
+          </p>
         </details>
 
         <details open>
@@ -48,7 +54,16 @@ export default ({ pretty }) => {
             </span>
             <time className={styles.date}>2018</time>
           </summary>
-          <p>Full time full stack full engineering full course</p>
+          <p>Intensive, industry leading Full Stack bootcamp.
+            Created an online application portal to help other students gain acess to scholarship opportunities.
+            Specialties include:
+            <ul>
+              <li>Modern Development Best Practices</li>
+              <li>Working in Agile</li>
+              <li>Soft Skills</li>
+              <li>SMongo, Express, React, Node</li>
+            </ul>
+          </p>
         </details>
       </section>
 
@@ -58,42 +73,119 @@ export default ({ pretty }) => {
         <div className={styles['experience-list']}>
           <details open>
             <summary>
+              <h4 itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</h4>
               <span itemProp="worksFor" itemScope itemType="http://schema.org/Oragnization">
                 <h5 className={styles.organization} itemProp="name">Wiley</h5>
               </span>
-              <h4 itemProp="jobTitle" className={styles['job-title']}>Creative Technologist</h4>
               <time className={styles.date}>2019 - Present</time>
             </summary>
             <p itemProp="description">
-              Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
-              <br />Technologies: Vue.js, JavaScript, Tailwind CSS, Sass, Storybook, Vite, Adobe XD
+              Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™.
+              Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products.
+              Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
+              {
+                !pretty &&
+                ` Responsibilities included: Maintaining and updating the design system, creating reusable components, and creating a design system for the new product.
+                Mentoring other developers and designers. Collaborated with designers and developers to create a design system that is accessible, modular, extensible, and engaging.
+                Contributing to convergence strategy for digital transformation of the products across the organization.`
+              }
+              {breakIfPretty}
+              <h6>Technologies</h6>
+              <ul className={pretty && utilStyles.inlineList}>
+                <li>Vue.js</li>
+                <li>JavaScript</li>
+                <li>Tailwind CSS</li>
+                <li>Sass</li>
+                <li>Storybook</li>
+                <li>Vite</li>
+                <li>Adobe XD</li>
+                {
+                  !pretty &&
+                  <>
+                    <li>Git</li>
+                    <li>Jenkins</li>
+                    <li>SCSS</li>
+                    <li>TypeScript</li>
+                    <li>Agile</li>
+                    <li>Swagger</li>
+                    <li>OpenAPI</li>
+                  </>
+                }
+              </ul>
             </p>
           </details>
 
           <details open>
             <summary>
+              <h4 className={styles['job-title']} itemProp="jobTitle">DevOps Product Engineer</h4>
               <span itemScope itemType="http://schema.org/Oragnization">
                 <h5 className={styles.organization} itemProp="name">Constellation Mutual</h5>
               </span>
-              <h4 className={styles['job-title']} itemProp="jobTitle">DevOps Product Engineer</h4>
               <time className={styles.date}>2019</time>
             </summary>
             <p itemProp="description">
               Product DevOps Engineer Constellation Mutual, Minneapolis MN
-              Helped lay foundation for SaaS platform to connect physicians with insurance agents. Technologies: Figma, React, AWS, and Jenkins
+              Helped lay foundation for SaaS platform to connect physicians with insurance agents.
+              {
+                !pretty &&
+                ` Responsibilities included: Help create design system and build reusable components for new platform.
+                Help decide which technology stack would best suit our business use case. Mentoring other developers and front end development practice strategy.
+                Contribute to creating CI/CD pipeline for new product.`
+              }
+              {breakIfPretty}
+              <h6>Technologies</h6>
+              <ul className={pretty && utilStyles.inlineList}>
+                <li>Figma</li>
+                <li>React</li>
+                <li>AWS</li>
+                <li>Jenkins</li>
+                {
+                  !pretty &&
+                  <>
+                    <li>Git</li>
+                    <li>Jenkins</li>
+                    <li>SCSS</li>
+                    <li>TypeScript</li>
+                    <li>Agile</li>
+                    <li>Kanban</li>
+                    <li>Sketch</li>
+                    <li>Jest</li>
+                  </>
+                }
+              </ul>
             </p>
           </details>
 
           <details open>
             <summary>
+              <h4 itemProp="jobTitle" className={styles['job-title']}>Software Engineer</h4>
               <span itemScope itemType="http://schema.org/Oragnization">
                 <h5 className={styles.organization} itemProp="name">Riley</h5>
               </span>
-              <h4 itemProp="jobTitle" className={styles['job-title']}>Software Engineer</h4>
               <time className={styles.date}>2018 - 2019</time>
             </summary>
             <p itemProp="description">
-              Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users. Technologies: Laravel, React, HTML, and Vue.js
+              Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users.
+              {breakIfPretty}
+              <h6>Technologies</h6>
+              <ul className={pretty && utilStyles.inlineList}>
+                <li>Laravel</li>
+                <li>React</li>
+                <li>HTML</li>
+                <li>Vue.js</li>
+                {
+                  !pretty &&
+                  <>
+                    <li>PHP</li>
+                    <li>MJML</li>
+                    <li>SCSS</li>
+                    <li>Foundation</li>
+                    <li>Wordpress</li>
+                    <li>AWS</li>
+                    <li>TypeScript</li>
+                  </>
+                }
+              </ul>
             </p>
           </details>
         </div>
@@ -181,15 +273,17 @@ export default ({ pretty }) => {
       </section>
 
       <section className={`${styles.contact} ${styles.header}`}>
-        <h3 className={styles.heading}>Contact</h3>
-        <ul className="contact-list">
-          <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">robertandradejr.dev/</a></li>
-          <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemProp="email"><h6 className={styles.link}>email</h6>robert.andrade.developer@gmail.com</a></li>
-          <li><a href="https://github.com/RobertAndradeJr" itemProp="sameAs"><h6 className={styles.link}>Github</h6>RobertAndradeJr</a></li>
-          <li><a href="https://twitter.com/abstract_coding" itemProp="sameAs"><h6 className={styles.link}>Twitter</h6>abstract_coding</a></li>
-          <li><a href="https://www.linkedin.com/in/srobertandrade" itemProp="sameAs"><h6 className={styles.link}>LinkedIn</h6>SRobertAndrade</a></li>
-          <li className={styles['print-only']}><span itemProp="telephone">(763) 501-9532</span></li>
-        </ul>
+        <address>
+          <h3 className={styles.heading}>Contact</h3>
+          <ul className="contact-list">
+            <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">{!pretty && <h6 className={styles.link}>Website</h6>}robertandradejr.dev/</a></li>
+            <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemProp="email"><h6 className={styles.link}>email</h6>robert.andrade.developer@gmail.com</a></li>
+            <li><a href="https://github.com/RobertAndradeJr" itemProp="sameAs"><h6 className={styles.link}>Github</h6>RobertAndradeJr</a></li>
+            <li><a href="https://twitter.com/abstract_coding" itemProp="sameAs"><h6 className={styles.link}>Twitter</h6>abstract_coding</a></li>
+            <li><a href="https://www.linkedin.com/in/srobertandrade" itemProp="sameAs"><h6 className={styles.link}>LinkedIn</h6>SRobertAndrade</a></li>
+            <li className={styles['print-only']}><span itemProp="telephone">{!pretty && <h6 className={styles.link}>Phone</h6>}(763) 501-9532</span></li>
+          </ul>
+        </address>
       </section>
     </article>
   )

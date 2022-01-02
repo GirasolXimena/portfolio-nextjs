@@ -126,7 +126,17 @@ section .heading,
   .experience-list {
     margin-top: 1em;
     overflow: auto;
-  
+    h6{ 
+      margin: 0;
+      display: inline;
+      margin-left: auto;
+      font-size: .75em;
+      text-transform: uppercase;
+      &::after {
+        content: ': ';
+        margin-right: .5em;
+      }
+    }
     p {
       margin: 0.25em 0;
     }
@@ -136,7 +146,7 @@ section .heading,
 
 .experience-list summary, .education summary {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 

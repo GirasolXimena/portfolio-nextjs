@@ -51,6 +51,21 @@
   color: #666;
 }
 
+.inlineList {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+    margin: 0;
+    &:not(:last-child)::after {
+      content: ',';
+      margin-right: 0.25rem;
+    }
+  }
+}
+
 .paper {
   width: 210mm;
   height: 296mm;
