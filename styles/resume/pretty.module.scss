@@ -2,18 +2,6 @@
   display: none;
 }
 
-.paper {
-  width: 210mm;
-  height: 296mm;
-  padding: 10mm 7.5mm;
-  size: a4;
-
-  @media screen {
-    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, .3);
-    margin: 5mm auto;
-  }
-}
-
 .resume {
   display: grid;
   list-style-type: none;
@@ -23,6 +11,10 @@
     "title title objective objective"
     "experience experience experience experience"
     "education skills skills contact";
+
+    @media print {
+      padding: 0;
+    }
 
   details summary,
   ul {
@@ -78,7 +70,7 @@ h5.organization {
   font-weight: normal;
 }
 
-h6.date, .date, .skills h6 {
+h6.date, .date, .skills h6, h6.link {
   font-size: 0.85em;
   color: darkslategray;
   font-style: italic;
@@ -125,7 +117,7 @@ section .heading,
     justify-content: end;
   }
 
-  p {
+  p, ul {
     display: none;
   }
 }
@@ -138,7 +130,17 @@ section .heading,
   .experience-list {
     margin-top: 1em;
     overflow: auto;
-  
+    h6{ 
+      margin: 0;
+      display: inline;
+      margin-left: auto;
+      font-size: .75em;
+      text-transform: uppercase;
+      &::after {
+        content: ': ';
+        margin-right: .5em;
+      }
+    }
     p {
       margin: 0.25em 0;
     }
@@ -148,7 +150,7 @@ section .heading,
 
 .experience-list summary, .education summary {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 
@@ -187,7 +189,10 @@ section .heading,
       }
     }
   }
+}
 
+.skills,
+.contact {
   h6 {
     text-transform: uppercase;
     letter-spacing: 0.1em;
