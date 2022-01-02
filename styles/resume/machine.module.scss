@@ -1,8 +1,12 @@
 .resume {
-  height: auto !important;
   font-family: initial;
   line-height: initial;
   font-size: initial;
+  overflow-y: auto;
+  
+  @media print {
+    height: auto !important;
+  }
 
   h1 {
     font-size: 3em;
