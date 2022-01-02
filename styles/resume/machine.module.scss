@@ -4,17 +4,69 @@
   line-height: initial;
   font-size: initial;
 
+  h1 {
+    font-size: 3em;
+    margin: 0;
+  }
+  h2 {
+    font-size: 2em;
+    margin: 0.25em 0 2em;
+  }
+
+  h3 {
+    text-decoration: underline;
+    font-size: 1.75em;
+    margin: 1em 0 0.25em;
+  }
   h4 {
     display: inline-block;
+    margin: 0 0;
+    font-size: 1.5em;
+  }
+
+  h5 {
+    margin: 0.25em 0 0;
+    font-size: 1.25em;
+    font-style: italic;
+  }
+
+  h6 {
+    font-size: 1em;
+    margin: 0.5em auto;
+    text-transform: uppercase;
+  }
+
+  p, details {
+    margin-left: 1em;
+  }
+
+  time {
+    font-size: 0.85em;
+    font-style: italic;
+    &::before {
+      content: '(';
+    }
+    &::after {
+      content: ')';
+    }
   }
 
   summary {
     list-style: none;
+    border-bottom: 1px solid slategray;
+    padding: 0.5em 0.5em;
   }
 
   a {
     color: #000;
     text-decoration: none;
+  }
+
+  .skills {
+    summary {
+      border-bottom: none;
+      padding: 0;
+    }
   }
 
   .contact {
@@ -24,7 +76,7 @@
     }
     h6 {
       display: inline-block;
-      margin: 0.5em auto;
+      text-transform: none;
       &:after {
         content: ': ';
         margin-right: .5em;
@@ -35,7 +87,6 @@
   .experience {
     h6 {
       margin: 1em auto 0.25em;
-      text-transform: uppercase;
     }
   }
 }
