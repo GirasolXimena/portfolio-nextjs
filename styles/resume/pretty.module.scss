@@ -12,6 +12,10 @@
     "experience experience experience experience"
     "education skills skills contact";
 
+    @media print {
+      padding: 0;
+    }
+
   details summary,
   ul {
     list-style: none;

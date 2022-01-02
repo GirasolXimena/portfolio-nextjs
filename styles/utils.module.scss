@@ -77,3 +77,9 @@
     margin: 5mm auto;
   }
 }
+
+.noPrint {
+  @media print {
+    display: none;
+  }
+}
