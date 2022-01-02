@@ -22,7 +22,8 @@
 		"github.copilot",
 		"eamodio.gitlens",
 		"github.vscode-pull-request-github",
-		"dsznajder.es7-react-js-snippets"
+		"dsznajder.es7-react-js-snippets",
+		"tomoki1207.pdf"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
