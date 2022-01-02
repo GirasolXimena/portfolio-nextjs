@@ -20,7 +20,10 @@ export default ({ pretty }) => {
 
       <section className={`${styles.objective} ${styles.header}`}>
         <h3 className={styles.heading}>Objective</h3>
-        <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node. I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging. Passionate about prototyping to push products to their maximum potential incorporating design principles and modern development practices. Driven to create memorable experiences for the user.</p>
+        <p>Product Design focused front-end developer currently creating user-centric experiences using Vue.js, JavaScript, and Node.
+          I enjoy working in cross-functional teams with product managers and designers to create design systems which are accessible, modular, extensible, and engaging.
+          Passionate about prototyping to push products to their maximum potential incorporating design principles and modern development practices.
+          Driven to create memorable experiences for the user.</p>
       </section>
 
       <section className={styles.education}>
@@ -36,12 +39,12 @@ export default ({ pretty }) => {
             </span>
             <time className={styles.date}>2010 - 2014</time>
           </summary>
-          <p>Bachelor of arts with concentrations in:
-            <ul>
-              <li>Modern French linguistics and culture</li>
-              <li>US History after World War II, Chicano Studies</li>
-            </ul>
-          </p>
+          <p>Bachelor of arts with concentrations in:</p>
+          <ul>
+            <li>Modern French linguistics and culture</li>
+            <li>US History after World War II, Chicano Studies</li>
+          </ul>
+
         </details>
 
         <details open>
@@ -57,13 +60,13 @@ export default ({ pretty }) => {
           <p>Intensive, industry leading Full Stack bootcamp.
             Created an online application portal to help other students gain acess to scholarship opportunities.
             Specialties include:
-            <ul>
-              <li>Modern Development Best Practices</li>
-              <li>Working in Agile</li>
-              <li>Soft Skills</li>
-              <li>SMongo, Express, React, Node</li>
-            </ul>
           </p>
+          <ul>
+            <li>Modern Development Best Practices</li>
+            <li>Working in Agile</li>
+            <li>Soft Skills</li>
+            <li>SMongo, Express, React, Node</li>
+          </ul>
         </details>
       </section>
 
@@ -86,33 +89,33 @@ export default ({ pretty }) => {
               {
                 !pretty &&
                 ` Responsibilities included: Maintaining and updating the design system, creating reusable components, and creating a design system for the new product.
-                Mentoring other developers and designers. Collaborated with designers and developers to create a design system that is accessible, modular, extensible, and engaging.
-                Contributing to convergence strategy for digital transformation of the products across the organization.`
+                                        Mentoring other developers and designers. Collaborated with designers and developers to create a design system that is accessible, modular, extensible, and engaging.
+                                        Contributing to convergence strategy for digital transformation of the products across the organization.`
               }
-              {breakIfPretty}
-              <h6>Technologies</h6>
-              <ul className={pretty && utilStyles.inlineList}>
-                <li>Vue.js</li>
-                <li>JavaScript</li>
-                <li>Tailwind CSS</li>
-                <li>Sass</li>
-                <li>Storybook</li>
-                <li>Vite</li>
-                <li>Adobe XD</li>
-                {
-                  !pretty &&
-                  <>
-                    <li>Git</li>
-                    <li>Jenkins</li>
-                    <li>SCSS</li>
-                    <li>TypeScript</li>
-                    <li>Agile</li>
-                    <li>Swagger</li>
-                    <li>OpenAPI</li>
-                  </>
-                }
-              </ul>
             </p>
+            <h6>Technologies</h6>
+            <ul className={pretty ? utilStyles.inlineList : undefined}>
+              <li>Vue.js</li>
+              <li>JavaScript</li>
+              <li>Tailwind CSS</li>
+              <li>Sass</li>
+              <li>Storybook</li>
+              <li>Vite</li>
+              <li>Adobe XD</li>
+              {
+                !pretty &&
+                <>
+                  <li>Git</li>
+                  <li>Jenkins</li>
+                  <li>SCSS</li>
+                  <li>TypeScript</li>
+                  <li>Agile</li>
+                  <li>Swagger</li>
+                  <li>OpenAPI</li>
+                </>
+              }
+            </ul>
+
           </details>
 
           <details open>
@@ -129,31 +132,30 @@ export default ({ pretty }) => {
               {
                 !pretty &&
                 ` Responsibilities included: Help create design system and build reusable components for new platform.
-                Help decide which technology stack would best suit our business use case. Mentoring other developers and front end development practice strategy.
-                Contribute to creating CI/CD pipeline for new product.`
+                      Help decide which technology stack would best suit our business use case. Mentoring other developers and front end development practice strategy.
+                      Contribute to creating CI/CD pipeline for new product.`
               }
-              {breakIfPretty}
-              <h6>Technologies</h6>
-              <ul className={pretty && utilStyles.inlineList}>
-                <li>Figma</li>
-                <li>React</li>
-                <li>AWS</li>
-                <li>Jenkins</li>
-                {
-                  !pretty &&
-                  <>
-                    <li>Git</li>
-                    <li>Jenkins</li>
-                    <li>SCSS</li>
-                    <li>TypeScript</li>
-                    <li>Agile</li>
-                    <li>Kanban</li>
-                    <li>Sketch</li>
-                    <li>Jest</li>
-                  </>
-                }
-              </ul>
             </p>
+            <h6>Technologies</h6>
+            <ul className={pretty ? utilStyles.inlineList : undefined}>
+              <li>Figma</li>
+              <li>React</li>
+              <li>AWS</li>
+              <li>Jenkins</li>
+              {
+                !pretty &&
+                <>
+                  <li>Git</li>
+                  <li>Jenkins</li>
+                  <li>SCSS</li>
+                  <li>TypeScript</li>
+                  <li>Agile</li>
+                  <li>Kanban</li>
+                  <li>Sketch</li>
+                  <li>Jest</li>
+                </>
+              }
+            </ul>
           </details>
 
           <details open>
@@ -166,27 +168,26 @@ export default ({ pretty }) => {
             </summary>
             <p itemProp="description">
               Developed product pages, advertising banners, and HTML emails to generate campaigns for clients such as Best Buy, Delta Airlines, and Three Rivers Parks to reach millions of users.
-              {breakIfPretty}
-              <h6>Technologies</h6>
-              <ul className={pretty && utilStyles.inlineList}>
-                <li>Laravel</li>
-                <li>React</li>
-                <li>HTML</li>
-                <li>Vue.js</li>
-                {
-                  !pretty &&
-                  <>
-                    <li>PHP</li>
-                    <li>MJML</li>
-                    <li>SCSS</li>
-                    <li>Foundation</li>
-                    <li>Wordpress</li>
-                    <li>AWS</li>
-                    <li>TypeScript</li>
-                  </>
-                }
-              </ul>
             </p>
+            <h6>Technologies</h6>
+            <ul className={pretty ? utilStyles.inlineList : undefined}>
+              <li>Laravel</li>
+              <li>React</li>
+              <li>HTML</li>
+              <li>Vue.js</li>
+              {
+                !pretty &&
+                <>
+                  <li>PHP</li>
+                  <li>MJML</li>
+                  <li>SCSS</li>
+                  <li>Foundation</li>
+                  <li>Wordpress</li>
+                  <li>AWS</li>
+                  <li>TypeScript</li>
+                </>
+              }
+            </ul>
           </details>
         </div>
 

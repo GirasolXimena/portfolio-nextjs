@@ -54,7 +54,7 @@
   summary {
     list-style: none;
     border-bottom: 1px solid slategray;
-    padding: 0.5em 0.5em;
+    padding: 0.5em 0.25em;
   }
 
   a {
@@ -86,7 +86,10 @@
 
   .experience {
     h6 {
-      margin: 1em auto 0.25em;
+      margin: 1em 1em 0.25em;
+    }
+    ul {
+      margin-left: 0.75em;
     }
   }
 }
