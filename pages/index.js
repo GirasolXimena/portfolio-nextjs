@@ -6,7 +6,7 @@ import utilStyles from '../styles/utils.module.scss'
 
 export default function Home() {
   return (
-    <Layout home>
+    <div className="hero">
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -19,6 +19,6 @@ export default function Home() {
         </p>
       </main>
       <Link href="/resume"><a>View Resume</a></Link>
-    </Layout>
+    </div>
   )
 }
