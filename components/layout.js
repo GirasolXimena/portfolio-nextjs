@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/layout.module.scss'
 import Link from 'next/link'
 import utilStyles from '../styles/utils.module.scss'
+import Navbar from './navbar'
 
 const name = 'S. Roberto Andrade'
 const jobTitle = 'Creative Technologist'
@@ -26,31 +27,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        <nav>
-          <ul className="nav-links">
-            <li className="nav-link">
-              <Link href="/">
-                <a>
-                  Home
-                </a>
-              </Link>
-            </li>
-            <li className="nav-link">
-              <Link href="/resume">
-                <a>
-                  Resume
-                </a>
-              </Link>
-            </li>
-            <li className="nav-link">
-              <Link href="/posts">
-                <a>
-                  Blog
-                </a>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
       </header>
       <main>{children}</main>
       {!home && (
