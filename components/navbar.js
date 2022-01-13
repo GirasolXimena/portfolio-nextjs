@@ -5,9 +5,9 @@ export default function Navbar({ home }) {
     <nav id="nav-bar" className='nav-bar'>
       <ul className="nav-links">
         <li className="nav-link">
-          <Link href="/">
+          <Link href={home ? '/labs' : '/'}>
             <a>
-              Home
+              {home ? 'Labs' : 'Home'}
             </a>
           </Link>
         </li>
