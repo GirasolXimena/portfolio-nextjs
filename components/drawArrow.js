@@ -16,10 +16,9 @@ function canvas_arrow(context, fromx, fromy, tox, toy, headlen = 50) {
   context.fill()
 }
 
-export default function Arrow(ctx) {
+export default function Arrow(ctx, fromx, fromy, tox, toy, headlen = 50) {
 
-  console.log('ctx', ctx)
   ctx.beginPath();
-  canvas_arrow(ctx, 25, 75, 250, 75);
+  canvas_arrow(ctx, fromx, fromy, tox, toy, headlen);
   ctx.stroke();
 }

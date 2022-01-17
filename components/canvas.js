@@ -7,9 +7,11 @@ const Canvas = props => {
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-    drawArrow(context)
+    canvas.height = props.height
+    canvas.width = props.width
+    drawArrow(context, props.fromx, props.fromy, props.tox, props.toy, props.headlen)
 
-  }, [])
+  }, [props.fromx, props.fromy, props.tox, props.toy, props.headlen, props.height, props.width])
 
   return <canvas ref={canvasRef} {...props} />
 }

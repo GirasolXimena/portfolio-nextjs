@@ -1,6 +1,6 @@
 import Layout from '../components/layout';
 import { useState } from 'react';
-import ResumeTemplate from '../components/resumeTemplate';
+// import ResumeTemplate from '../components/resumeTemplate';
 import utilStyles from '../styles/utils.module.scss';
 
 export default function Resume() {
