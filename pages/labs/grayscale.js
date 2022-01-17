@@ -3,7 +3,7 @@ import styles from '../../styles/particle.module.scss';
 import grayscale from "../../lib/filters/grayscale";
 import particle from "../../lib/strings/particle";
 
-export default function Test({ postData }) {
+export default function Grayscale({ postData }) {
   useEffect(() => {
     const canvas = document.getElementById(styles.canvas1);
     const ctx = canvas.getContext("2d");
