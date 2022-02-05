@@ -38,7 +38,7 @@ export default function Hero() {
       hero.removeEventListener('mousemove', setMouse)
       hero.removeEventListener('mouseleave', resetMouse)
     };
-  }, []);
+  });
 
   useEffect(() => {
     const { x, y } = mousePosition

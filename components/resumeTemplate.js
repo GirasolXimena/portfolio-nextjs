@@ -2,7 +2,7 @@ import utilStyles from '../styles/utils.module.scss';
 import prettyStyles from '../styles/resume/pretty.module.scss';
 import machineStyles from '../styles/resume/machine.module.scss';
 
-export default ({ pretty }) => {
+export default function ResumeTemplate({ pretty }) {
   const styles = pretty ? prettyStyles : machineStyles;
   const breakIfPretty = pretty ? <br /> : ' ';
 
@@ -278,8 +278,8 @@ export default ({ pretty }) => {
           <h3 className={styles.heading}>Contact</h3>
           <ul className="contact-list">
             <li className={styles['print-only']}>{!pretty && <h6 className={styles.link}>tel</h6>}<span itemProp="telephone"><a href="tel:763-501-9532">(763) 501-9532</a></span></li>
-            <li><a href="https://robertandradejr.dev/" target="_blank" itemProp="url">{!pretty && <h6 className={styles.link}>website</h6>}robertandradejr.dev/</a></li>
-            <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" itemProp="email"><h6 className={styles.link}>email</h6>robert.andrade.developer{pretty ? <br /> : ''}@gmail.com</a></li>
+            <li><a href="https://robertandradejr.dev/" target="_blank" rel="noreferrer" itemProp="url">{!pretty && <h6 className={styles.link}>website</h6>}robertandradejr.dev/</a></li>
+            <li><a href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM" target="_blank" rel="noreferrer" itemProp="email"><h6 className={styles.link}>email</h6>robert.andrade.developer{pretty ? <br /> : ''}@gmail.com</a></li>
             <li><a href="https://github.com/RobertAndradeJr" itemProp="sameAs"><h6 className={styles.link}>GitHub</h6>RobertAndradeJr</a></li>
             <li><a href="https://twitter.com/abstract_coding" itemProp="sameAs"><h6 className={styles.link}>Twitter</h6>abstract_coding</a></li>
             <li><a href="https://www.linkedin.com/in/srobertandrade" itemProp="sameAs"><h6 className={styles.link}>LinkedIn</h6>SRobertAndrade</a></li>

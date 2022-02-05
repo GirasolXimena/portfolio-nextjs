@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import styles from '../../styles/particle.module.scss';
-import particle from "../../lib/strings/particle";
 import rain from "../../lib/filters/rain";
 
 export default function Rain({ postData }) {
@@ -12,11 +11,11 @@ export default function Rain({ postData }) {
 
     const image1 = new Image();
     image1.src =
-      particle;
+      'particle';
     image1.addEventListener('load', () => rain(canvas, image1))
 
     return () => {
-      console.log('vnvnn')
+
     }
   }, [])
   return (

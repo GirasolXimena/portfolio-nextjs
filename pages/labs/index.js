@@ -1,4 +1,5 @@
 import Layout from '../../components/layout';
+import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.scss';
 import { getSortedPostData } from '../../lib/posts';
 import Link from 'next/link';

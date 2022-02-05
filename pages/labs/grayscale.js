@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import styles from '../../styles/particle.module.scss';
 import grayscale from "../../lib/filters/grayscale";
-import particle from "../../lib/strings/particle";
 
 export default function Grayscale({ postData }) {
   useEffect(() => {
@@ -12,7 +11,7 @@ export default function Grayscale({ postData }) {
 
     const image1 = new Image();
     image1.src =
-      particle;
+      'particle';
     image1.addEventListener('load', () => grayscale(canvas, image1))
 
     return () => {
