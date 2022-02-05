@@ -3,7 +3,12 @@ import Navbar from './navbar'
 import { useEffect, useState } from 'react'
 
 export default function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 1, y: 1 })
+  const initialMousePosition = { x: 1 / 2, y: 1 / 2 }
+
+  const [mousePosition, setMousePosition] = useState(initialMousePosition)
+  const [textShadowString, setTextShadowString] = useState({
+    textShadow: ``
+  })
 
   const setMouse = (e) => {
     const offset = document.getElementById('hero').getBoundingClientRect()
@@ -22,10 +27,7 @@ export default function Hero() {
   }
 
   const resetMouse = (_e) => {
-    setMousePosition({
-      x: 1,
-      y: 1
-    })
+    setMousePosition(initialMousePosition)
   }
   useEffect(() => {
     const hero = document.getElementById('hero')
@@ -38,37 +40,30 @@ export default function Hero() {
     };
   }, []);
 
+  useEffect(() => {
+    const { x, y } = mousePosition
+    setTextShadowString({
+      textShadow: `${x / 32}em ${y / 16}em 2.5px yellow, ${x / 16}em ${y / -32}em 2.5px magenta, ${x / -16}em ${y / -32}em 2.5px cyan`
+    })
+  }, [mousePosition])
+
+
   return (
     <div id="hero" className={styles.hero}>
       <h1
-        style={{
-          textShadow: `
-            ${mousePosition.y * 5}px ${mousePosition.y * -5}px yellow,
-            0 ${mousePosition.y * -5}px cyan,
-            ${mousePosition.x * -5}px ${mousePosition.y * -5}px magenta
-            `
-        }}
+        style={textShadowString}
         className={styles.cmyk}
       >
         S.&nbsp;<span>Roberto</span><br />
         Andrade
       </h1>
       <h2
-        style={{
-          textShadow: `
-            ${mousePosition.y * 5}px ${mousePosition.y * -5}px yellow,
-            0 ${mousePosition.y * -5}px cyan,
-            ${mousePosition.x * -5}px ${mousePosition.y * -5}px magenta
-            `
-        }}
+        style={textShadowString}
         className={styles.cmyk}
       >
         Creative Technologist
       </h2>
       <Navbar home />
-      <span style={{ position: 'fixed', top: 0, left: 0 }}>
-        {JSON.stringify(mousePosition)}
-      </span>
     </div>
   )
 }
