@@ -6,7 +6,7 @@ import Navbar from './navbar'
 
 const name = 'S. Roberto Andrade'
 const jobTitle = 'Creative Technologist'
-export const siteTitle = 'Portfolio Site'
+export const siteTitle = `${name} | ${jobTitle}`
 
 export default function Layout({ children, home }) {
   return (
@@ -15,7 +15,7 @@ export default function Layout({ children, home }) {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content={`${name} | ${jobTitle} landing page`}
         />
         <meta
           property="og:image"
