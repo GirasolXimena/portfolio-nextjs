@@ -1,24 +1,25 @@
 import Link from 'next/link'
+import styles from '../styles/navbar.module.scss'
 
 export default function Navbar({ home }) {
   return (
-    <nav id="nav-bar" className='nav-bar'>
-      <ul className="nav-links">
-        <li className="nav-link">
-          <Link href={home ? '/labs' : '/'}>
+    <nav id="nav-bar" className={styles.nav}>
+      <ul>
+        <li className={styles.cyan}>
+          <Link href={home ? '/resume' : '/'}>
             <a>
-              {home ? 'Labs' : 'Home'}
+              {home ? 'Resume' : 'Home'}
             </a>
           </Link>
         </li>
-        <li className="nav-link">
-          <Link href="/resume">
+        <li className={styles.magenta}>
+          <Link href="https://codepen.io/abstract_code/">
             <a>
-              Resume
+              Labs
             </a>
           </Link>
         </li>
-        <li className="nav-link">
+        <li className={styles.yellow}>
           <Link href="/posts">
             <a>
               Blog

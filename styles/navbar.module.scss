@@ -1,0 +1,15 @@
+.nav {
+  .cyan,
+  .magenta,
+  .yellow {
+    a {
+      font-size: 2em;
+      color: #323131;
+      transition: text-shadow 250ms ease;
+      &:hover {
+        // transition: text-shadow 2s ease;
+          text-shadow: 2px 2px yellow, 2px -2px cyan, -2px -2px magenta;
+      }
+    }
+  }
+}
