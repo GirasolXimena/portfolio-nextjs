@@ -5,10 +5,30 @@
     a {
       font-size: 2em;
       color: #323131;
-      transition: text-shadow 250ms ease;
+      transition: text-shadow 125ms ease;
+    }
+  }
+  .cyan {
+    a {
       &:hover {
-        // transition: text-shadow 2s ease;
-          text-shadow: 2px 2px yellow, 2px -2px cyan, -2px -2px magenta;
+        text-shadow: 0 2px 2px yellow, -2px -2px 2px magenta, 2px -2px 2px cyan;
+        text-decoration-color: cyan;
+      }
+    }
+  }
+  .magenta {
+    a {
+      &:hover {
+        text-shadow: 0 2px 2px yellow, 1px -2px 2px magenta, -1px -2px 2px cyan;
+        text-decoration-color: magenta;
+      }
+    } 
+  }
+  .yellow {
+    a {
+      &:hover {
+        text-shadow: 0 2px 2px yellow, 2px -2px 2px magenta, -2px -2px 2px cyan;
+        text-decoration-color: yellow;
       }
     }
   }
