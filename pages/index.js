@@ -10,7 +10,7 @@ export default function Home() {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <main className={utilStyles.headingMd}>
+      <main className={utilStyles.headingMd} style={{ display: 'grid', alignItems: 'center', justifyItems: 'center', height: '100vh', width: '100vw' }}>
         <Hero />
       </main>
     </div>
