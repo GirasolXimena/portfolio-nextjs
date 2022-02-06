@@ -16,7 +16,6 @@ export default function Hero() {
     const offset = document.getElementById('hero').getBoundingClientRect()
     const { width, height } = offset
     const { x, y } = e
-    console.log('x', x, 'y', y)
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth

@@ -15,7 +15,7 @@ export default function Grayscale({ postData }) {
     image1.addEventListener('load', () => grayscale(canvas, image1))
 
     return () => {
-      console.log('vnvnn')
+      image1.removeEventListener('load', () => grayscale(canvas, image1))
     }
   }, [])
   return (
