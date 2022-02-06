@@ -14,10 +14,9 @@ export default function Hero() {
     textShadow: ``
   })
 
-  const handleMouse = (e) => {
+  const handleMouse = ({ x, y }) => {
     const offset = document.getElementById('hero').getBoundingClientRect()
     const { width, height } = offset
-    const { x, y } = e
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth
@@ -31,8 +30,8 @@ export default function Hero() {
     }
   }
 
-  const handleTouch = (e) => {
-    const { clientX, clientY } = e.touches[0]
+  const handleTouch = ({ touches }) => {
+    const { clientX, clientY } = touches[0]
     const offset = document.getElementById('hero').getBoundingClientRect()
     const { width, height } = offset
     const halfWidth = width / 2
@@ -45,17 +44,21 @@ export default function Hero() {
     })
   }
 
-  const handleToggle = ({ target: { checked } }) => setTheme(checked ? 'dark' : 'light')
+  const handleToggle = ({ target: { checked } }) => {
+    setTheme(checked ? 'dark' : 'light')
+    checked = !checked
+  }
 
-  const handleClick = (_e) => save ? setSave(false) : setSave(true)
+  const handleClick = (_e) => setSave(!save)
 
-  const resetMouse = (_e) => setMousePosition(initialMousePosition)
+  const resetMouse = (_e) => {
+    setMousePosition(initialMousePosition)
+    setSave(false)
+  }
 
   useEffect(() => {
     const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
     const home = document.getElementById('home')
-    setTheme(prefersDarkScheme ? 'dark' : 'light')
     if (!prefersReducedMotion) {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
@@ -64,14 +67,22 @@ export default function Hero() {
     }
 
     return () => {
-      const home = document.getElementById('home')
       home.removeEventListener('mousemove', handleMouse)
       home.removeEventListener('mouseleave', resetMouse)
       home.removeEventListener('touchstart', handleTouch)
       home.removeEventListener('click', handleClick)
-
     };
-  }, []);
+  });
+
+  useEffect(() => {
+    if (theme === undefined) {
+      const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
+      const toggle = document.getElementById('toggle')
+      setTheme(prefersDarkScheme ? 'dark' : 'light')
+      toggle.checked = prefersDarkScheme
+    }
+  }, [theme]);
+
 
   useEffect(() => {
     const { x, y } = mousePosition
@@ -84,7 +95,7 @@ export default function Hero() {
   return (
     <div id="hero" className={`${styles.hero} ${utilStyles[theme]}`}>
       <form className={styles.form}>
-        <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" checked={theme === 'dark'} />
+        <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
       <h1
