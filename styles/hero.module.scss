@@ -1,16 +1,22 @@
 .hero {
+  transition: all 1250ms ease;
   display: grid;
+  width: 100vw;
+  background: var(--background);
+  height: 100vh;
   grid-template-columns: min-content;
   grid-template-rows: repeat(3, min-content);
-  color: #323131;
+  color: var(--text);
+  justify-content: center;
+  align-content: center;
   
   @media screen and (min-width: 768px) {
     padding: 5em;
   }
-
-
+  
+  
   h1, h2 {
-    transition: text-shadow 125ms ease;
+    transition: all 125ms ease;
   }
 
   h1 {
@@ -60,6 +66,112 @@
       @media screen and (min-width: 768px) {
         font-size: 1em;
         }
+    }
+  }
+}
+
+.form {
+  --coal: #323131;
+  --white: gainsboro;
+  --focus: cyan;
+  --cmyk-shadow: 0 4px 4px yellow, -4px -4px 4px magenta, 4px -4px 4px cyan;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 0px;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    
+    + label {
+      outline: 2px solid transparent;
+      transform: scale(1,1);
+      transition:
+        outline 125s ease,
+        transform .15s ease;
+    }
+    
+    &:focus {
+      + label {
+        box-shadow: var(--cmyk-shadow);
+      }
+    }
+    
+    &:active {
+      + label {
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  label {
+    --w: 10vw;
+    --h: calc(var(--w) / 2);
+    --br: calc(var(--w) / 1);
+    
+    position: relative;
+    background: var(--white);
+    display: block;
+    width: var(--w);
+    height: var(--h);
+    border-radius: var(--br);
+    box-shadow: 0px calc(var(--w) / 7.5) calc(var(--w) / 3.75) 0px rgba(51, 51, 51, 0.1);
+    cursor: pointer;
+    overflow: hidden;
+    
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+    }
+    
+    // Vars for pseudo elements
+    --size: calc(var(--w) / 3);
+    --offset: calc(var(--w) / 12);
+    
+    &::before {
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: var(--coal);
+      left: 0px;
+      top: 50%;
+      transform: translate(var(--offset) , -50%);
+      box-shadow:
+        calc(var(--w) - calc(var(--offset) * 2) - var(--size))
+        0px
+        0px
+        var(--white);
+      
+      z-index: 1;
+    }
+    
+    &::after {
+      width: var(--size);
+      height: var(--size);
+      left: 0;
+      top: 50%;
+      background: var(--coal);
+      transform: translate(-100%, -50%) scale(1);
+      transform-origin: left;
+      border-radius: 50%;
+      transition:
+        transform .35s ease;
+    }
+    
+  }
+  
+  input:checked {
+    + label {
+      &::after {
+        transform: translate(-100%, -50%) scale(5);
+      }
     }
   }
 }

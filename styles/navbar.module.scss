@@ -4,8 +4,9 @@
   .yellow {
     a {
       font-size: 2em;
-      color: #323131;
+      color: var(--text);
       transition: text-shadow 125ms ease;
+      transition: color 1250ms ease;
     }
   }
   .cyan {

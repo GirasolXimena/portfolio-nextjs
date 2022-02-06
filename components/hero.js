@@ -1,4 +1,5 @@
 import styles from '../styles/hero.module.scss'
+import utilStyles from '../styles/utils.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState } from 'react'
 
@@ -7,6 +8,7 @@ export default function Hero() {
 
   const [mousePosition, setMousePosition] = useState(initialMousePosition)
   const [save, setSave] = useState(false)
+  const [theme, setTheme] = useState('light')
 
   const [textShadowString, setTextShadowString] = useState({
     textShadow: ``
@@ -43,7 +45,13 @@ export default function Hero() {
     })
   }
 
-  const handleClick = (e) => save ? setSave(false) : setSave(true)
+  const handleToggle = (e) => {
+    const { checked } = e.target
+    console.log('tog', e.target.checked, theme)
+    setTheme(checked ? 'light' : 'dark')
+  }
+
+  const handleClick = (_e) => save ? setSave(false) : setSave(true)
 
   const resetMouse = (_e) => setMousePosition(initialMousePosition)
 
@@ -77,7 +85,11 @@ export default function Hero() {
 
 
   return (
-    <div id="hero" className={styles.hero}>
+    <div id="hero" className={`${styles.hero} ${utilStyles[theme]}`}>
+      <form className={styles.form}>
+        <input onClick={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
+        <label htmlFor="toggle">Toggle {theme} mode</label>
+      </form>
       <h1
         style={textShadowString}
         className={styles.cmyk}
@@ -91,7 +103,7 @@ export default function Hero() {
       >
         Creative Technologist
       </h2>
-      <Navbar home />
+      <Navbar home theme={theme} />
     </div>
   )
 }

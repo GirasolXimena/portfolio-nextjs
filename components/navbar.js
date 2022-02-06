@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
+import utilStyles from '../styles/utils.module.scss'
 
-export default function Navbar() {
+export default function Navbar({ theme }) {
   return (
-    <nav id="nav-bar" className={styles.nav}>
+    <nav id="nav-bar" className={`${styles.nav} ${utilStyles[theme]}`}>
       <ul>
         <li className={styles.cyan}>
           <a href='assets/Andrade-Creative_Technologist.pdf' download="Andrade-Creative_Technologist.pdf">
