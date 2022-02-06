@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
 
@@ -12,11 +11,9 @@ export default function Navbar({ theme }) {
           </a>
         </li>
         <li className={styles.magenta}>
-          <Link href="https://codepen.io/abstract_code/">
-            <a>
+          <a href="https://codepen.io/abstract_code/">
               Labs
-            </a>
-          </Link>
+          </a>
         </li>
         <li className={styles.yellow}>
           <a href='https://github.com/RobertAndradeJr'>
