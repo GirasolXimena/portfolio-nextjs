@@ -71,8 +71,8 @@
 }
 
 .form {
-  --coal: #323131;
-  --white: gainsboro;
+  --light: gainsboro;
+  --dark: #323131;
   --focus: cyan;
   --cmyk-shadow: 0 4px 4px yellow, -4px -4px 4px magenta, 4px -4px 4px cyan;
   position: fixed;
@@ -116,7 +116,7 @@
     --br: calc(var(--w) / 1);
     
     position: relative;
-    background: var(--white);
+    background: var(--dark);
     display: block;
     width: var(--w);
     height: var(--h);
@@ -139,7 +139,7 @@
       width: var(--size);
       height: var(--size);
       border-radius: 50%;
-      background: var(--coal);
+      background: var(--light);
       left: 0px;
       top: 50%;
       transform: translate(var(--offset) , -50%);
@@ -147,7 +147,7 @@
         calc(var(--w) - calc(var(--offset) * 2) - var(--size))
         0px
         0px
-        var(--white);
+        var(--dark);
       
       z-index: 1;
     }
@@ -157,7 +157,7 @@
       height: var(--size);
       left: 0;
       top: 50%;
-      background: var(--coal);
+      background: var(--light);
       transform: translate(-100%, -50%) scale(1);
       transform-origin: left;
       border-radius: 50%;

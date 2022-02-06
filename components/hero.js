@@ -8,7 +8,7 @@ export default function Hero() {
 
   const [mousePosition, setMousePosition] = useState(initialMousePosition)
   const [save, setSave] = useState(false)
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(undefined)
 
   const [textShadowString, setTextShadowString] = useState({
     textShadow: ``
@@ -45,21 +45,18 @@ export default function Hero() {
     })
   }
 
-  const handleToggle = (e) => {
-    const { checked } = e.target
-    console.log('tog', e.target.checked, theme)
-    setTheme(checked ? 'light' : 'dark')
-  }
+  const handleToggle = ({ target: { checked } }) => setTheme(checked ? 'dark' : 'light')
 
   const handleClick = (_e) => save ? setSave(false) : setSave(true)
 
   const resetMouse = (_e) => setMousePosition(initialMousePosition)
 
   useEffect(() => {
-    const { matches: isReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
     const home = document.getElementById('home')
-
-    if (!isReducedMotion) {
+    setTheme(prefersDarkScheme ? 'dark' : 'light')
+    if (!prefersReducedMotion) {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch)
@@ -74,7 +71,7 @@ export default function Hero() {
       home.removeEventListener('click', handleClick)
 
     };
-  });
+  }, []);
 
   useEffect(() => {
     const { x, y } = mousePosition
@@ -87,7 +84,7 @@ export default function Hero() {
   return (
     <div id="hero" className={`${styles.hero} ${utilStyles[theme]}`}>
       <form className={styles.form}>
-        <input onClick={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
+        <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" checked={theme === 'dark'} />
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
       <h1
