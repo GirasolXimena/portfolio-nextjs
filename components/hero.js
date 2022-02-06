@@ -6,37 +6,44 @@ export default function Hero() {
   const initialMousePosition = { x: 1 / 2, y: 1 / 2 }
 
   const [mousePosition, setMousePosition] = useState(initialMousePosition)
+  const [save, setSave] = useState(false)
+
   const [textShadowString, setTextShadowString] = useState({
     textShadow: ``
   })
 
   const setMouse = (e) => {
     const offset = document.getElementById('hero').getBoundingClientRect()
-    const { left, top, width, height } = offset
-    const { clientX, clientY } = e
-    const x = clientX - left
-    const y = clientY - top
+    const { width, height } = offset
+    const { x, y } = e
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth
     const yPos = y - halfHeight
-    setMousePosition({
-      x: xPos / width * 2,
-      y: yPos / height * 2
-    })
+
+    if (!save) {
+      setMousePosition({
+        x: xPos / width * 2,
+        y: yPos / height * 2
+      })
+    }
   }
 
-  const resetMouse = (_e) => {
-    setMousePosition(initialMousePosition)
-  }
+  const handleClick = (e) => save ? setSave(false) : setSave(true)
+
+  const resetMouse = (_e) => setMousePosition(initialMousePosition)
+
   useEffect(() => {
-    const hero = document.getElementById('hero')
-    hero.addEventListener('mousemove', setMouse)
-    hero.addEventListener('mouseleave', resetMouse)
+    const home = document.getElementById('home')
+    home.addEventListener('mousemove', setMouse)
+    home.addEventListener('mouseleave', resetMouse)
+    home.addEventListener('click', handleClick)
 
     return () => {
-      hero.removeEventListener('mousemove', setMouse)
-      hero.removeEventListener('mouseleave', resetMouse)
+      const home = document.getElementById('home')
+      home.removeEventListener('mousemove', setMouse)
+      home.removeEventListener('mouseleave', resetMouse)
+      home.removeEventListener('click', handleClick)
     };
   });
 

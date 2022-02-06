@@ -6,7 +6,7 @@ import utilStyles from '../styles/utils.module.scss'
 
 export default function Home() {
   return (
-    <div className="hero">
+    <div id="home">
       <Head>
         <title>{siteTitle}</title>
       </Head>
