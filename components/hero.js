@@ -12,10 +12,11 @@ export default function Hero() {
     textShadow: ``
   })
 
-  const setMouse = (e) => {
+  const handleMouse = (e) => {
     const offset = document.getElementById('hero').getBoundingClientRect()
     const { width, height } = offset
     const { x, y } = e
+    console.log('x', x, 'y', y)
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth
@@ -29,6 +30,20 @@ export default function Hero() {
     }
   }
 
+  const handleTouch = (e) => {
+    const { clientX, clientY } = e.touches[0]
+    const offset = document.getElementById('hero').getBoundingClientRect()
+    const { width, height } = offset
+    const halfWidth = width / 2
+    const halfHeight = height / 2
+    const xPos = clientX - halfWidth
+    const yPos = clientY - halfHeight
+    setMousePosition({
+      x: xPos / width * 2,
+      y: yPos / height * 2
+    })
+  }
+
   const handleClick = (e) => save ? setSave(false) : setSave(true)
 
   const resetMouse = (_e) => setMousePosition(initialMousePosition)
@@ -38,16 +53,19 @@ export default function Hero() {
     const home = document.getElementById('home')
 
     if (!isReducedMotion) {
-      home.addEventListener('mousemove', setMouse)
+      home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
+      home.addEventListener('touchstart', handleTouch)
       home.addEventListener('click', handleClick)
     }
 
     return () => {
       const home = document.getElementById('home')
-      home.removeEventListener('mousemove', setMouse)
+      home.removeEventListener('mousemove', handleMouse)
       home.removeEventListener('mouseleave', resetMouse)
+      home.removeEventListener('touchstart', handleTouch)
       home.removeEventListener('click', handleClick)
+
     };
   });
 
