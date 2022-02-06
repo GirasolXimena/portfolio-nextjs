@@ -1,5 +1,5 @@
 .hero {
-  transition: all 1250ms ease;
+  transition: color 1250ms ease, background-color 1250ms ease;
   display: grid;
   width: 100vw;
   background: var(--background);
@@ -111,7 +111,7 @@
   }
   
   label {
-    --w: 10vw;
+    --w: 64px;
     --h: calc(var(--w) / 2);
     --br: calc(var(--w) / 1);
     
