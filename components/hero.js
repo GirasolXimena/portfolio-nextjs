@@ -34,10 +34,14 @@ export default function Hero() {
   const resetMouse = (_e) => setMousePosition(initialMousePosition)
 
   useEffect(() => {
+    const { matches: isReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
     const home = document.getElementById('home')
-    home.addEventListener('mousemove', setMouse)
-    home.addEventListener('mouseleave', resetMouse)
-    home.addEventListener('click', handleClick)
+
+    if (!isReducedMotion) {
+      home.addEventListener('mousemove', setMouse)
+      home.addEventListener('mouseleave', resetMouse)
+      home.addEventListener('click', handleClick)
+    }
 
     return () => {
       const home = document.getElementById('home')
