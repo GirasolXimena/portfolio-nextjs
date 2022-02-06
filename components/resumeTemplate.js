@@ -83,9 +83,7 @@ export default function ResumeTemplate({ pretty }) {
               <time className={styles.date}>2019 - Present</time>
             </summary>
             <p itemProp="description">
-              Led front-end architecture of digital transformation of flagship product, Everything DiSC® on Catalyst™.
-              Catalyst.everythingdisc.com helped over 100k users within the first year. Co-led implementation of design system across digital products.
-              Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
+              Led front-end digital transformation of flagship product, Everything DiSC® on Catalyst™. Catalyst.everythingdisc.com has helped people all over the world be more happy and productive at work. Co-led implementation of design system across digital products. Consulted on design system for Dummies.com. Created code-based reusable prototypes with an emphasis on user experience and accessibility.
               {
                 !pretty &&
                 ` Responsibilities included: Maintaining and updating the design system, creating reusable components, and creating a design system for the new product.
