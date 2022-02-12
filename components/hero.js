@@ -2,11 +2,13 @@ import styles from '../styles/hero.module.scss'
 import utilStyles from '../styles/utils.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState } from 'react'
+import palettes from '../styles/themes'
 
 export default function Hero() {
   const [save, setSave] = useState(false)
   const [theme, setTheme] = useState(undefined)
   let [factor, setFactor] = useState({ x: 1, y: 1 })
+  const [palette, setPalette] = useState(undefined)
 
   const toCartesianCoords = (el, { x, y }) => {
     const { width, height } = el.getBoundingClientRect()
@@ -47,21 +49,37 @@ export default function Hero() {
 
   const handleToggle = ({ target: { checked } }) => {
     const hero = document.getElementById('hero')
-    const docStyle = getComputedStyle(document.documentElement);
-    const light = docStyle.getPropertyValue('--light')
-    const dark = docStyle.getPropertyValue('--dark')
+
     if (checked) {
-      hero.style.setProperty('--background', dark)
-      hero.style.setProperty('--text', light)
+      hero.style.setProperty('--background', 'var(--dark)')
+      hero.style.setProperty('--text', 'var(--light)')
       setTheme('dark')
     } else {
-      hero.style.setProperty('--background', light)
-      hero.style.setProperty('--text', dark)
+      hero.style.setProperty('--background', 'var(--light)')
+      hero.style.setProperty('--text', 'var(--dark)')
       setTheme('light')
     }
   }
 
   const handleClick = (_e) => setSave(!save)
+
+  const handleKey = ({ key }) => {
+    if (key.toLowerCase() === 's') {
+      setPalette('Shrek')
+    }
+    if (key.toLowerCase() === 'd') {
+      setPalette('Doom')
+    }
+    if (key.toLowerCase() === 'v') {
+      setPalette('Vaporwave')
+    }
+    if (key.toLowerCase() === 'q') {
+      setPalette('Queer')
+    }
+    if (key === 'Escape') {
+      setPalette('default')
+    }
+  }
 
   const handleScroll = (e) => {
     e.preventDefault()
@@ -74,6 +92,14 @@ export default function Hero() {
       y: factorY
     })
   }
+
+  useEffect(() => {
+    if (palette) {
+      for (const [property, value] of Object.entries(palettes[palette])) {
+        hero.style.setProperty(`--${property}`, value)
+      }
+    }
+  }, [palette]);
 
   useEffect(() => {
     const { x, y } = factor
@@ -98,6 +124,7 @@ export default function Hero() {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch)
+      home.onkeyup = handleKey
       home.onclick = ('click', handleClick)
       home.onwheel = handleScroll
     }
@@ -124,8 +151,8 @@ export default function Hero() {
         <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
-      <h1 className={styles.cmyk}>
-        S.&nbsp;<span>Roberto</span>
+      <h1 id="name" className={styles.cmyk}>
+        <span>S.</span>&nbsp;Roberto
         <br />
         Andrade
       </h1>
