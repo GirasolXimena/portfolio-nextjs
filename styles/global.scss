@@ -20,12 +20,37 @@
   font-weight: 400;
   font-display: swap;
 }
+
+:root {
+  --_light: var(--light, gainsboro);
+  --_dark: var(--dark, #323313);
+  --_primary: var(--primary, yellow);
+  --_secondary: var(--secondary, magenta);
+  --_tertiary: var(--tertiary, cyan);
+  --_factor-x: var(--factor-x, calc(1em / 16));
+  --_factor-y: var(--factor-y, calc(1em / 8));
+  --_mouse-x: var(--mouse-x, calc(1/4));
+  --_mouse-y: var(--mouse-y, calc(1/4));
+  --_blur: var(--blur, calc(1em / 64));
+  --_font: var(--font, Noto Sans);
+  font-family: Noto Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+    @media (prefers-color-scheme: dark) {
+      --background: var(--_dark);
+      --text: var(--_light);
+    }
+  
+    @media (prefers-color-scheme: light) {
+      --background: var(--_light);
+      --text: var(--_dark);
+    }
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Noto Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
 }

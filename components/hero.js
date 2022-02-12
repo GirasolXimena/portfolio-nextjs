@@ -11,7 +11,7 @@ export default function Hero() {
   const [palette, setPalette] = useState(undefined)
 
   const toCartesianCoords = (el, { x, y }) => {
-    const { width, height } = el.getBoundingClientRect()
+    const { width, height } = document.documentElement.getBoundingClientRect()
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth
@@ -25,13 +25,13 @@ export default function Hero() {
   const handleMouse = ({ x, y }) => {
     const hero = document.getElementById('hero')
     if (save === false) {
-      setShadow(hero, toCartesianCoords(hero, { x, y }))
+      setShadow(toCartesianCoords(hero, { x, y }))
     }
   }
 
-  const setShadow = (el, { x, y }) => {
-    el.style.setProperty('--mouse-x', x)
-    el.style.setProperty('--mouse-y', y)
+  const setShadow = ({ x, y }) => {
+    document.documentElement.style.setProperty('--mouse-x', x)
+    document.documentElement.style.setProperty('--mouse-y', y)
   }
 
   const handleTouch = ({ touches }) => {
@@ -48,15 +48,15 @@ export default function Hero() {
   }
 
   const handleToggle = ({ target: { checked } }) => {
-    const hero = document.getElementById('hero')
+    const { documentElement } = document
 
     if (checked) {
-      hero.style.setProperty('--background', 'var(--dark)')
-      hero.style.setProperty('--text', 'var(--light)')
+      documentElement.style.setProperty('--background', 'var(--_dark)')
+      documentElement.style.setProperty('--text', 'var(--_light)')
       setTheme('dark')
     } else {
-      hero.style.setProperty('--background', 'var(--light)')
-      hero.style.setProperty('--text', 'var(--dark)')
+      documentElement.style.setProperty('--background', 'var(--_light)')
+      documentElement.style.setProperty('--text', 'var(--_dark)')
       setTheme('light')
     }
   }
@@ -96,23 +96,21 @@ export default function Hero() {
   useEffect(() => {
     if (palette) {
       for (const [property, value] of Object.entries(palettes[palette])) {
-        hero.style.setProperty(`--${property}`, value)
+        document.documentElement.style.setProperty(`--${property}`, value)
       }
     }
   }, [palette]);
 
   useEffect(() => {
     const { x, y } = factor
-    const hero = document.getElementById('hero')
-    hero.style.setProperty('--factor-x', `calc(${x}em / 16)`)
-    hero.style.setProperty('--factor-y', `calc(${y}em / 8)`)
+    document.documentElement.style.setProperty('--factor-x', `calc(${x}em / 16)`)
+    document.documentElement.style.setProperty('--factor-y', `calc(${y}em / 8)`)
 
   }, [factor]);
 
 
   const resetMouse = (_e) => {
-    const hero = document.getElementById('hero')
-    setShadow(hero, { x: 1 / 4, y: 1 / 4 })
+    setShadow({ x: 1 / 4, y: 1 / 4 })
     setFactor({ x: 1, y: 1 })
     setSave(false)
   }
