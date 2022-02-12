@@ -11,6 +11,9 @@ body {
 :root {
   --light: gainsboro;
   --dark: #323313;
+  --primary: yellow;
+  --secondary: magenta;
+  --tertiary: cyan;
   @media (prefers-color-scheme: dark) {
     --background: var(--dark);
     --text: var(--light);

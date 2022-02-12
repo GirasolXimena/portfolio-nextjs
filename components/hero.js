@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 export default function Hero() {
   const [save, setSave] = useState(false)
   const [theme, setTheme] = useState(undefined)
+  let [factor, setFactor] = useState({ x: 1, y: 1 })
 
   const toCartesianCoords = (el, { x, y }) => {
     const { width, height } = el.getBoundingClientRect()
@@ -62,9 +63,31 @@ export default function Hero() {
 
   const handleClick = (_e) => setSave(!save)
 
+  const handleScroll = (e) => {
+    e.preventDefault()
+    const { deltaX, deltaY } = e
+    const { x, y } = factor
+    const factorX = x + deltaX / 100
+    const factorY = y + deltaY / 100
+    setFactor({
+      x: factorX,
+      y: factorY
+    })
+  }
+
+  useEffect(() => {
+    const { x, y } = factor
+    const hero = document.getElementById('hero')
+    hero.style.setProperty('--factor-x', `calc(${x}em / 16)`)
+    hero.style.setProperty('--factor-y', `calc(${y}em / 8)`)
+
+  }, [factor]);
+
+
   const resetMouse = (_e) => {
     const hero = document.getElementById('hero')
     setShadow(hero, { x: 1 / 4, y: 1 / 4 })
+    setFactor({ x: 1, y: 1 })
     setSave(false)
   }
 
@@ -75,7 +98,8 @@ export default function Hero() {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch)
-      home.addEventListener('click', handleClick)
+      home.onclick = ('click', handleClick)
+      home.onwheel = handleScroll
     }
 
     return () => {
