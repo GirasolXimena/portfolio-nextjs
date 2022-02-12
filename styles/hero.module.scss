@@ -1,4 +1,9 @@
 .hero {
+  --light: gainsboro;
+  --dark: #323313;
+  --primary: yellow;
+  --secondary: magenta;
+  --tertiary: cyan;
   --mouse-x: calc(1/4);
   --mouse-y: calc(1/4);
   --blur: calc(1em / 64); 
@@ -13,22 +18,33 @@
   width: 100vw;
   height: 100vh;
   grid-template-columns: min-content;
-  grid-template-rows: repeat(3, min-content);
+  grid-template-rows: repeat(3, max-content);
   justify-content: center;
   align-content: center;
   background: var(--background);
   color: var(--text);
-  overflow: hidden;
+
 
   @media screen and (min-width: 768px) {
     padding: 5em;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --background: var(--dark);
+    --text: var(--light);
+  }
+
+  @media (prefers-color-scheme: light) {
+    --background: var(--light);
+    --text: var(--dark);
   }
 
   .cmyk {
     text-shadow: var(--shadow-primary), var(--shadow-secondary), var(--shadow-tertiary);
   }
   
-  h1, h2 {
+  h1,
+  h2 {
     transition: all 125ms ease;
   }
 
@@ -38,6 +54,15 @@
     font-weight: 900;
     line-height: 0.83em;
     margin: 0;
+    text-align: baseline;
+
+    span {
+      // display: inline-block;
+      font-family: var(--font);
+      margin-right: -0.25em;
+      // margin-bottom: 2em;
+      // font-size: 0.5em;
+    }
     
     @media screen and (min-width: 768px) {
     font-size: 6em;

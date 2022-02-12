@@ -12,24 +12,24 @@
   .cyan {
     a {
       &:hover {
-        text-shadow: 0 2px 2px yellow, -2px -2px 2px magenta, 2px -2px 2px cyan;
-        text-decoration-color: cyan;
+        text-shadow: 0 2px 2px var(--primary), -2px -2px 2px var(--secondary), 2px -2px 2px var(--tertiary);
+        text-decoration-color: var(--tertiary);
       }
     }
   }
   .magenta {
     a {
       &:hover {
-        text-shadow: 0 2px 2px yellow, 1px -2px 2px magenta, -1px -2px 2px cyan;
-        text-decoration-color: magenta;
+        text-shadow: 0 2px 2px var(--primary), 1px -2px 2px var(--secondary), -1px -2px 2px var(--tertiary);
+        text-decoration-color: var(--secondary);
       }
     } 
   }
   .yellow {
     a {
       &:hover {
-        text-shadow: 0 2px 2px yellow, 2px -2px 2px magenta, -2px -2px 2px cyan;
-        text-decoration-color: yellow;
+        text-shadow: 0 2px 2px yellow, 2px -2px 2px var(--secondary), -2px -2px 2px var(--tertiary);
+        text-decoration-color: var(--primary);
       }
     }
   }
