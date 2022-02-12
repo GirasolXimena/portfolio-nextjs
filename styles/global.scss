@@ -20,8 +20,8 @@ body {
   }
 
   @media (prefers-color-scheme: light) {
-    --background: var(--dark);
-    --text: var(--light);
+    --background: var(--light);
+    --text: var(--dark);
   }
   background: var(--background);
   color: var(--text);
