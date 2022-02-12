@@ -1,6 +1,6 @@
 import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import palettes from '../styles/themes'
 
 export default function Hero() {
@@ -8,6 +8,7 @@ export default function Hero() {
   const [theme, setTheme] = useState(undefined)
   let [factor, setFactor] = useState({ x: 1, y: 1 })
   const [palette, setPalette] = useState(undefined)
+  const [playing, setPlaying] = useState(undefined)
 
   const toCartesianCoords = (el, { x, y }) => {
     const { width, height } = document.documentElement.getBoundingClientRect()
@@ -64,11 +65,18 @@ export default function Hero() {
   const handleClick = (_e) => setSave(!save)
 
   const handleKey = ({ key }) => {
+    const audio = document.getElementById('audio')
+    if (audio !== undefined) {
+      audio.pause()
+      setPlaying(false)
+    }
     if (key.toLowerCase() === 's') {
       setPalette('Shrek')
     }
     if (key.toLowerCase() === 'd') {
+      audio.src = '/audio/Doom.mp3'
       setPalette('Doom')
+      setPlaying(true)
     }
     if (key.toLowerCase() === 'v') {
       setPalette('Vaporwave')
@@ -92,6 +100,45 @@ export default function Hero() {
       y: factorY
     })
   }
+
+
+  useEffect(() => {
+    const { documentElement: { style } } = document
+    const audio = document.getElementById('audio')
+    let audioCtx = new AudioContext()
+    if (playing) {
+      let analyzer = audioCtx.createAnalyser()
+      let source = audioCtx.createMediaElementSource(audio);
+      console.log('ieij')
+      const draw = (data) => {
+        console.log('data', data)
+        style.setProperty('--amp', data * 20)
+      }
+      const loop = (time) => {
+        // console.log('time', time)
+        analyzer.getFloatTimeDomainData(data)
+        let sumQuares = 0.0
+        for (const ampliltude of data) {
+          sumQuares += ampliltude * ampliltude
+        }
+        const amp = Math.sqrt(sumQuares / data.length)
+        draw(amp)
+        if (data) {
+          requestAnimationFrame(loop)
+        }
+      }
+
+      console.log(audio)
+      analyzer.fftSize = 2048
+      source.connect(analyzer)
+      source.connect(audioCtx.destination)
+      audio.loop = false
+      audio.playbackRate = 1
+      audio.play()
+      let data = new Float32Array(analyzer.frequencyBinCount)
+      requestAnimationFrame(loop);
+    }
+  }, [playing]);
 
   useEffect(() => {
     if (palette) {
@@ -147,6 +194,7 @@ export default function Hero() {
 
   return (
     <div id="hero" className={`${styles.hero}`}>
+      <audio id="audio" src=""></audio>
       <form className={styles.form}>
         <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
         <label htmlFor="toggle">Toggle {theme} mode</label>
