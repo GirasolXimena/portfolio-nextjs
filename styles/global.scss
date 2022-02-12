@@ -6,7 +6,22 @@ body {
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
-  background: gainsboro;
+}
+
+:root {
+  --light: gainsboro;
+  --dark: #323313;
+  @media (prefers-color-scheme: dark) {
+    --background: var(--dark);
+    --text: var(--light);
+  }
+
+  @media (prefers-color-scheme: light) {
+    --background: var(--dark);
+    --text: var(--light);
+  }
+  background: var(--background);
+  color: var(--text);
 }
 
 * {

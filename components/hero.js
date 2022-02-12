@@ -4,36 +4,36 @@ import Navbar from './navbar'
 import { useEffect, useState } from 'react'
 
 export default function Hero() {
-  const initialMousePosition = { x: 1 / 2, y: 1 / 2 }
-
-  const [mousePosition, setMousePosition] = useState(initialMousePosition)
   const [save, setSave] = useState(false)
   const [theme, setTheme] = useState(undefined)
 
-  const [textShadowString, setTextShadowString] = useState({
-    textShadow: ``
-  })
-
-  const handleMouse = ({ x, y }) => {
-    const offset = document.getElementById('hero').getBoundingClientRect()
-    const { width, height } = offset
+  const toCartesianCoords = (el, { x, y }) => {
+    const { width, height } = el.getBoundingClientRect()
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = x - halfWidth
     const yPos = y - halfHeight
-
-    if (!save) {
-      setMousePosition({
-        x: xPos / width * 2,
-        y: yPos / height * 2
-      })
+    return {
+      x: xPos / width,
+      y: yPos / height
     }
   }
 
+  const handleMouse = ({ x, y }) => {
+    const hero = document.getElementById('hero')
+    if (save === false) {
+      setShadow(hero, toCartesianCoords(hero, { x, y }))
+    }
+  }
+
+  const setShadow = (el, { x, y }) => {
+    el.style.setProperty('--mouse-x', x)
+    el.style.setProperty('--mouse-y', y)
+  }
+
   const handleTouch = ({ touches }) => {
+    const { width, height } = document.getElementById('hero').getBoundingClientRect()
     const { clientX, clientY } = touches[0]
-    const offset = document.getElementById('hero').getBoundingClientRect()
-    const { width, height } = offset
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = clientX - halfWidth
@@ -45,14 +45,26 @@ export default function Hero() {
   }
 
   const handleToggle = ({ target: { checked } }) => {
-    setTheme(checked ? 'dark' : 'light')
-    checked = !checked
+    const hero = document.getElementById('hero')
+    const docStyle = getComputedStyle(document.documentElement);
+    const light = docStyle.getPropertyValue('--light')
+    const dark = docStyle.getPropertyValue('--dark')
+    if (checked) {
+      hero.style.setProperty('--background', dark)
+      hero.style.setProperty('--text', light)
+      setTheme('dark')
+    } else {
+      hero.style.setProperty('--background', light)
+      hero.style.setProperty('--text', dark)
+      setTheme('light')
+    }
   }
 
   const handleClick = (_e) => setSave(!save)
 
   const resetMouse = (_e) => {
-    setMousePosition(initialMousePosition)
+    const hero = document.getElementById('hero')
+    setShadow(hero, { x: 1 / 4, y: 1 / 4 })
     setSave(false)
   }
 
@@ -78,40 +90,25 @@ export default function Hero() {
     if (theme === undefined) {
       const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
       const toggle = document.getElementById('toggle')
-      setTheme(prefersDarkScheme ? 'dark' : 'light')
       toggle.checked = prefersDarkScheme
     }
   }, [theme]);
 
-
-  useEffect(() => {
-    const { x, y } = mousePosition
-    setTextShadowString({
-      textShadow: `${x / 32}em ${y / 16}em 2.5px yellow, ${x / 16}em ${y / -32}em 2.5px magenta, ${x / -16}em ${y / -32}em 2.5px cyan`
-    })
-  }, [mousePosition])
-
-
   return (
-    <div id="hero" className={`${styles.hero} ${utilStyles[theme]}`}>
+    <div id="hero" className={`${styles.hero}`}>
       <form className={styles.form}>
         <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
-      <h1
-        style={textShadowString}
-        className={styles.cmyk}
-      >
-        S.&nbsp;<span>Roberto</span><br />
+      <h1 className={styles.cmyk}>
+        S.&nbsp;<span>Roberto</span>
+        <br />
         Andrade
       </h1>
-      <h2
-        style={textShadowString}
-        className={styles.cmyk}
-      >
+      <h2 className={styles.cmyk}>
         Creative Technologist
       </h2>
-      <Navbar home theme={theme} />
+      <Navbar home />
     </div>
   )
 }

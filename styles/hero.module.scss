@@ -1,19 +1,34 @@
 .hero {
+  --primary: yellow;
+  --secondary: magenta;
+  --tertiary: cyan;
+  --mouse-x: calc(1/4);
+  --mouse-y: calc(1/4);
+  --blur: calc(1em / 64); 
+  --factor-x: calc(1em / 16);
+  --factor-y: calc(1em / 8);
+  --shadow-primary: calc(var(--mouse-x) * var(--factor-x)) calc(var(--mouse-y) * var(--factor-y)) var(--blur) var(--primary);
+  --shadow-secondary: calc(var(--mouse-x) * var(--factor-y)) calc(var(--mouse-y) * var(--factor-x) * -1) var(--blur) var(--secondary);
+  --shadow-tertiary: calc(var(--mouse-x) * var(--factor-y) * -1) calc(var(--mouse-y) * var(--factor-x) * -1) var(--blur) var(--tertiary);
+
   transition: color 1250ms ease, background-color 1250ms ease;
   display: grid;
   width: 100vw;
-  background: var(--background);
   height: 100vh;
   grid-template-columns: min-content;
   grid-template-rows: repeat(3, min-content);
-  color: var(--text);
   justify-content: center;
   align-content: center;
-  
+  background: var(--background);
+  color: var(--text);
+
   @media screen and (min-width: 768px) {
     padding: 5em;
   }
-  
+
+  .cmyk {
+    text-shadow: var(--shadow-primary), var(--shadow-secondary), var(--shadow-tertiary);
+  }
   
   h1, h2 {
     transition: all 125ms ease;
