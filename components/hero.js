@@ -1,5 +1,4 @@
 import styles from '../styles/hero.module.scss'
-import utilStyles from '../styles/utils.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState } from 'react'
 import palettes from '../styles/themes'
@@ -30,8 +29,9 @@ export default function Hero() {
   }
 
   const setShadow = ({ x, y }) => {
-    document.documentElement.style.setProperty('--mouse-x', x)
-    document.documentElement.style.setProperty('--mouse-y', y)
+    const { documentElement: { style } } = document
+    style.setProperty('--mouse-x', x)
+    style.setProperty('--mouse-y', y)
   }
 
   const handleTouch = ({ touches }) => {
@@ -48,15 +48,15 @@ export default function Hero() {
   }
 
   const handleToggle = ({ target: { checked } }) => {
-    const { documentElement } = document
+    const { documentElement: { style } } = document
 
     if (checked) {
-      documentElement.style.setProperty('--background', 'var(--_dark)')
-      documentElement.style.setProperty('--text', 'var(--_light)')
+      style.setProperty('--background', 'var(--_dark)')
+      style.setProperty('--text', 'var(--_light)')
       setTheme('dark')
     } else {
-      documentElement.style.setProperty('--background', 'var(--_light)')
-      documentElement.style.setProperty('--text', 'var(--_dark)')
+      style.setProperty('--background', 'var(--_light)')
+      style.setProperty('--text', 'var(--_dark)')
       setTheme('light')
     }
   }
@@ -95,16 +95,18 @@ export default function Hero() {
 
   useEffect(() => {
     if (palette) {
+      const { documentElement: { style } } = document
       for (const [property, value] of Object.entries(palettes[palette])) {
-        document.documentElement.style.setProperty(`--${property}`, value)
+        style.setProperty(`--${property}`, value)
       }
     }
   }, [palette]);
 
   useEffect(() => {
+    const { documentElement: { style } } = document
     const { x, y } = factor
-    document.documentElement.style.setProperty('--factor-x', `calc(${x}em / 16)`)
-    document.documentElement.style.setProperty('--factor-y', `calc(${y}em / 8)`)
+    style.setProperty('--factor-x', `calc(${x}em / 16)`)
+    style.setProperty('--factor-y', `calc(${y}em / 8)`)
 
   }, [factor]);
 
