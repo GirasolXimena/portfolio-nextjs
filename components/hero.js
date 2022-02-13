@@ -6,11 +6,15 @@ import palettes from '../styles/themes'
 export default function Hero() {
   const [save, setSave] = useState(false)
   const [theme, setTheme] = useState(undefined)
-  let [factor, setFactor] = useState({ x: 1, y: 1 })
   const [palette, setPalette] = useState(undefined)
-  const [playing, setPlaying] = useState(undefined)
+  const [playing, setPlaying] = useState(5)
+  const [audio, setAudio] = useState({})
+  const [audioContext, setAudioContext] = useState(false)
+  const audioElement = useRef(null)
+  const [musicType, setMusicType] = useState(undefined)
+  let [factor, setFactor] = useState({ x: 1, y: 1 })
 
-  const toCartesianCoords = (el, { x, y }) => {
+  const toCartesianCoords = ({ x, y }) => {
     const { width, height } = document.documentElement.getBoundingClientRect()
     const halfWidth = width / 2
     const halfHeight = height / 2
@@ -23,9 +27,8 @@ export default function Hero() {
   }
 
   const handleMouse = ({ x, y }) => {
-    const hero = document.getElementById('hero')
     if (save === false) {
-      setShadow(toCartesianCoords(hero, { x, y }))
+      setShadow(toCartesianCoords({ x, y }))
     }
   }
 
@@ -65,27 +68,24 @@ export default function Hero() {
   const handleClick = (_e) => setSave(!save)
 
   const handleKey = ({ key }) => {
-    const audio = document.getElementById('audio')
-    if (audio !== undefined) {
-      audio.pause()
-      setPlaying(false)
+    if (musicType || key === 'Escape') {
+      setPalette('default')
+      setMusicType(undefined)
     }
     if (key.toLowerCase() === 's') {
+      setMusicType('/audio/Shrek.mp3')
       setPalette('Shrek')
     }
     if (key.toLowerCase() === 'd') {
-      audio.src = '/audio/Doom.mp3'
+      setMusicType('/audio/Doom.mp3')
       setPalette('Doom')
-      setPlaying(true)
     }
     if (key.toLowerCase() === 'v') {
+      setMusicType('/audio/Vapor.mp3')
       setPalette('Vaporwave')
     }
     if (key.toLowerCase() === 'q') {
       setPalette('Queer')
-    }
-    if (key === 'Escape') {
-      setPalette('default')
     }
   }
 
@@ -101,44 +101,60 @@ export default function Hero() {
     })
   }
 
-
   useEffect(() => {
-    const { documentElement: { style } } = document
-    const audio = document.getElementById('audio')
-    let audioCtx = new AudioContext()
-    if (playing) {
-      let analyzer = audioCtx.createAnalyser()
-      let source = audioCtx.createMediaElementSource(audio);
-      console.log('ieij')
-      const draw = (data) => {
-        console.log('data', data)
-        style.setProperty('--amp', data * 20)
-      }
-      const loop = (time) => {
-        // console.log('time', time)
-        analyzer.getFloatTimeDomainData(data)
-        let sumQuares = 0.0
-        for (const ampliltude of data) {
-          sumQuares += ampliltude * ampliltude
-        }
-        const amp = Math.sqrt(sumQuares / data.length)
-        draw(amp)
-        if (data) {
-          requestAnimationFrame(loop)
-        }
-      }
-
-      console.log(audio)
+    if (!audioContext) {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioContext.createMediaElementSource(audioElement.current)
+      const analyzer = audioContext.createAnalyser()
       analyzer.fftSize = 2048
+      source.connect(audioContext.destination)
       source.connect(analyzer)
-      source.connect(audioCtx.destination)
-      audio.loop = false
-      audio.playbackRate = 1
-      audio.play()
-      let data = new Float32Array(analyzer.frequencyBinCount)
-      requestAnimationFrame(loop);
+      setAudioContext(audioContext)
+      setAudio((audio) => (audio.audioData = analyzer));
     }
-  }, [playing]);
+  }, [audioContext])
+
+  const startPlaying = () => {
+    const { documentElement: { style } } = document
+    audioElement.current.src = musicType
+    let data = new Float32Array(audio.frequencyBinCount)
+    audioElement.current.play()
+    audioContext.resume()
+    const draw = (data) => {
+      style.setProperty('--amp', data * 20)
+    }
+    const loop = () => {
+      audio.getFloatTimeDomainData(data)
+      let sumQuares = 0.0
+      for (const ampliltude of data) {
+        sumQuares += ampliltude * ampliltude
+      }
+      const amp = Math.sqrt(sumQuares / data.length)
+      draw(amp)
+      if (musicType) {
+        const id = requestAnimationFrame(loop)
+        setPlaying(id)
+      }
+    }
+    const id = requestAnimationFrame(loop)
+    setPlaying(id);
+
+  }
+
+  const stopPlaying = () => {
+    audioElement.current.pause()
+    cancelAnimationFrame(playing)
+  }
+  useEffect(() => {
+    if (musicType) {
+      startPlaying()
+    } else {
+      stopPlaying()
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [musicType])
+
 
   useEffect(() => {
     if (palette) {
@@ -194,7 +210,7 @@ export default function Hero() {
 
   return (
     <div id="hero" className={`${styles.hero}`}>
-      <audio id="audio" src=""></audio>
+      <audio id="audio" ref={audioElement} src=""></audio>
       <form className={styles.form}>
         <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
         <label htmlFor="toggle">Toggle {theme} mode</label>
