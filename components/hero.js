@@ -186,7 +186,7 @@ export default function Hero() {
     if (!prefersReducedMotion) {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
-      home.addEventListener('touchstart', handleTouch)
+      home.addEventListener('touchstart', handleTouch, { passive: true })
       home.onkeyup = handleKey
       home.onclick = ('click', handleClick)
       home.onwheel = handleScroll
