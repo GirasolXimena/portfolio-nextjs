@@ -9,22 +9,26 @@
 		// Use -bullseye variants on local arm64/Apple Silicon.
 		"args": { "VARIANT": "16-bullseye" }
 	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"sleistner.vscode-fileutils",
+				"silvenon.mdx",
+				"ms-edgedevtools.vscode-edge-devtools",
+				"github.copilot",
+				"eamodio.gitlens",
+				"github.vscode-pull-request-github",
+				"dsznajder.es7-react-js-snippets",
+				"tomoki1207.pdf"
+			],
+			"settings": {}
+		}
+	},
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"dbaeumer.vscode-eslint",
-		"sleistner.vscode-fileutils",
-		"silvenon.mdx",
-		"ms-edgedevtools.vscode-edge-devtools",
-		"github.copilot",
-		"eamodio.gitlens",
-		"github.vscode-pull-request-github",
-		"dsznajder.es7-react-js-snippets",
-		"tomoki1207.pdf"
-	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [3000],
