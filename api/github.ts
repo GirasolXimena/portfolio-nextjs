@@ -1,6 +1,7 @@
 // github.js
 import { Octokit } from '@octokit/core';
-const octokit = new Octokit({ auth: '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' });
+
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 export async function getFolders(owner, repo) {
   const response = await octokit.request(`GET /repos/{owner}/{repo}/contents`, {
