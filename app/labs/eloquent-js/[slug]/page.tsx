@@ -8,7 +8,6 @@ export default async function EloquentJSPage({ params }: { params: { slug: strin
   return (
     <div>
       <h1>{res.path}</h1>
-      {JSON.stringify(res, null, 2)}
       {type === 'file' && <Exercise title={name} github_link={html_url} encoding={encoding} content={content} />}
     </div>
   )
