@@ -1,7 +1,10 @@
+'use client'
+
 import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState, useRef } from 'react'
 import palettes from '../styles/themes'
+import { inter, noto_sans, roboto_mono } from '../app/fonts'
 
 export default function Hero() {
   const [save, setSave] = useState(false)
@@ -216,7 +219,7 @@ export default function Hero() {
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
       <h1 id="name" className={styles.cmyk}>
-        <span>S.</span>&nbsp;Roberto
+        <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto
         <br />
         Andrade
       </h1>
