@@ -8,7 +8,6 @@ export default function HomePage() {
   const [timesClicked, setTimesClicked] = useState(0)
   return (
     <div>
-      <h1>{'titl;e'}</h1>
       <button onClick={() => setTimesClicked(timesClicked + 1)}>times clicked: {timesClicked}</button>
     </div>
   )
