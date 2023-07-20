@@ -1,30 +1,39 @@
-// github.js
-const baseUrl = 'https://api.github.com';
-const { GITHUB_TOKEN } = process.env;
+import { GithhubRepoItems } from "../types";
 
-export async function getRepo(owner: string, repo: string) {
-  const response = await fetch(`${baseUrl}/repos/${owner}/${repo}`, {
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-    }
-  });
-  return await response.json();
+// github.ts
+const baseUrl = 'https://api.github.com';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN as string;
+
+class GithubRepo {
+  owner: string;
+  repo: string;
+
+  constructor(owner: string, repo: string) {
+    this.owner = owner;
+    this.repo = repo;
+  }
+
+  async getRepo(path: string = this.repo): Promise<GithhubRepoItems> {
+    const response = await fetch(`${baseUrl}/repos/${this.owner}/${path}`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+    });
+    return await response.json();
+  }
+
+  async getContent(path: string = ''): Promise<GithhubRepoItems> {
+    const response = await this.getRepo(`${this.repo}/contents/${path}`);
+    return Array.isArray(response) ? response : [response];
+  }
 }
 
-export const getContent = async (owner: string, repo: string, path: string = '') =>
-  await getRepo(owner, `${repo}/contents/${path}`)
-
-
-
 // repo specific functions
+const EloquentJS = new GithubRepo('RobertAndradeJr', 'eloquent-js-exercises');
+export const eloquentJSRepo = async() => await EloquentJS.getRepo();
+export const eloquentJSContent = async(path: string) => await EloquentJS.getContent(path);
+export const eloquentJSFile = async(path: string) => await EloquentJS.getContent(`src/${path}`);
 
-/**
- * 
- * @param path 
- * @returns 
- */
-export const getEloquentContent = async(path: string = '') =>
-  await getContent('RobertAndradeJr', 'eloquent-js-exercises', path);
-
-export const getEloquentFile = async (filePath) =>
-  await getEloquentContent(`src/${filePath}`);
+const CProgrammingLanguage = new GithubRepo('RobertAndradeJr', 'c-programming-language');
+export const cProgrammingLanguageRepo = async() => await CProgrammingLanguage.getRepo();
+export const cProgrammingLanguageContent = async(path: string) => await CProgrammingLanguage.getContent(path);
