@@ -8,6 +8,10 @@ const links = [
     href: 'https://codepen.io/abstract_code',
     label: 'Codepen',
   },
+  {
+    href: '/labs/c-programming-language',
+    label: 'C Programming Language',
+  }
 ]
 
 export default async function LabsIndexPage() {

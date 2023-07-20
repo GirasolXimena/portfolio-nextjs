@@ -21,6 +21,10 @@ const links = [
     href: '/labs/eloquent-js',
     label: 'Eloquent JS Exercises',
   },
+  {
+    href: '/labs/c-programming-language',
+    label: 'C Programming Language Exercises',
+  }
 ]
 
 const LabsLayout = ({ children }: { children: React.ReactNode }) => (
