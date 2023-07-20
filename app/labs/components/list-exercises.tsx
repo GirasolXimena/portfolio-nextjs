@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default function HomePage({ exercises, title }) {
   return (
     <div>
-      <h1>{title}</h1>
+      <h3>{title}</h3>
       <ul>
         {exercises.map((post) => (
           <li key={post.path}>
