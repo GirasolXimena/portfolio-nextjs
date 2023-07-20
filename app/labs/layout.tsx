@@ -1,4 +1,5 @@
 import React from 'react'
+import Counter from './counter'
 import { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -34,6 +35,7 @@ const LabsLayout = ({ children }: { children: React.ReactNode }) => (
           ))
         }
       </ul>
+      <Counter />
     </nav>
     {children}
  </div>
