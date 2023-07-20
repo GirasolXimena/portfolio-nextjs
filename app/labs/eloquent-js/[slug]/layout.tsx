@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 const links = [
   {
-    href: '/labs',
-    label: 'Back to Labs',
+    href: '/labs/eloquent-js',
+    label: 'Back to exercises',
   },
 ]
 
