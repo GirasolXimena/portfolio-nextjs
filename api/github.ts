@@ -1,30 +1,31 @@
 // github.js
-import { Octokit } from '@octokit/core';
+const baseUrl = 'https://api.github.com';
+const { GITHUB_TOKEN } = process.env;
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-export async function getFolders(owner, repo) {
-  const response = await octokit.request(`GET /repos/{owner}/{repo}/contents`, {
-    owner,
-    repo,
+export async function getContent(owner: string, repo: string, slug:string='') {
+  const response = await fetch(`${baseUrl}/repos/${owner}/${repo}/contents/${slug}`, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    }
   });
-  return response.data.filter((item) => item.type === 'dir');
+
+  return await response.json();
 }
 
-export async function getFolderContent(owner: string, repo: string, folderPath: string) {
-  const response = await octokit.request(`GET /repos/{owner}/{repo}/contents/{folderPath}`, {
-    owner,
-    repo,
-    folderPath,
+export async function getRepo(owner: string, repo: string) {
+  const response = await fetch(`${baseUrl}/repos/${owner}/${repo}`, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    }
   });
-  return response.data;
+  return await response.json();
 }
 
-export async function getContent(owner: string, repo: string, slug: string) {
-  const response = await octokit.request(`GET /repos/{owner}/{repo}/contents/src/{slug}`, {
-    owner,
-    repo,
-    slug,
-  });
-  return response.data
+export async function getEloquentContent(path: string = '') {
+  const owner = 'RobertAndradeJr'
+  const repo = 'eloquent-js-exercises'
+  return await getContent(owner, repo, path);
 }
+
+export const getEloquentFile = async (filePath) => getEloquentContent(`src/${filePath}`);
