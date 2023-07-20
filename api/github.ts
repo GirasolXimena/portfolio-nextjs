@@ -2,17 +2,6 @@
 const baseUrl = 'https://api.github.com';
 const { GITHUB_TOKEN } = process.env;
 
-
-export async function getContent(owner: string, repo: string, slug:string='') {
-  const response = await fetch(`${baseUrl}/repos/${owner}/${repo}/contents/${slug}`, {
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-    }
-  });
-
-  return await response.json();
-}
-
 export async function getRepo(owner: string, repo: string) {
   const response = await fetch(`${baseUrl}/repos/${owner}/${repo}`, {
     headers: {
@@ -22,10 +11,20 @@ export async function getRepo(owner: string, repo: string) {
   return await response.json();
 }
 
-export async function getEloquentContent(path: string = '') {
-  const owner = 'RobertAndradeJr'
-  const repo = 'eloquent-js-exercises'
-  return await getContent(owner, repo, path);
-}
+export const getContent = async (owner: string, repo: string, path: string = '') =>
+  await getRepo(owner, `${repo}/contents/${path}`)
 
-export const getEloquentFile = async (filePath) => getEloquentContent(`src/${filePath}`);
+
+
+// repo specific functions
+
+/**
+ * 
+ * @param path 
+ * @returns 
+ */
+export const getEloquentContent = async(path: string = '') =>
+  await getContent('RobertAndradeJr', 'eloquent-js-exercises', path);
+
+export const getEloquentFile = async (filePath) =>
+  await getEloquentContent(`src/${filePath}`);
