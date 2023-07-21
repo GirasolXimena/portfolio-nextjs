@@ -1,6 +1,6 @@
 // Import your Client Component
-import ListExercises from '../components/list-exercises'
-import { cProgrammingLanguageContent } from '../../../api/github'
+import ListExercises from '../../components/list-exercises'
+import { cProgrammingLanguageContent } from '../../../../api/github'
 export default async function CProgrammingLanguageIndexPage() {
   // Fetch data directly in a Server Component
   const chapters = (await cProgrammingLanguageContent('')).filter(({ name, type }) => !name.startsWith('.') && type === 'dir')

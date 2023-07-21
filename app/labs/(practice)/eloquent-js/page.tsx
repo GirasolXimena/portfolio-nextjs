@@ -1,6 +1,6 @@
 // Import your Client Component
-import ListExercises from '../components/list-exercises'
-import { eloquentJSContent } from '../../../api/github'
+import ListExercises from '../../components/list-exercises'
+import { eloquentJSContent } from '../../../../api/github'
 
 export default async function EloquentJSIndexPage() {
   // Fetch data directly in a Server Component
