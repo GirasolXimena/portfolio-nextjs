@@ -2,7 +2,7 @@ import { GithhubRepoItems } from "../types";
 
 // github.ts
 const baseUrl = 'https://api.github.com';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN as string;
+const API_TOKEN_GITHUB = process.env.API_TOKEN_GITHUB as string;
 
 class GithubRepo {
   owner: string;
@@ -16,7 +16,7 @@ class GithubRepo {
   async getRepo(path: string = this.repo): Promise<GithhubRepoItems> {
     const response = await fetch(`${baseUrl}/repos/${this.owner}/${path}`, {
       headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Authorization: `Bearer ${API_TOKEN_GITHUB}`,
       },
     });
     return await response.json();
