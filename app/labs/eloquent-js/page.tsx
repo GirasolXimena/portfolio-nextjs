@@ -14,5 +14,5 @@ export default async function EloquentJSIndexPage() {
   }))
   // Forward fetched data to your Client Component
   return chapterContent.map(({ chapter, exercises }) =>
-    <ListExercises key={chapter.name} title={chapter.name} exercises={exercises} />)
+    <ListExercises project={'eloquent-js'} key={chapter.name} title={chapter.name} exercises={exercises} />)
 }
