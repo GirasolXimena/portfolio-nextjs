@@ -14,7 +14,6 @@
 			"extensions": [
 				"dbaeumer.vscode-eslint",
 				"sleistner.vscode-fileutils",
-				"silvenon.mdx",
 				"ms-edgedevtools.vscode-edge-devtools",
 				"github.copilot",
 				"eamodio.gitlens",
