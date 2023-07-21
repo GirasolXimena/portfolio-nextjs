@@ -14,5 +14,5 @@ export default async function CProgrammingLanguageIndexPage() {
 
   // Forward fetched data to your Client Component
   return chapterContent.map(({ chapter, exercises }) =>
-    <ListExercises key={chapter.name} title={chapter.name} exercises={exercises} />)
+    <ListExercises key={chapter.name} title={chapter.name} project={'c-programming-language'} exercises={exercises} />)
 }
