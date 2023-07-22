@@ -18,7 +18,7 @@ const links = [
     label: 'Labs',
   },
   {
-    href: '/labs/eloquent-js',
+    href: '/labs/eloquent-js-exercises',
     label: 'Eloquent JS Exercises',
   },
   {

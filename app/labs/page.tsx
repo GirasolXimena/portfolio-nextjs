@@ -1,7 +1,7 @@
 import Link from "next/link";
 const links = [
   {
-    href: '/labs/eloquent-js',
+    href: '/labs/eloquent-js-exercises',
     label: 'Eloquent JS Exercises',
   },
   {
