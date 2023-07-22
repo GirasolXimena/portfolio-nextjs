@@ -15,11 +15,13 @@
 				"dbaeumer.vscode-eslint",
 				"sleistner.vscode-fileutils",
 				"ms-edgedevtools.vscode-edge-devtools",
-				"github.copilot",
 				"eamodio.gitlens",
-				"github.vscode-pull-request-github",
 				"dsznajder.es7-react-js-snippets",
-				"tomoki1207.pdf"
+				"tomoki1207.pdf",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"GitHub.copilot-labs",
+				"GitHub.vscode-pull-request-github"
 			],
 			"settings": {}
 		}
