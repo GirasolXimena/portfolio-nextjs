@@ -1,5 +1,5 @@
 const decoder = {
-  base64(content) {
+  base64(content: string) {
     return atob(content)
   }
 }
