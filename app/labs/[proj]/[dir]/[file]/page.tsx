@@ -1,6 +1,8 @@
 import { activeProjects } from '../../../../../lib/projects'
 import { normalizePath } from '../../../../../lib/util/string'
 import ExerciseDetailPage from '../../../components/exercise';
+import Prism from 'prismjs'
+import decoder from '/workspaces/portfolio-nextjs/lib/decoder';
 
 export async function generateStaticParams({ params }) {
   const currentProj = activeProjects.find(({ name }) => name === params.proj)
@@ -35,11 +37,13 @@ export default async function Page({
     encoding,
     content
   }] = await getContent(url)
+  const code = decoder[encoding](content)
+  const highlightedContent = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   return <ExerciseDetailPage
     type={type}
     title={name}
     github_link={html_url}
     encoding={encoding}
-    content={content}
+    content={highlightedContent}
   />
 }
