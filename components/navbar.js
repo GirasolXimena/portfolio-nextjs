@@ -4,8 +4,15 @@ import utilStyles from '../styles/utils.module.scss'
 
 export default function Navbar({ theme }) {
   return (
-    <nav id="nav-bar" className={`${styles.nav} ${utilStyles[theme]}`}>
+    <nav id="nav-bar" className={`${styles.nav} ${utilStyles[theme]} ${styles[theme]}`}>
       <ul>
+        {theme === 'labs' && (
+          <li className={styles.key}>
+            <Link href="/">
+              Home
+            </Link>
+          </li>
+        )}
         <li className={styles.cyan}>
           <a href='assets/Andrade-Creative_Technologist.pdf' download="Andrade-Creative_Technologist.pdf">
             Resume
