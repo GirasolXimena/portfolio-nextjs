@@ -6,20 +6,29 @@
 
 .content {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column-reverse;
+  justify-content: space-between;
 }
 
 .see-more {
-  width: 100%;
-  display: flex;
   justify-content: space-between;
 }
 
 .code {
   max-width: clamp(20ch, 80vw, 80ch);
+  padding: 1.25em;
   overflow-x: auto;
+}
+
+.description {
+  overflow-x: auto;
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+}
+
+.description > * {
+  margin: 0;
 }
 
 .subtitle {
@@ -27,12 +36,13 @@
 }
 
 .title {
-  font-size: 5rem;
-  line-height: 5rem;
-  width: min-content;
-  margin-top: 0;
+  font-size: 10em;
+  text-align: right;
+  margin-bottom: 0.8em
+
 }
 .exercise {
   display: flex;
   flex-direction: column;
+  /* text-align: center; */
 }
