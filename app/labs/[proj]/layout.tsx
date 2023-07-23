@@ -1,5 +1,6 @@
 import React from 'react'
 import { activeProjects } from '../../../lib/projects'
+import Link from 'next/link'
 
 export async function generateStaticParams() {
   return activeProjects.map((project) => ({
@@ -14,6 +15,7 @@ const ProjectLayout = ({
 }) => (
  <div className='repository-layout'>
     {children}
+    <Link href='/labs'>All labs</Link>
  </div>
 )
 
