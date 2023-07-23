@@ -53,6 +53,8 @@ body {
   margin: 0;
   line-height: 1.6;
   font-size: 18px;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 * {
@@ -61,10 +63,16 @@ body {
 
 a {
   text-decoration: none;
+  color: var(--_primary);
+}
+
+a:visited {
+  color: var(--_secondary);
 }
 
 a:hover {
   text-decoration: underline;
+  color: var(--_primary);
 }
 
 img {
