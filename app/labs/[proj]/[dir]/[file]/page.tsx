@@ -1,5 +1,5 @@
 import { activeProjects } from '../../../../../lib/projects'
-import { normalizePath } from '../../../../../lib/util/string'
+import { getExtension, normalizePath } from '../../../../../lib/util/string'
 import ExerciseDetailPage from '../../../components/exercise';
 import Prism from 'prismjs'
 import decoder from '/workspaces/portfolio-nextjs/lib/decoder';
@@ -38,12 +38,16 @@ export default async function Page({
     content
   }] = await getContent(url)
   const code = decoder[encoding](content)
-  const highlightedContent = Prism.highlight(code, Prism.languages.javascript, 'javascript')
+  const ext = getExtension(name)
+  const { prismName } = decoder.language[ext]
+  const highlightedContent = Prism.highlight(code, Prism.languages[prismName], prismName)
+
   return <ExerciseDetailPage
     type={type}
     title={name}
     github_link={html_url}
-    encoding={encoding}
+    subtitle={params.dir}
     content={highlightedContent}
+    prismName={prismName}
   />
 }
