@@ -15,7 +15,6 @@ const ProjectLayout = ({
 }) => (
  <div className='repository-layout'>
     {children}
-    <Link href='/labs'>All labs</Link>
  </div>
 )
 
