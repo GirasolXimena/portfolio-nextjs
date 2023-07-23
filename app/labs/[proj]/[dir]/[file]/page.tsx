@@ -1,6 +1,6 @@
 import { activeProjects } from '../../../../../lib/projects'
 import { getExtension, normalizePath } from '../../../../../lib/util/string'
-import ExerciseDetailPage from '../../../components/exercise';
+import ExerciseDetailPage from '../../../components/exercise-detail';
 import Prism from 'prismjs'
 import decoder from '/workspaces/portfolio-nextjs/lib/decoder';
 
