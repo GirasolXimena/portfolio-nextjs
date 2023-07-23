@@ -1,0 +1,38 @@
+.tomorrow-night-eighties {
+  --ansi-black: #2d2d2d;
+  --background-color: var(--ansi-black);
+  background-color: var(--background-color);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.see-more {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.code {
+  max-width: clamp(20ch, 80vw, 80ch);
+  overflow-x: auto;
+}
+
+.subtitle {
+  order: -1;
+}
+
+.title {
+  font-size: 5rem;
+  line-height: 5rem;
+  width: min-content;
+  margin-top: 0;
+}
+.exercise {
+  display: flex;
+  flex-direction: column;
+}
