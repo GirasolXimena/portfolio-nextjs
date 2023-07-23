@@ -1,0 +1,35 @@
+.exercises{
+  font-size: 2em;
+
+}
+.list {
+  /* list-style:  */
+}
+
+.item, .head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  margin-left: 2rem;
+}
+
+.item, .head a {
+  color: var(--text);
+}
+.item:visited, .head a:visited {
+  color: var(--text);
+}
+.dir, .head {
+  text-transform: uppercase;
+}
+
+.head {
+  border-bottom: calc(1em / 16) solid black;
+  margin-top: 1.5em;
+}
+
+.head > * {
+  margin: 0;
+}
