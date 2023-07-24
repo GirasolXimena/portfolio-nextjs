@@ -1,0 +1,16 @@
+.head, .head a, .head a:visited { 
+  color: var(--text);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  border-bottom: calc(1em / 16) solid black;
+  margin-top: 1.5em;
+  font-size: 2em;
+}
+
+.head > * {
+  margin: 0;
+}

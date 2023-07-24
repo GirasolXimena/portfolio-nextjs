@@ -1,34 +1,29 @@
 import Link from "next/link";
-const links = [
+import TitleBar from "./components/title-bar";
+import ListExercises from "./components/list-exercises";
+let links = [
   {
-    href: '/labs/eloquent-js-exercises',
-    label: 'Eloquent JS Exercises',
+    path: '/labs/eloquent-js-exercises',
+    title: 'Eloquent JS Exercises',
+    section: 'exercises'
   },
   {
-    href: 'https://codepen.io/abstract_code',
-    label: 'Codepen',
+    path: 'https://codepen.io/abstract_code',
+    title: 'Codepen',
+    section: 'codepen'
   },
   {
-    href: '/labs/c-programming-language',
-    label: 'C Programming Language',
+    path: '/labs/c-programming-language',
+    title: 'C Programming Language',
+    section: 'exercises'
   }
 ]
 
 export default async function LabsIndexPage() {
   return (
     <>
-      <h1>Labs</h1>
-      <ul>
-        {
-          links.map(({ href, label }) => (
-            <li key={`${href}${label}`}>
-              <Link href={href}>
-                {label}
-              </Link>
-            </li>
-          ))
-        }
-      </ul>
+      <TitleBar title='Labs' />
+      <ListExercises items={links} />
     </>
   )
 }

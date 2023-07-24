@@ -5,6 +5,8 @@ export const getExtension = (path: string) => path.split('.').pop() || ''
 
 export const highlightContent = (code: string, lang: string) => Prism.highlight(code, Prism.languages[lang], lang)
 
+export const fileNametoTitle = (name: string) => name.split('.')[0].split('-').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
+
 /**
  * use prism js to extract first multiline comment of a file
  * and return an object with the first comment and the rest of the file
