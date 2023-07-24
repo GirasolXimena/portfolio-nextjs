@@ -1,6 +1,7 @@
 'use client'
 import "prismjs/themes/prism-tomorrow.css";
 import styles from './exercise-detail.module.css'
+import animation from '../../../styles/animation.module.scss'
 import Link from 'next/link'
 // This is a Client Component. It receives data as props and
 // has access to state and effects just like Page components
@@ -23,10 +24,7 @@ function ExerciseDetailPage({ title, content, type, subtitle, prismName, github_
         </pre>
         <figcaption className={styles.description}>
           <h1 className={styles.title}>{formattedTitle}</h1>
-          <Link className={styles.back} href='../'>&lt;-</Link>
-          {/* <h2 className={styles.subtitle}>
-            <Link href={`../`}>{subtitle}</Link>
-          </h2> */}
+          <Link className={`${styles.back} ${animation.gradient}`} href='../'>&lt;-</Link>
         </figcaption>
       </figure>
     </article>

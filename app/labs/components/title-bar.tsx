@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styles from './title-bar.module.css'
-import animation from './gradient-link.module.css'
+import animation from '../../../styles/animation.module.scss'
 const fileNametoTitle = (name: string) => name.split('.')[0].split('-').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
 
 function TitleBar({ title, subtitle = '' }) {
