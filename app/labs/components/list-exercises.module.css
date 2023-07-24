@@ -5,8 +5,9 @@
   font-size: 2em;
 }
 
-.item, .item:visited {
+.item, .item:visited:not(:hover) {
   color: var(--text);
+  text-decoration-color: var(--text);
 }
 
 .item {

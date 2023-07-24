@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import styles from './list-exercises.module.css'
-// import { normalizePath, fileNametoTitle } from '../../../lib/util/string'
+import animation from './gradient-link.module.css'
 
 type ListItems = {
   path: string
@@ -20,7 +20,7 @@ function ListItems({ items }: { items: ListItems }) {
       <ol className={styles.list}>
         {items.map(({ path, title, section }) => (
           <li key={path}>
-            <Link href={path} className={styles.item}>
+            <Link href={path} className={`${styles.item} ${animation.gradient}`}>
               <span className={styles.name} >
                 {title}
               </span>
