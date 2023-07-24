@@ -5,6 +5,7 @@
 .head {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   text-transform: uppercase;
   border-bottom: calc(1em / 16) solid black;
   margin-top: 1.5em;
