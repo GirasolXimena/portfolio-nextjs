@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
-  border-bottom: calc(1em / 16) solid black;
+  border-bottom: calc(1em / 4) solid var(--text);
   margin-top: 1.5em;
   font-size: 2em;
 }
