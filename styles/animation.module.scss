@@ -1,0 +1,33 @@
+.gradient {
+  background: linear-gradient(to right, var(--_primary), var(--_secondary), var(--_tertiary));
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gradient {
+    animation: shine 4s ease-in-out infinite;
+    transition: color 300ms ease-in-out;
+
+    &:hover {
+      color: transparent;
+      text-decoration: none;
+    }
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: left
+  }
+
+  50% {
+    background-position: right
+  }
+
+  100% {
+    background-position: left
+  }
+}

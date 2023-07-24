@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import styles from './list-exercises.module.css'
-import animation from './gradient-link.module.css'
+import animation from '../../../styles/animation.module.scss'
 
 type ListItems = {
   path: string
