@@ -1,6 +1,6 @@
 .gradient {
-  background: linear-gradient(to right, var(--_primary), var(--_secondary), var(--_tertiary));
-  background-size: 200% 200%;
+  background: linear-gradient(to right, var(--_primary), var(--_secondary), var(--_tertiary), var(--_tertiary), var(--_secondary), var(--_primary));
+  background-size: 200%;
   background-clip: text;
   -webkit-background-clip: text;
   color: var(--text);
@@ -9,7 +9,8 @@
 @media (prefers-reduced-motion: no-preference) {
   .gradient {
     animation: shine 4s ease-in-out infinite;
-    transition: color 300ms ease-in-out;
+    transition: color 300ms ease-in;
+    animation-direction: alternate;
 
     &:hover {
       color: transparent;
@@ -23,11 +24,7 @@
     background-position: left
   }
 
-  50% {
-    background-position: right
-  }
-
   100% {
-    background-position: left
+    background-position: right
   }
 }
