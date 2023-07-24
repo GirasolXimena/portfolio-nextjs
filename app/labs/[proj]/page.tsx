@@ -17,7 +17,7 @@ async function ProjectIndexPage({ params }: { params: { proj: string } }) {
   const chapters = (await getContent(url)).filter(({ name, type }) => !name.startsWith('.') && type === 'dir')
   const chapterContent = await Promise.all(chapters.map(async (chapter) => {
     const exercises = await getContent(`${baseDir ? `${baseDir}/` : ''}${chapter.name}`)
-    return exercises.map(exercise => ({
+    return exercises.filter(({ type, name }) => type === 'file' && !name.endsWith('.txt')).map(exercise => ({
       section: fileNametoTitle(chapter.name),
       title: fileNametoTitle(exercise.name),
       ...exercise,
