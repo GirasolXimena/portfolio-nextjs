@@ -1,35 +1,21 @@
-.exercises{
-  font-size: 2em;
-
+.container {
 }
+
 .list {
-  /* list-style:  */
+  font-size: 2em;
 }
 
-.item, .head {
-  display: flex;
-  justify-content: space-between;
+.item, .item:visited {
+  color: var(--text);
 }
 
 .item {
+  display: flex;
+  justify-content: space-between;
   margin-left: 2rem;
 }
 
-.item, .head a {
-  color: var(--text);
-}
-.item:visited, .head a:visited {
-  color: var(--text);
-}
-.dir, .head {
+.section {
   text-transform: uppercase;
 }
 
-.head {
-  border-bottom: calc(1em / 16) solid black;
-  margin-top: 1.5em;
-}
-
-.head > * {
-  margin: 0;
-}

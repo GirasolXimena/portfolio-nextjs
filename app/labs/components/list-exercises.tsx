@@ -1,30 +1,31 @@
 'use client'
 import Link from 'next/link'
 import styles from './list-exercises.module.css'
-import { normalizePath, getExtension } from '../../../lib/util/string'
+// import { normalizePath, fileNametoTitle } from '../../../lib/util/string'
+
+type ListItems = {
+  path: string
+  title: string
+  section: string
+}[]
+
+
 
 // This is a Client Component. It receives data as props and
 // has access to state and effects just like Page components
 // in the `pages` directory.
-export default function HomePage({ exercises, project, baseDir }) {
-  const makeUrl = (path: string) => `${project}/${normalizePath(path, baseDir)}`
-  const fileNametoTitle = (name: string) => name.split('.')[0].split('-').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
+function ListItems({ items }: { items: ListItems }) {
   return (
-    <div className={styles.exercises}>
-      <div className={styles.head}>
-        
-        <h3><Link href='/labs'>&lt;-</Link></h3>
-        <h3>{fileNametoTitle(project)}</h3>
-      </div>
+    <div className={styles.container}>
       <ol className={styles.list}>
-        {exercises.map((exercise) => (
-          <li key={exercise.path}>
-            <Link href={makeUrl(exercise.path)} className={styles.item}>
+        {items.map(({ path, title, section }) => (
+          <li key={path}>
+            <Link href={path} className={styles.item}>
               <span className={styles.name} >
-                {fileNametoTitle(exercise.name)}
+                {title}
               </span>
-              <span className={styles.dir}>
-                {fileNametoTitle(exercise.chapter)}
+              <span className={styles.section}>
+                {section}
               </span>
             </Link>
           </li>
@@ -33,3 +34,5 @@ export default function HomePage({ exercises, project, baseDir }) {
     </div>
   )
 }
+
+export default ListItems
