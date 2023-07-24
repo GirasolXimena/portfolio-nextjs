@@ -24,7 +24,12 @@
   overflow-x: auto;
   font-size: 0.8em;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+.description a {
+  color: var(--text);
 }
 
 .description > * {
@@ -35,10 +40,17 @@
   order: -1;
 }
 
-.title {
+.back {
+
+}
+
+.title, .back {
+  margin-bottom: 0.8em;
   font-size: 10em;
+}
+
+.title {
   text-align: right;
-  margin-bottom: 0.8em
 
 }
 .exercise {

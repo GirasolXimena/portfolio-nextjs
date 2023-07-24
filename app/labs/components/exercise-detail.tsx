@@ -23,6 +23,7 @@ function ExerciseDetailPage({ title, content, type, subtitle, prismName, github_
         </pre>
         <figcaption className={styles.description}>
           <h1 className={styles.title}>{formattedTitle}</h1>
+          <Link className={styles.back} href='../'>&lt;-</Link>
           {/* <h2 className={styles.subtitle}>
             <Link href={`../`}>{subtitle}</Link>
           </h2> */}
