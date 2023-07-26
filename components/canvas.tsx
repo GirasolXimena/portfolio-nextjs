@@ -2,10 +2,11 @@ import { useRef, useEffect } from 'react'
 import drawArrow from './drawArrow'
 
 const Canvas = props => {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
+    if (!canvas) return
     const context = canvas.getContext('2d')
     canvas.height = props.height
     canvas.width = props.width

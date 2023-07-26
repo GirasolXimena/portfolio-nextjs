@@ -4,18 +4,18 @@ import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState, useRef } from 'react'
 import palettes from '../styles/themes'
-import { inter, noto_sans, roboto_mono } from '../app/fonts'
+// import { inter, noto_sans, roboto_mono } from '../app/fonts'
 
 export default function Hero() {
-  const [save, setSave] = useState(false)
-  const [theme, setTheme] = useState(undefined)
-  const [palette, setPalette] = useState(undefined)
-  const [playing, setPlaying] = useState(5)
-  const [audio, setAudio] = useState({})
-  const [audioContext, setAudioContext] = useState(false)
-  const audioElement = useRef(null)
-  const [musicType, setMusicType] = useState(undefined)
-  let [factor, setFactor] = useState({ x: 1, y: 1 })
+  const [save, setSave] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  const [palette, setPalette] = useState<string>('');
+  const [playing, setPlaying] = useState<number>(5);
+  const [audio, setAudio] = useState<any>({});
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const audioElement = useRef<HTMLAudioElement>(null);
+  const [musicType, setMusicType] = useState<string>('');
+  let [factor, setFactor] = useState<{ x: number; y: number; }>({ x: 1, y: 1 });
 
   const toCartesianCoords = ({ x, y }) => {
     const { width, height } = document.documentElement.getBoundingClientRect()
@@ -42,16 +42,18 @@ export default function Hero() {
   }
 
   const handleTouch = ({ touches }) => {
-    const { width, height } = document.getElementById('hero').getBoundingClientRect()
+    const hero = document.getElementById('hero')
+    if (!hero) return
+    const { width, height } = hero.getBoundingClientRect()
     const { clientX, clientY } = touches[0]
     const halfWidth = width / 2
     const halfHeight = height / 2
     const xPos = clientX - halfWidth
     const yPos = clientY - halfHeight
-    setMousePosition({
-      x: xPos / width * 2,
-      y: yPos / height * 2
-    })
+    // setMousePosition({
+    //   x: xPos / width * 2,
+    //   y: yPos / height * 2
+    // })
   }
 
   const handleToggle = ({ target: { checked } }) => {
@@ -73,7 +75,7 @@ export default function Hero() {
   const handleKey = ({ key }) => {
     if (musicType || key === 'Escape') {
       setPalette('default')
-      setMusicType(undefined)
+      setMusicType('')
     }
     if (key.toLowerCase() === 's') {
       setMusicType('/audio/Shrek.mp3')
@@ -106,7 +108,8 @@ export default function Hero() {
 
   useEffect(() => {
     if (!audioContext) {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const audioContext = new window.AudioContext();
+      if(!audioElement.current) return
       const source = audioContext.createMediaElementSource(audioElement.current)
       const analyzer = audioContext.createAnalyser()
       analyzer.fftSize = 2048
@@ -119,12 +122,15 @@ export default function Hero() {
 
   const startPlaying = () => {
     const { documentElement: { style } } = document
+    if(!audioElement.current || !audioContext) return
     audioElement.current.src = musicType
     let data = new Float32Array(audio.frequencyBinCount)
     audioElement.current.play()
+    // if(!audioContext) return
     audioContext.resume()
     const draw = (data) => {
-      style.setProperty('--amp', data * 20)
+      const val = data * 20
+      style.setProperty('--amp', String(val))
     }
     const loop = () => {
       audio.getFloatTimeDomainData(data)
@@ -145,6 +151,7 @@ export default function Hero() {
   }
 
   const stopPlaying = () => {
+    if(!audioElement.current) return
     audioElement.current.pause()
     cancelAnimationFrame(playing)
   }
@@ -163,7 +170,9 @@ export default function Hero() {
     if (palette) {
       const { documentElement: { style } } = document
       for (const [property, value] of Object.entries(palettes[palette])) {
-        style.setProperty(`--${property}`, value)
+        if (typeof value === 'string') {
+          style.setProperty(`--${property}`, value)
+        }
       }
     }
   }, [palette]);
@@ -177,7 +186,7 @@ export default function Hero() {
   }, [factor]);
 
 
-  const resetMouse = (_e) => {
+  const resetMouse = () => {
     setShadow({ x: 1 / 4, y: 1 / 4 })
     setFactor({ x: 1, y: 1 })
     setSave(false)
@@ -186,12 +195,13 @@ export default function Hero() {
   useEffect(() => {
     const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
     const home = document.getElementById('home')
+    if (!home) return
     if (!prefersReducedMotion) {
       home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch, { passive: true })
       home.onkeyup = handleKey
-      home.onclick = ('click', handleClick)
+      home.onclick = (handleClick)
       home.onwheel = handleScroll
     }
 
@@ -206,7 +216,8 @@ export default function Hero() {
   useEffect(() => {
     if (theme === undefined) {
       const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
-      const toggle = document.getElementById('toggle')
+      const toggle = document.getElementById('toggle') as HTMLInputElement
+      if (!toggle) return
       toggle.checked = prefersDarkScheme
     }
   }, [theme]);
@@ -219,14 +230,15 @@ export default function Hero() {
         <label htmlFor="toggle">Toggle {theme} mode</label>
       </form>
       <h1 id="name" className={styles.cmyk}>
-        <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto
+        Ximena
+        {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
         <br />
         Andrade
       </h1>
-      <h2 className={styles.cmyk}>
+      {/* <h2 className={styles.cmyk}>
         Creative Technologist
-      </h2>
-      <Navbar home />
+      </h2> */}
+      <Navbar theme='home' />
     </div>
   )
 }
