@@ -4,41 +4,33 @@ import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 import { useEffect, useState, useRef } from 'react'
 import palettes from '../styles/themes'
+import utilities from '../lib/util'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 
 export default function Hero() {
   const [save, setSave] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  const [theme, setTheme] = useState<string>('light');
   const [palette, setPalette] = useState<string>('');
   const [playing, setPlaying] = useState<number>(5);
   const [audio, setAudio] = useState<any>({});
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const audioElement = useRef<HTMLAudioElement>(null);
   const [musicType, setMusicType] = useState<string>('');
-  let [factor, setFactor] = useState<{ x: number; y: number; }>({ x: 1, y: 1 });
+  let [factor, setFactor] = useState<{
+    x: number;
+    y: number;
+  }>({
+    x: 1,
+    y: 1
+  });
 
-  const toCartesianCoords = ({ x, y }) => {
-    const { width, height } = document.documentElement.getBoundingClientRect()
-    const halfWidth = width / 2
-    const halfHeight = height / 2
-    const xPos = x - halfWidth
-    const yPos = y - halfHeight
-    return {
-      x: xPos / width,
-      y: yPos / height
-    }
-  }
+
 
   const handleMouse = ({ x, y }) => {
+    const { toCartesianCoords } = utilities
     if (save === false) {
       setShadow(toCartesianCoords({ x, y }))
     }
-  }
-
-  const setShadow = ({ x, y }) => {
-    const { documentElement: { style } } = document
-    style.setProperty('--mouse-x', x)
-    style.setProperty('--mouse-y', y)
   }
 
   const handleTouch = ({ touches }) => {
@@ -50,10 +42,10 @@ export default function Hero() {
     const halfHeight = height / 2
     const xPos = clientX - halfWidth
     const yPos = clientY - halfHeight
-    // setMousePosition({
-    //   x: xPos / width * 2,
-    //   y: yPos / height * 2
-    // })
+    setShadow({
+      x: xPos / width * 2,
+      y: yPos / height * 2
+    })
   }
 
   const handleToggle = ({ target: { checked } }) => {
@@ -70,7 +62,7 @@ export default function Hero() {
     }
   }
 
-  const handleClick = (_e) => setSave(!save)
+  const handleClick = () => setSave(!save)
 
   const handleKey = ({ key }) => {
     if (musicType || key === 'Escape') {
@@ -94,7 +86,7 @@ export default function Hero() {
     }
   }
 
-  const handleScroll = (e) => {
+  const handleScroll = (e: WheelEvent) => {
     e.preventDefault()
     const { deltaX, deltaY } = e
     const { x, y } = factor
@@ -105,20 +97,6 @@ export default function Hero() {
       y: factorY
     })
   }
-
-  useEffect(() => {
-    if (!audioContext) {
-      const audioContext = new window.AudioContext();
-      if(!audioElement.current) return
-      const source = audioContext.createMediaElementSource(audioElement.current)
-      const analyzer = audioContext.createAnalyser()
-      analyzer.fftSize = 2048
-      source.connect(audioContext.destination)
-      source.connect(analyzer)
-      setAudioContext(audioContext)
-      setAudio((audio) => (audio.audioData = analyzer));
-    }
-  }, [audioContext])
 
   const startPlaying = () => {
     const { documentElement: { style } } = document
@@ -155,6 +133,33 @@ export default function Hero() {
     audioElement.current.pause()
     cancelAnimationFrame(playing)
   }
+
+  const resetMouse = () => {
+    setShadow({ x: 1 / 4, y: 1 / 4 })
+    setFactor({ x: 1, y: 1 })
+    setSave(false)
+  }
+
+  const setShadow = ({ x, y }) => {
+    const { documentElement: { style } } = document
+    style.setProperty('--mouse-x', x)
+    style.setProperty('--mouse-y', y)
+  }
+
+  useEffect(() => {
+    if (!audioContext) {
+      const audioContext = new window.AudioContext();
+      if(!audioElement.current) return
+      const source = audioContext.createMediaElementSource(audioElement.current)
+      const analyzer = audioContext.createAnalyser()
+      analyzer.fftSize = 2048
+      source.connect(audioContext.destination)
+      source.connect(analyzer)
+      setAudioContext(audioContext)
+      setAudio((audio) => (audio.audioData = analyzer));
+    }
+  }, [audioContext])
+
   useEffect(() => {
     if (musicType) {
       startPlaying()
@@ -164,7 +169,6 @@ export default function Hero() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [musicType])
-
 
   useEffect(() => {
     if (palette) {
@@ -184,13 +188,6 @@ export default function Hero() {
     style.setProperty('--factor-y', `calc(${y}em / 8)`)
 
   }, [factor]);
-
-
-  const resetMouse = () => {
-    setShadow({ x: 1 / 4, y: 1 / 4 })
-    setFactor({ x: 1, y: 1 })
-    setSave(false)
-  }
 
   useEffect(() => {
     const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
