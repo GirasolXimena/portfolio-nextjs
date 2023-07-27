@@ -16,8 +16,12 @@
   }
 
   .cmyk {
-    --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
-    --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
+    --x-primary: calc(0.25 * var(--_factor-x));
+    --y-primary: calc(0.25 * var(--_factor-y));
+    @media (prefers-reduced-motion: no-preference) {
+      --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
+      --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
+    }
     --x-secondary: var(--x-primary);
     --y-secondary: calc(var(--x-secondary) * -1);
     --x-tertiary: calc(var(--x-primary) * -1);

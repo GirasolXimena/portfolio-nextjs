@@ -2,14 +2,17 @@
 
 import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
-import { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import palettes from '../styles/themes'
 import utilities from '../lib/util'
+import useMouseCoordinates from '../hooks/useMouseCoordinates'
+import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
+import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme'
+import ThemeSwitcher from './theme-switcher'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 
 export default function Hero() {
   const [save, setSave] = useState(false);
-  const [theme, setTheme] = useState<string>('light');
   const [palette, setPalette] = useState<string>('');
   const [playing, setPlaying] = useState<number>(5);
   const [audio, setAudio] = useState<any>({});
@@ -24,15 +27,8 @@ export default function Hero() {
     y: 1
   });
 
-
-
-  const handleMouse = ({ x, y }) => {
-    const { toCartesianCoords } = utilities
-    if (save === false) {
-      setShadow(toCartesianCoords({ x, y }))
-    }
-  }
-
+  const reduceMotion = usePrefersReducedMotion();
+  const preferDark = usePrefersDarkColorScheme();
   const handleTouch = ({ touches }) => {
     const hero = document.getElementById('hero')
     if (!hero) return
@@ -46,20 +42,6 @@ export default function Hero() {
       x: xPos / width * 2,
       y: yPos / height * 2
     })
-  }
-
-  const handleToggle = ({ target: { checked } }) => {
-    const { documentElement: { style } } = document
-
-    if (checked) {
-      style.setProperty('--background', 'var(--_dark)')
-      style.setProperty('--text', 'var(--_light)')
-      setTheme('dark')
-    } else {
-      style.setProperty('--background', 'var(--_light)')
-      style.setProperty('--text', 'var(--_dark)')
-      setTheme('light')
-    }
   }
 
   const handleClick = () => setSave(!save)
@@ -100,7 +82,7 @@ export default function Hero() {
 
   const startPlaying = () => {
     const { documentElement: { style } } = document
-    if(!audioElement.current || !audioContext) return
+    if (!audioElement.current || !audioContext) return
     audioElement.current.src = musicType
     let data = new Float32Array(audio.frequencyBinCount)
     audioElement.current.play()
@@ -129,7 +111,7 @@ export default function Hero() {
   }
 
   const stopPlaying = () => {
-    if(!audioElement.current) return
+    if (!audioElement.current) return
     audioElement.current.pause()
     cancelAnimationFrame(playing)
   }
@@ -149,7 +131,7 @@ export default function Hero() {
   useEffect(() => {
     if (!audioContext) {
       const audioContext = new window.AudioContext();
-      if(!audioElement.current) return
+      if (!audioElement.current) return
       const source = audioContext.createMediaElementSource(audioElement.current)
       const analyzer = audioContext.createAnalyser()
       analyzer.fftSize = 2048
@@ -194,7 +176,6 @@ export default function Hero() {
     const home = document.getElementById('home')
     if (!home) return
     if (!prefersReducedMotion) {
-      home.addEventListener('mousemove', handleMouse)
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch, { passive: true })
       home.onkeyup = handleKey
@@ -203,30 +184,30 @@ export default function Hero() {
     }
 
     return () => {
-      home.removeEventListener('mousemove', handleMouse)
       home.removeEventListener('mouseleave', resetMouse)
       home.removeEventListener('touchstart', handleTouch)
       home.removeEventListener('click', handleClick)
     };
   });
 
-  useEffect(() => {
-    if (theme === undefined) {
-      const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
-      const toggle = document.getElementById('toggle') as HTMLInputElement
-      if (!toggle) return
-      toggle.checked = prefersDarkScheme
-    }
-  }, [theme]);
 
+  const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const coords = useMouseCoordinates(true, prefersReducedMotion);
+  const shadowStyles = { '--_mouse-x': coords.x, '--_mouse-y': coords.y } as React.CSSProperties
   return (
     <div id="hero" className={`${styles.hero}`}>
+      {/* {coords.x} {coords.y} */}
+      <pre>
+        reduce motion {reduceMotion ? 'true' : 'false'}
+        <br />
+        prefers dark {preferDark ? 'true' : 'false'}
+        <br />
+        x: {coords.x}
+        <br />
+        y: {coords.y}
+      </pre>
       <audio id="audio" ref={audioElement} src=""></audio>
-      <form className={styles.form}>
-        <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
-        <label htmlFor="toggle">Toggle {theme} mode</label>
-      </form>
-      <h1 id="name" className={styles.cmyk}>
+      <h1 id="name" className={styles.cmyk} style={shadowStyles}>
         Ximena
         {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
         <br />
