@@ -6,6 +6,8 @@ import {
   inter
 } from './fonts'
 import '../styles/global.scss'
+import DefaultHeader from '../components/default-header'
+import styles from '../styles/layout.module.scss'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -17,7 +19,8 @@ const fontVariableNames = [noto_sans, roboto_mono, inter]
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang='en' className={fontVariableNames}>
-    <body className='body'>
+    <body className={styles.body} >
+      <DefaultHeader />
       {children}
     </body>
   </html>

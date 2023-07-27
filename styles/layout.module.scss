@@ -1,10 +1,12 @@
-.container {
-  padding: 0 1rem;
+.body {
+  padding: 0 1.5em;
 }
 
 .header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   
   @media print {
     display: none;

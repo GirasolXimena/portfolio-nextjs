@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 }
 
 const LabsLayout = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ margin: '1.5em' }}>
-    <Navbar theme='labs' />
-    {/* <Counter /> */}
+  <div className='layout labs'>
     {children}
   </div>
 )
