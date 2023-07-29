@@ -8,7 +8,6 @@ import {
 import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
 import DefaultLayout from '../components/default-layout'
-import PaletteSwitcher from '../components/palette-switcher'
 
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang='en' className={fontVariableNames}>
     <body className={styles.body} >
       <DefaultLayout home={true}>
-      <PaletteSwitcher />
         {children}
       </DefaultLayout>
     </body>

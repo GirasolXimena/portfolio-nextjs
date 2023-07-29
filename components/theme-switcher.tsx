@@ -1,40 +1,38 @@
 'use client'
-
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/theme-switcher.module.scss'
 import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme';
+import utilities from '../lib/util';
 
 
 function ThemeSwitcher() {
-  const [theme, setTheme] = useState<string>('light');
-  const toggle = useRef<HTMLInputElement>(null);
-
-  
+  const [isDark, setIsDark] = useState<boolean>(false);
   const prefersDarkScheme = usePrefersDarkColorScheme();
+
   useEffect(() => {
-    if(!toggle.current) return
-    toggle.current.checked = prefersDarkScheme
-  });
+    setIsDark(prefersDarkScheme)
+  }, [prefersDarkScheme]);
 
-  const handleToggle = ({ target: { checked } }) => {
-    const { documentElement: { style } } = document
-
-    if (checked) {
-      style.setProperty('--background', 'var(--_dark)')
-      style.setProperty('--text', 'var(--_light)')
-      setTheme('dark')
-    } else {
-      style.setProperty('--background', 'var(--_light)')
-      style.setProperty('--text', 'var(--_dark)')
-      setTheme('light')
-    }
-  }
-
+  useEffect(() => {
+    const { setCustomProperties } = utilities
+    setCustomProperties({
+      background: `var(--_${isDark ? 'dark' : 'light'})`,
+      text: `var(--_${isDark ? 'light' : 'dark'})`,
+    })
+  }, [isDark])
 
   return (
     <form className={styles.form}>
-      <input ref={toggle} onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
-      <label htmlFor="toggle">Toggle {theme} mode</label>
+      <input
+        onChange={() => setIsDark(!isDark)}
+        type="checkbox"
+        name="dark-mode-toggle"
+        id="toggle"
+        checked={isDark}
+      />
+      <label htmlFor="toggle">
+        Toggle {isDark ? 'light' : 'dark'} mode
+      </label>
     </form>
   )
 }

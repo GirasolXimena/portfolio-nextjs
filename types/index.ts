@@ -20,3 +20,17 @@ export interface GithubRepoItem {
 }
 
 export type GithhubRepoItems = GithubRepoItem[];
+
+export interface CSSPalette {
+  light: string;
+  dark: string;
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  font: string;
+  [key: string]: string;
+}
+
+export interface Palettes {
+  [key: string]: CSSPalette;
+}

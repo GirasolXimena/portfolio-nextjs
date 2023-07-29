@@ -1,4 +1,6 @@
-const palettes = {
+import { Palettes } from "../../types"
+
+const palettes: Palettes = {
   default: {
     light: 'gainsboro',
     dark: '#323313',
