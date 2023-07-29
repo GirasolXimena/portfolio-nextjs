@@ -1,14 +1,12 @@
 import Head from 'next/head'
 import styles from '../styles/layout.module.scss'
-import Link from 'next/link'
-import utilStyles from '../styles/utils.module.scss'
-import Navbar from './navbar'
+import DefaultHeader from './default-header'
 
 const name = 'S. Roberto Andrade'
 const jobTitle = 'Creative Technologist'
 export const siteTitle = `${name} | ${jobTitle}`
 
-export default function Layout({ children, home }) {
+export default function RootLayout({ children, home }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -26,17 +24,8 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        <Navbar theme='layout' />
-      </header>
+      <DefaultHeader />
       <main>{children}</main>
-      {!home && (
-        <div className={`${styles.backToHome} ${utilStyles.noPrint}`} >
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
     </div>
   )
 }

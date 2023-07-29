@@ -6,8 +6,10 @@ import {
   inter
 } from './fonts'
 import '../styles/global.scss'
-import DefaultHeader from '../components/default-header'
 import styles from '../styles/layout.module.scss'
+import DefaultLayout from '../components/default-layout'
+import PaletteSwitcher from '../components/palette-switcher'
+
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -20,8 +22,10 @@ const fontVariableNames = [noto_sans, roboto_mono, inter]
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang='en' className={fontVariableNames}>
     <body className={styles.body} >
-      <DefaultHeader />
-      {children}
+      <DefaultLayout home={true}>
+      <PaletteSwitcher />
+        {children}
+      </DefaultLayout>
     </body>
   </html>
 )

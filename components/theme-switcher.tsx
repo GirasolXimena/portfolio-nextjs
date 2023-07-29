@@ -1,21 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/theme-switcher.module.scss'
+import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme';
 
 
 function ThemeSwitcher() {
   const [theme, setTheme] = useState<string>('light');
+  const toggle = useRef<HTMLInputElement>(null);
 
-
+  
+  const prefersDarkScheme = usePrefersDarkColorScheme();
   useEffect(() => {
-    if (theme === undefined) {
-      const { matches: prefersDarkScheme } = window.matchMedia("(prefers-color-scheme: dark)");
-      const toggle = document.getElementById('toggle') as HTMLInputElement
-      if (!toggle) return
-      toggle.checked = prefersDarkScheme
-    }
-  }, [theme]);
+    if(!toggle.current) return
+    toggle.current.checked = prefersDarkScheme
+  });
 
   const handleToggle = ({ target: { checked } }) => {
     const { documentElement: { style } } = document
@@ -34,7 +33,7 @@ function ThemeSwitcher() {
 
   return (
     <form className={styles.form}>
-      <input onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
+      <input ref={toggle} onChange={handleToggle} type="checkbox" name="night-toggle" id="toggle" />
       <label htmlFor="toggle">Toggle {theme} mode</label>
     </form>
   )

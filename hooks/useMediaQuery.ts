@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 
-const isRenderingOnServer = typeof window === 'undefined';
-
-const getInitialState = () => isRenderingOnServer || !window.matchMedia
-
 function useMediaQuery(query) {
-  const [isQuery, setQuery] = useState(getInitialState);
+  const [isQuery, setQuery] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(query);

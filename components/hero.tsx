@@ -3,17 +3,13 @@
 import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 import React, { useEffect, useState, useRef } from 'react'
-import palettes from '../styles/themes'
 import utilities from '../lib/util'
 import useMouseCoordinates from '../hooks/useMouseCoordinates'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
-import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme'
-import ThemeSwitcher from './theme-switcher'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 
 export default function Hero() {
   const [save, setSave] = useState(false);
-  const [palette, setPalette] = useState<string>('');
   const [playing, setPlaying] = useState<number>(5);
   const [audio, setAudio] = useState<any>({});
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
@@ -28,7 +24,7 @@ export default function Hero() {
   });
 
   const reduceMotion = usePrefersReducedMotion();
-  const preferDark = usePrefersDarkColorScheme();
+  // const reduceMotion = false;
   const handleTouch = ({ touches }) => {
     const hero = document.getElementById('hero')
     if (!hero) return
@@ -45,28 +41,6 @@ export default function Hero() {
   }
 
   const handleClick = () => setSave(!save)
-
-  const handleKey = ({ key }) => {
-    if (musicType || key === 'Escape') {
-      setPalette('default')
-      setMusicType('')
-    }
-    if (key.toLowerCase() === 's') {
-      setMusicType('/audio/Shrek.mp3')
-      setPalette('Shrek')
-    }
-    if (key.toLowerCase() === 'd') {
-      setMusicType('/audio/Doom.mp3')
-      setPalette('Doom')
-    }
-    if (key.toLowerCase() === 'v') {
-      setMusicType('/audio/Vapor.mp3')
-      setPalette('Vaporwave')
-    }
-    if (key.toLowerCase() === 'q') {
-      setPalette('Queer')
-    }
-  }
 
   const handleScroll = (e: WheelEvent) => {
     e.preventDefault()
@@ -153,17 +127,6 @@ export default function Hero() {
   }, [musicType])
 
   useEffect(() => {
-    if (palette) {
-      const { documentElement: { style } } = document
-      for (const [property, value] of Object.entries(palettes[palette])) {
-        if (typeof value === 'string') {
-          style.setProperty(`--${property}`, value)
-        }
-      }
-    }
-  }, [palette]);
-
-  useEffect(() => {
     const { documentElement: { style } } = document
     const { x, y } = factor
     style.setProperty('--factor-x', `calc(${x}em / 16)`)
@@ -172,42 +135,39 @@ export default function Hero() {
   }, [factor]);
 
   useEffect(() => {
-    const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
     const home = document.getElementById('home')
     if (!home) return
-    if (!prefersReducedMotion) {
+    if (!reduceMotion) {
       home.addEventListener('mouseleave', resetMouse)
       home.addEventListener('touchstart', handleTouch, { passive: true })
-      home.onkeyup = handleKey
-      home.onclick = (handleClick)
-      home.onwheel = handleScroll
+      home.addEventListener('click', handleClick)
+      home.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
       home.removeEventListener('mouseleave', resetMouse)
       home.removeEventListener('touchstart', handleTouch)
       home.removeEventListener('click', handleClick)
+      home.removeEventListener('wheel', handleScroll)
     };
   });
 
-
-  const { matches: prefersReducedMotion } = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const coords = useMouseCoordinates(true, prefersReducedMotion);
-  const shadowStyles = { '--_mouse-x': coords.x, '--_mouse-y': coords.y } as React.CSSProperties
+  const coords = useMouseCoordinates(true, reduceMotion);
   return (
     <div id="hero" className={`${styles.hero}`}>
       {/* {coords.x} {coords.y} */}
       <pre>
         reduce motion {reduceMotion ? 'true' : 'false'}
         <br />
-        prefers dark {preferDark ? 'true' : 'false'}
-        <br />
         x: {coords.x}
         <br />
         y: {coords.y}
       </pre>
       <audio id="audio" ref={audioElement} src=""></audio>
-      <h1 id="name" className={styles.cmyk} style={shadowStyles}>
+      <h1 id="name" className={styles.cmyk} style={{
+        '--_mouse-x': coords.x,
+        '--_mouse-y': coords.y
+      } as React.CSSProperties}>
         Ximena
         {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
         <br />
