@@ -4,7 +4,7 @@ import PaletteSwitcher from "./palette-switcher";
 import ThemeSwitcher from "./theme-switcher";
 import utilities from "../lib/util";
 import styles from '../styles/layout.module.scss'
-import palettes from "../styles/themes";
+import palettes from "../styles/palettes";
 import { useState, useEffect } from "react";
 
 const { setCustomProperties } = utilities
@@ -12,18 +12,18 @@ const { setCustomProperties } = utilities
 function HeaderControls() {
   const [palette, setPalette] = useState<string>('default');
   useEffect(() => {
-    setCustomProperties(palettes[palette])
+    setCustomProperties(palettes[palette].properties)
   }, [palette])
 
-  const musicType = `/audio/${palette}.mp3`;
   return (
     <div className={styles.controls}>
+      <AudioPlayer
+        musicType={palettes[palette].audio}
+      />
       <PaletteSwitcher
         currentPalette={palette}
         setPalette={setPalette}
       />
-      {musicType}
-      <AudioPlayer musicType={musicType} />
       <ThemeSwitcher />
     </div>
   );

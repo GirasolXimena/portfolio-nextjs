@@ -1,4 +1,4 @@
-import palettes from "../styles/themes"
+import palettes from "../styles/palettes"
 import styles from "../styles/palette-switcher.module.scss"
 import utilStyles from "../styles/utils.module.scss"
 

@@ -2,10 +2,10 @@
 import { useRef, useState } from "react";
 import utilities from "../lib/util";
 
-function AudioPlayer({ musicType }: { musicType: string }) {
+function AudioPlayer({ musicType }: { musicType: string | undefined }) {
   const audioElement = useRef<HTMLAudioElement>(null);
   const audioData = useRef<AnalyserNode | null>(null);
-  const [playing, setPlaying] = useState<number>(5);
+  const [playing, setPlaying] = useState<number>(0);
   const audioContext = useRef<AudioContext | null>(null);
   const createAudioContext = () => {
     audioContext.current = new window.AudioContext();
@@ -19,6 +19,7 @@ function AudioPlayer({ musicType }: { musicType: string }) {
   }
 
   const startPlaying = () => {
+    if (!musicType) return
     // if there is no audio element or audio context, create them
     if (!audioContext.current) {
       createAudioContext()
@@ -45,10 +46,8 @@ function AudioPlayer({ musicType }: { musicType: string }) {
       }
       const amp = Math.sqrt(sumQuares / data.length)
       draw(amp)
-      if (musicType) {
-        const id = requestAnimationFrame(loop)
-        setPlaying(id)
-      }
+      const id = requestAnimationFrame(loop)
+      setPlaying(id)
     }
     const id = requestAnimationFrame(loop)
     setPlaying(id);
@@ -59,13 +58,24 @@ function AudioPlayer({ musicType }: { musicType: string }) {
     if (!audioElement.current) return
     audioElement.current.pause()
     cancelAnimationFrame(playing)
+    setPlaying(0)
   }
 
   return (
     <div>
+      {
+        !!musicType && (
+          <>
+            {
+              playing ?
+              <button onClick={stopPlaying}>Stop</button> :
+              <button onClick={startPlaying}>Play</button>
+            }
+
+          </>
+        )
+      }
       <audio id="audio" ref={audioElement}></audio>
-      <button onClick={startPlaying}>Play</button>
-      <button onClick={stopPlaying}>Stop</button>
     </div>
   )
 }
