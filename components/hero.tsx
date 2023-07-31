@@ -4,12 +4,12 @@ import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
-import useMouseCoordinates from '../hooks/useMouseCoordinates'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
 export default function Hero() {
+  const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
   const heroElement = useRef<HTMLDivElement>(null);
   const [factor, setFactor] = useState<{
@@ -20,47 +20,31 @@ export default function Hero() {
     y: 1
   });
 
-  const reduceMotion = usePrefersReducedMotion();
 
   const handleMouseMove = (event) => {
     const x = (event.clientX - (window.innerWidth / 2)) / (window.innerWidth / 2)
     const y = (event.clientY - (window.innerHeight / 2)) / (window.innerHeight / 2)
     setCustomProperties({
-      '--mouse-x': `${x}`,
-      '--mouse-y': `${y}`,
+      'mouse-x': `${x}`,
+      'mouse-y': `${y}`,
     })
   }
 
 
   const setShadow = ({ x, y }) => {
-    console.log('setting shadow')
     setCustomProperties({
-      '--shadow-x': `${x}px`,
-      '--shadow-y': `${y}px`
+      'shadow-x': `${x}px`,
+      'shadow-y': `${y}px`
     })
   }
 
   const resetMouse = () => {
-    console.log('resetting mouse')
     setShadow({ x: 1 / 4, y: 1 / 4 })
     setFactor({ x: 1, y: 1 })
     setSave(false)
   }
 
-
-  useEffect(() => {
-    console.log('factor changed')
-    const { x, y } = factor
-    setCustomProperties({
-      '--factor-x': `calc(${x}em / 16)`,
-      '--factor-y': `calc(${y}em / 8)`
-    })
-
-  }, [factor]);
-
-
   const handleTouch = ({ touches }) => {
-    console.log('touching')
     const { clientX, clientY } = touches[0]
     const { x, y } = toCartesianCoords({ x: clientX, y: clientY })
     setShadow({
@@ -69,24 +53,30 @@ export default function Hero() {
     })
   }
 
-  const handleScroll = useCallback((event: WheelEvent) => {
-    console.log('scrolling')
-    event.preventDefault()
-    const { deltaX, deltaY } = event
+  useEffect(() => {
     const { x, y } = factor
-    const factorX = x + deltaX / 100
-    const factorY = y + deltaY / 100
-    setFactor({
-      x: factorX,
-      y: factorY
+    setCustomProperties({
+      'factor-x': `calc(${x}em / 16)`,
+      'factor-y': `calc(${y}em / 8)`
     })
-  }, [factor])
 
-  const handleClick = () => setSave(!save)
+  }, [factor]);
+
   useEffect(() => {
     const home = heroElement.current
-    console.log('adding event listeners')
     if (!home) return
+
+    const handleScroll = (event: WheelEvent) => {
+      event.preventDefault()
+      const { deltaX, deltaY } = event
+      const { x, y } = factor
+      const factorX = x + deltaX / 100
+      const factorY = y + deltaY / 100
+      setFactor({
+        x: factorX,
+        y: factorY
+      })
+    }
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
@@ -96,7 +86,7 @@ export default function Hero() {
     return () => {
       home.removeEventListener('wheel', handleScroll)
     };
-  }, [handleScroll, reduceMotion]);
+  }, [reduceMotion, factor]);
 
   return (
     <div
@@ -105,18 +95,10 @@ export default function Hero() {
       className={`${styles.hero}`}
       // todo: reduce motion rules
       onMouseLeave={resetMouse}
-      onClick={handleClick}
+      onClick={() => setSave(!save)}
       onTouchStart={handleTouch}
       onMouseMove={handleMouseMove}
     >
-      {/* {coords.x} {coords.y} */}
-      <pre>
-        reduce motion {reduceMotion ? 'true' : 'false'}
-        <br />
-        {/* x: {mouseCoordinates.x} */}
-        <br />
-        {/* y: {mouseCoordinates.y} */}
-      </pre>
       <h1 id="name" className={styles.cmyk}>
         Ximena
         {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
@@ -126,7 +108,7 @@ export default function Hero() {
       {/* <h2 className={styles.cmyk}>
         Creative Technologist
       </h2> */}
-      {/* <Navbar theme='home' /> */}
+      <Navbar theme='home' />
     </div>
   )
 }
