@@ -23,6 +23,7 @@ export default function Hero() {
   const reduceMotion = usePrefersReducedMotion();
 
   const setShadow = ({ x, y }) => {
+    console.log('setting shadow')
     setCustomProperties({
       '--shadow-x': `${x}px`,
       '--shadow-y': `${y}px`
@@ -30,6 +31,7 @@ export default function Hero() {
   }
 
   const resetMouse = () => {
+    console.log('resetting mouse')
     setShadow({ x: 1 / 4, y: 1 / 4 })
     setFactor({ x: 1, y: 1 })
     setSave(false)
@@ -37,6 +39,7 @@ export default function Hero() {
 
 
   useEffect(() => {
+    console.log('factor changed')
     const { x, y } = factor
     setCustomProperties({
       '--factor-x': `calc(${x}em / 16)`,
@@ -47,6 +50,7 @@ export default function Hero() {
 
 
   const handleTouch = ({ touches }) => {
+    console.log('touching')
     const { clientX, clientY } = touches[0]
     const { x, y } = toCartesianCoords({ x: clientX, y: clientY })
     setShadow({
@@ -56,6 +60,7 @@ export default function Hero() {
   }
 
   const handleScroll = useCallback((event: WheelEvent) => {
+    console.log('scrolling')
     event.preventDefault()
     const { deltaX, deltaY } = event
     const { x, y } = factor
@@ -86,7 +91,7 @@ export default function Hero() {
   const coords = useMouseCoordinates(true, reduceMotion);
 
   useEffect(() => {
-    // console.log('setting custom properties')
+    console.log('setting mouse coords')
     setCustomProperties({
       '--mouse-x': String(coords.x),
       '--mouse-y': String(coords.y)
@@ -120,7 +125,7 @@ export default function Hero() {
       {/* <h2 className={styles.cmyk}>
         Creative Technologist
       </h2> */}
-      <Navbar theme='home' />
+      {/* <Navbar theme='home' /> */}
     </div>
   )
 }
