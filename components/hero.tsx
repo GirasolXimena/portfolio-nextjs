@@ -63,8 +63,8 @@ export default function Hero() {
   }, [factor]);
 
   useEffect(() => {
-    const home = heroElement.current
-    if (!home) return
+    const hero = heroElement.current
+    if (!hero) return
 
     const handleScroll = (event: WheelEvent) => {
       event.preventDefault()
@@ -80,18 +80,17 @@ export default function Hero() {
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
-      home.addEventListener('wheel', handleScroll, { passive: false })
+      hero.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
-      home.removeEventListener('wheel', handleScroll)
+      hero.removeEventListener('wheel', handleScroll)
     };
   }, [reduceMotion, factor]);
 
   return (
     <div
       ref={heroElement}
-      id="hero"
       className={`${styles.hero}`}
       // todo: reduce motion rules
       onMouseLeave={resetMouse}
