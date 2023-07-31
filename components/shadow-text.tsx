@@ -1,18 +1,16 @@
 'use client'
 
 import styles from '../styles/hero.module.scss'
-import Navbar from './navbar'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
-import ShadowText from './shadow-text'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
-export default function Hero() {
+function ShadowText({ children }) {
   const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
-  const heroElement = useRef<HTMLDivElement>(null);
+  const currentElement = useRef<HTMLDivElement>(null);
   const [factor, setFactor] = useState<{
     x: number;
     y: number;
@@ -64,8 +62,8 @@ export default function Hero() {
   }, [factor]);
 
   useEffect(() => {
-    const hero = heroElement.current
-    if (!hero) return
+    const element = currentElement.current
+    if (!element) return
 
     const handleScroll = (event: WheelEvent) => {
       event.preventDefault()
@@ -81,28 +79,26 @@ export default function Hero() {
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
-      hero.addEventListener('wheel', handleScroll, { passive: false })
+      element.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
-      hero.removeEventListener('wheel', handleScroll)
+      element.removeEventListener('wheel', handleScroll)
     };
   }, [reduceMotion, factor]);
 
   return (
-    <ShadowText>
-      <article className={`${styles.hero}`}>
-        <h1 id="name" className={styles.cmyk}>
-          Ximena
-          {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
-          <br />
-          Andrade
-        </h1>
-        {/* <h2 className={styles.cmyk}>
-          Creative Technologist
-        </h2> */}
-        <Navbar theme='home' />
-      </article>
-    </ShadowText>
+    <div
+      ref={currentElement}
+      // todo: reduce motion rules
+      onMouseLeave={resetMouse}
+      onClick={() => setSave(!save)}
+      onTouchStart={handleTouch}
+      onMouseMove={handleMouseMove}
+    >
+      {children}
+    </div>
   )
 }
+
+export default ShadowText
