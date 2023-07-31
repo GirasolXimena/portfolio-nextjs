@@ -1,10 +1,10 @@
+'use client'
 import { useRef, useState } from "react";
 import utilities from "../lib/util";
 
-function AudioPlayer() {
+function AudioPlayer({ musicType }: { musicType: string }) {
   const audioElement = useRef<HTMLAudioElement>(null);
   const audioData = useRef<AnalyserNode | null>(null);
-  const [musicType, setMusicType] = useState<string>('/audio/Doom.mp3');
   const [playing, setPlaying] = useState<number>(5);
   const audioContext = useRef<AudioContext | null>(null);
   const createAudioContext = () => {
@@ -24,7 +24,7 @@ function AudioPlayer() {
       createAudioContext()
     }
     // audioData is created in createAudioContext
-    if(!audioElement.current || !audioData.current) return
+    if (!audioElement.current || !audioData.current) return
     // set the source of the audio element to the music type
     audioElement.current.src = musicType
     // 
@@ -37,7 +37,7 @@ function AudioPlayer() {
       utilities.setCustomProperties({ '--amp': String(val) })
     }
     const loop = () => {
-      if(!audioData.current) return
+      if (!audioData.current) return
       audioData.current.getFloatTimeDomainData(data)
       let sumQuares = 0.0
       for (const ampliltude of data) {

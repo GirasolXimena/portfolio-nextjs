@@ -4,6 +4,7 @@ import styles from '../styles/theme-switcher.module.scss'
 import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme';
 import utilities from '../lib/util';
 
+const { setCustomProperties } = utilities
 
 function ThemeSwitcher() {
   const [isDark, setIsDark] = useState<boolean>(false);
@@ -14,7 +15,6 @@ function ThemeSwitcher() {
   }, [prefersDarkScheme]);
 
   useEffect(() => {
-    const { setCustomProperties } = utilities
     setCustomProperties({
       background: `var(--_${isDark ? 'dark' : 'light'})`,
       text: `var(--_${isDark ? 'light' : 'dark'})`,

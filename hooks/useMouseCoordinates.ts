@@ -3,10 +3,9 @@ import { useEffect, useState } from "react"
 function useMouseCoordinates(cartesian = false, prefersReducedMotion = false) {
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 })
   useEffect(() => {
-    const {
-      matches: prefersReducedMotion
-    } = window.matchMedia("(prefers-reduced-motion: reduce)");
+    console.log('setting up mouse coordinates')
     const handleMouseMove = (event: MouseEvent) => {
+      console.log('mouse move')
       if (cartesian) {
         setMouseCoordinates({
           x: (event.clientX - (window.innerWidth / 2)) / (window.innerWidth / 2),
@@ -27,7 +26,7 @@ function useMouseCoordinates(cartesian = false, prefersReducedMotion = false) {
         document.removeEventListener("mousemove", handleMouseMove)
       }
     }
-  })
+  }, [prefersReducedMotion, cartesian])
 
   return mouseCoordinates
 }

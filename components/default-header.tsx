@@ -1,15 +1,13 @@
 import Navbar from "./navbar";
-import ThemeSwitcher from "./theme-switcher";
 import styles from '../styles/layout.module.scss'
-import PaletteSwitcher from "./palette-switcher";
+import HeaderControls from "./header-controls";
 
 function DefaultHeader() {
   return (
-      <header className={styles.header}>
-        <Navbar theme='labs' />
-        <PaletteSwitcher />
-        <ThemeSwitcher />
-      </header>
+    <header className={styles.header}>
+      <Navbar theme='labs' />
+      <HeaderControls />
+    </header>
   )
 }
 export default DefaultHeader;
