@@ -22,6 +22,16 @@ export default function Hero() {
 
   const reduceMotion = usePrefersReducedMotion();
 
+  const handleMouseMove = (event) => {
+    const x = (event.clientX - (window.innerWidth / 2)) / (window.innerWidth / 2)
+    const y = (event.clientY - (window.innerHeight / 2)) / (window.innerHeight / 2)
+    setCustomProperties({
+      '--mouse-x': `${x}`,
+      '--mouse-y': `${y}`,
+    })
+  }
+
+
   const setShadow = ({ x, y }) => {
     console.log('setting shadow')
     setCustomProperties({
@@ -88,16 +98,6 @@ export default function Hero() {
     };
   }, [handleScroll, reduceMotion]);
 
-  const coords = useMouseCoordinates(true, reduceMotion);
-
-  useEffect(() => {
-    console.log('setting mouse coords')
-    setCustomProperties({
-      '--mouse-x': String(coords.x),
-      '--mouse-y': String(coords.y)
-    })
-  }, [coords])
-
   return (
     <div
       ref={heroElement}
@@ -107,14 +107,15 @@ export default function Hero() {
       onMouseLeave={resetMouse}
       onClick={handleClick}
       onTouchStart={handleTouch}
+      onMouseMove={handleMouseMove}
     >
       {/* {coords.x} {coords.y} */}
       <pre>
         reduce motion {reduceMotion ? 'true' : 'false'}
         <br />
-        x: {coords.x}
+        {/* x: {mouseCoordinates.x} */}
         <br />
-        y: {coords.y}
+        {/* y: {mouseCoordinates.y} */}
       </pre>
       <h1 id="name" className={styles.cmyk}>
         Ximena
