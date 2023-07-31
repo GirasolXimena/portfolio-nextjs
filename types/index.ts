@@ -21,16 +21,20 @@ export interface GithubRepoItem {
 
 export type GithhubRepoItems = GithubRepoItem[];
 
-export interface CSSPalette {
+type PaletteProperties = {
   light: string;
   dark: string;
   primary: string;
   secondary: string;
   tertiary: string;
   font: string;
-  [key: string]: string;
-}
+};
+
+type Palette = {
+  properties: PaletteProperties;
+  audio?: string; // the audio property is optional
+};
 
 export interface Palettes {
-  [key: string]: CSSPalette;
+  [key: string]: Palette;
 }
