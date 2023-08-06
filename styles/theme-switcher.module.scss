@@ -1,23 +1,25 @@
+// theme-switcher.module.scss
 .form {
   --w: 4rem;
   --h: calc(var(--w) / 2);
   --br: calc(var(--w) / 1);
-  --size: calc(var(--w) / 3);
+  --size: calc(var(--w) * 0.45);
 
   display: flex;
   display: grid;
   justify-content: center;
   align-items: center;
   position: relative;
-
+  
   &, input, label {
     width: var(--w);
     height: var(--h);
     margin: 0;
     padding: 0;
   }
-
+  
   input {
+    cursor: pointer;
     // hide actual checkbox
     opacity: 0;
     // put it above label for focus and hover
@@ -29,7 +31,7 @@
       }
     }
 
-    &:focus {
+    &:focus, &:hover {
       + label {
         --offset: 2px;
         --offset-negative: calc(var(--offset) * -1);
@@ -48,6 +50,7 @@
       + label {
         transform: scale(1.05);
         &::before {
+          transform: scale(1.05);
           opacity: 1;
         }
       }
@@ -56,7 +59,7 @@
     &:checked {
       +label {
         &::after {
-          transform: translate(25%, 25%);
+          transform: translate(-0%, 5%);
         }
       }
     }
@@ -65,12 +68,14 @@
       +label {
         &::after {
           content: "|";
+          font-size: 36px;
           display: grid;
           place-items: center;
           justify-content: center;
           // centers the text vertically
-          line-height: 1.5em;
-          transform: translate(-50%, 25%);
+          font-weight: 900;
+          line-height: 44px;
+          transform: translate(-50%, 5%);
         }
       }
     }
@@ -101,7 +106,7 @@
       content: "";
       top: 0;
       left: 50%;
-      transform: translate(-125%, 25%);
+      transform: translate(-100%, 5%);
       width: var(--size);
       height: var(--size);
       background-color: var(--background);

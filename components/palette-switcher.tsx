@@ -1,18 +1,19 @@
 import palettes from "../styles/palettes"
 import styles from "../styles/palette-switcher.module.scss"
-import utilStyles from "../styles/utils.module.scss"
 import utilities from "../lib/util"
 import { useEffect, useRef } from "react"
 
 function PaletteSwitcher({ currentPalette, setPalette }) {
-  const paletteSwitcherRef = useRef<HTMLDivElement>(null);
-  const allPalettes = Object.keys(palettes)
-  const nextPaletteIndex = allPalettes.indexOf(currentPalette) + 1
-  const nextPalette = allPalettes[nextPaletteIndex] || allPalettes[0]
+  const paletteSwitcherRef = useRef<HTMLButtonElement>(null);
+  const paletteKeys = Object.keys(palettes)
+  const nextPaletteIndex = paletteKeys.indexOf(currentPalette) + 1
+  const nextPalette = paletteKeys[nextPaletteIndex] || paletteKeys[0]
 
   useEffect(() => {
     if (!paletteSwitcherRef.current) return
-    utilities.setCustomProperties(palettes[nextPalette].properties, paletteSwitcherRef.current)
+    const properties = palettes[nextPalette].properties
+    const element = paletteSwitcherRef.current
+    utilities.setCustomProperties(properties, element)
   }, [nextPalette])
 
   const handleClick = () => {
@@ -20,11 +21,13 @@ function PaletteSwitcher({ currentPalette, setPalette }) {
   }
 
   return (
-    <div ref={paletteSwitcherRef} className={styles.options}>
-      <div className={utilStyles.srOnly}>Palette Switcher</div>
-      <div>
-        <button onClick={handleClick}>new palette</button>
-      </div>
+    <div className={styles.options}>
+      <button
+        ref={paletteSwitcherRef}
+        onClick={handleClick}
+        aria-label="change palette"
+        data-label="palette"
+      ></button>
     </div>
   )
 }

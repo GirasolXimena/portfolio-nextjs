@@ -1,6 +1,8 @@
 'use client'
 import { useRef, useState } from "react";
 import utilities from "../lib/util";
+import SoundIcon from "./mute-icon";
+import styles from "../styles/audio-player.module.scss"
 
 function AudioPlayer({ musicType }: { musicType: string | undefined }) {
   const audioElement = useRef<HTMLAudioElement>(null);
@@ -62,17 +64,17 @@ function AudioPlayer({ musicType }: { musicType: string | undefined }) {
   }
 
   return (
-    <div className="audio-container" style={{width: '60px', height: '30px', backgroundColor: 'gray' }}>
+    <div className={styles.container}>
       {
         !!musicType && (
-          <>
-            {
-              playing ?
-              <button onClick={stopPlaying}>Stop</button> :
-              <button onClick={startPlaying}>Play</button>
-            }
-
-          </>
+          <button
+            className={`${styles.button} ${playing && 'playing'}` }
+            onClick={playing ? stopPlaying : startPlaying}
+            data-label={`${playing ? 'mute' : 'audio'}`}
+            aria-label={`${playing ? 'stop' : 'play'} audio`}
+          >
+            <SoundIcon size="36" playing={Boolean(playing)} />
+          </button>
         )
       }
       <audio id="audio" ref={audioElement}></audio>
