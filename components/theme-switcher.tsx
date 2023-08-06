@@ -1,39 +1,43 @@
-'use client'
 import { useEffect, useState } from 'react';
-import styles from '../styles/theme-switcher.module.scss'
-import usePrefersDarkColorScheme from '../hooks/usePrefersDarkColorScheme';
-import utilities from '../lib/util';
-
-const { setCustomProperties } = utilities
+import { useTheme } from 'next-themes';
+import styles from '../styles/theme-switcher.module.scss';
+import ThreeStateCheckbox from './three-state-checkbox';
 
 function ThemeSwitcher() {
-  const [isDark, setIsDark] = useState<boolean>(false);
-  const prefersDarkScheme = usePrefersDarkColorScheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [checked, setChecked] = useState(theme === 'system' ? null : theme === 'dark');
 
+  // Avoid hydration mismatch by only rendering form when mounted
   useEffect(() => {
-    setIsDark(prefersDarkScheme)
-  }, [prefersDarkScheme]);
+    setMounted(true);
+  }, []);
 
-  useEffect(() => {
-    setCustomProperties({
-      background: `var(--_${isDark ? 'dark' : 'light'})`,
-      text: `var(--_${isDark ? 'light' : 'dark'})`,
-    })
-  }, [isDark])
+  // Handle theme change
+  const onChange = (checked) => {
+    if (checked === null) {
+      setTheme('system');
+    } else if (checked) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+    setChecked(checked);
+  };
 
-  return (
+  return mounted && (
     <form className={styles.form}>
-      <input
-        onChange={() => setIsDark(!isDark)}
-        type="checkbox"
+      <ThreeStateCheckbox
+        onChange={onChange}
         name="dark-mode-toggle"
         id="toggle"
-        checked={isDark}
+        checked={checked}
       />
-      <label htmlFor="toggle">
-        Toggle {isDark ? 'light' : 'dark'} mode
+      <label data-theme={theme} htmlFor="toggle">
+        {theme}
       </label>
     </form>
-  )
+  );
 }
+
 export default ThemeSwitcher;

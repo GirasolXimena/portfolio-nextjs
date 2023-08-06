@@ -1,109 +1,119 @@
 .form {
+  --w: 4rem;
+  --h: calc(var(--w) / 2);
+  --br: calc(var(--w) / 1);
+  --size: calc(var(--w) / 3);
+
   display: flex;
   display: grid;
   justify-content: center;
   align-items: center;
-  // margin: auto;
-  font-size: 0px;
+  position: relative;
+
+  &, input, label {
+    width: var(--w);
+    height: var(--h);
+    margin: 0;
+    padding: 0;
+  }
 
   input {
-    position: absolute;
+    // hide actual checkbox
     opacity: 0;
-    
+    // put it above label for focus and hover
+    z-index: 1;
+
     + label {
-      outline: 2px solid transparent;
-      transform: scale(1,1);
-      transition:
-        outline 125s ease,
-        transform .15s ease;
+      &, &::after {
+        transition: transform .35s ease;
+      }
     }
-    
+
     &:focus {
       + label {
-        --shadow-primary: 0 4px 4px var(--_primary);
-        --shadow-secondary: -4px -4px 4px var(--_secondary);
-        --shadow-tertiary: 4px -4px 4px var(--_tertiary);
+        --offset: 2px;
+        --offset-negative: calc(var(--offset) * -1);
+        --blur: calc(var(--offset) * 2);
+        --shadow-primary: 0 var(--offset-negative) var(--blur) var(--_primary);
+        --shadow-secondary: var(--offset-negative) var(--offset) var(--blur) var(--_secondary);
+        --shadow-tertiary: var(--offset) var(--offset) var(--blur) var(--_tertiary);
         box-shadow:
           var(--shadow-primary),
           var(--shadow-secondary),
           var(--shadow-tertiary);
       }
     }
-    
-    &:active {
+
+    &:hover {
       + label {
         transform: scale(1.05);
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:checked {
+      +label {
+        &::after {
+          transform: translate(25%, 25%);
+        }
+      }
+    }
+
+    &:indeterminate {
+      +label {
+        &::after {
+          content: "|";
+          display: grid;
+          place-items: center;
+          justify-content: center;
+          // centers the text vertically
+          line-height: 1.5em;
+          transform: translate(-50%, 25%);
+        }
       }
     }
   }
-  
+
   label {
-    --w: 64px;
-    --h: calc(var(--w) / 2);
-    --br: calc(var(--w) / 1);
-    
-    position: relative;
-    background: var(--_dark);
-    display: block;
-    width: var(--w);
-    height: var(--h);
+    position: absolute;
+    text-align: center;
+    top: 0;
+    background-color: var(--text);
     border-radius: var(--br);
-    box-shadow:
-      0px
-      calc(var(--w) / 7.5)
-      calc(var(--w) / 3.75)
-      0px
-      rgba(51, 51, 51, 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    
-    &::before,
-    &::after {
-      content: "";
+    font-size: 0px;
+
+    &, &::before, &::after {
       position: absolute;
     }
-    
-    // Vars for pseudo elements
-    --size: calc(var(--w) / 3);
-    --offset: calc(var(--w) / 12);
-    
-    &::before {
-      width: var(--size);
-      height: var(--size);
-      border-radius: 50%;
-      background: var(--_light);
-      left: 0px;
-      top: 50%;
-      transform: translate(var(--offset) , -50%);
-      box-shadow:
-        calc(var(--w) - calc(var(--offset) * 2) - var(--size))
-        0px
-        0px
-        var(--_dark);
-      
-      z-index: 1;
+
+    &, &::after {
+      border-radius: var(--br);
+    }
+
+    &::before,
+    &::after {
+      font-size: initial;
     }
     
     &::after {
+      content: "";
+      top: 0;
+      left: 50%;
+      transform: translate(-125%, 25%);
       width: var(--size);
       height: var(--size);
-      left: 0;
-      top: 50%;
-      background: var(--_light);
-      transform: translate(-100%, -50%) scale(1);
-      transform-origin: left;
-      border-radius: 50%;
-      transition:
-        transform .35s ease;
+      background-color: var(--background);
     }
-    
-  }
-  
-  input:checked {
-    + label {
-      &::after {
-        transform: translate(-100%, -50%) scale(5);
-      }
+
+    &::before {
+      content: attr(data-theme);
+      height: var(--h);
+      width: var(--w);
+      top: 100%;
+      left: 0;
+      opacity: 0;
     }
   }
 }

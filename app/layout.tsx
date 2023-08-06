@@ -8,6 +8,7 @@ import {
 import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
 import DefaultLayout from '../components/default-layout'
+import { Providers } from './providers'
 
 
 export const metadata: Metadata = {
@@ -18,14 +19,18 @@ export const metadata: Metadata = {
 const fontVariableNames = [noto_sans, roboto_mono, inter]
   .map(({ variable }) => variable).join(' ')
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang='en' className={fontVariableNames}>
-    <body className={styles.body} >
-      <DefaultLayout home={true}>
-        {children}
-      </DefaultLayout>
-    </body>
-  </html>
-)
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <html suppressHydrationWarning>
+      <body className={styles.body}>
+        <Providers>
+          <DefaultLayout home={true}>
+            {children}
+          </DefaultLayout>
+        </Providers>
+      </body>
+    </html>
+  )
+}
 
 export default RootLayout

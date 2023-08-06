@@ -36,15 +36,16 @@
   --_blur: var(--blur, calc(1em / 64));
   font-family: var(--font-inter);
 
-  @media (prefers-color-scheme: dark) {
-    --background: var(--_dark);
-    --text: var(--_light);
-  }
+}
 
-  @media (prefers-color-scheme: light) {
-    --background: var(--_light);
-    --text: var(--_dark);
-  }
+[data-theme="light"] {
+  --background: var(--_light);
+  --text: var(--_dark);
+}
+
+[data-theme="dark"] {
+  --background: var(--_dark);
+  --text: var(--_light);
 }
 
 html,
