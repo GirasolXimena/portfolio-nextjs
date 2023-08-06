@@ -62,7 +62,7 @@ function AudioPlayer({ musicType }: { musicType: string | undefined }) {
   }
 
   return (
-    <div>
+    <div className="audio-container" style={{width: '60px', height: '30px', backgroundColor: 'gray' }}>
       {
         !!musicType && (
           <>
