@@ -1,19 +1,12 @@
 .hero {
   transition: color 1250ms ease, background-color 1250ms ease;
   display: grid;
-  width: 100vw;
-  height: 100vh;
   grid-template-columns: min-content;
   grid-template-rows: repeat(3, max-content);
   justify-content: center;
   align-content: center;
   background: var(--background);
   color: var(--text);
-
-
-  @media screen and (min-width: 768px) {
-    padding: 5em;
-  }
 
   .cmyk {
     --x-primary: calc(0.25 * var(--_factor-x));

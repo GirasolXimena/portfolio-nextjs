@@ -4,10 +4,8 @@ import utilStyles from '../styles/utils.module.scss'
 
 export default function Page() {
   return (
-    <div id="home">
-      <main className={utilStyles.headingMd} style={{ display: 'grid', alignItems: 'center', justifyItems: 'center', height: '100vh', width: '100vw' }}>
-        <Hero />
-      </main>
-    </div>
+    <article id="home" className={utilStyles.headingMd} style={{ display: 'grid', alignItems: 'center', justifyItems: 'center', height: '100%', width: '100%' }}>
+      <Hero />
+    </article>
   )
 }

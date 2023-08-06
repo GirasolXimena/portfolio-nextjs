@@ -10,7 +10,7 @@ export const siteTitle = `${name} | ${jobTitle}`
 export default function RootLayout({ children, home }) {
   return (
     <StrictMode>
-      <div className={styles.container}>
+      <div className={styles.container} id="layout-default">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <meta
@@ -26,8 +26,10 @@ export default function RootLayout({ children, home }) {
           <meta name="og:title" content={siteTitle} />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
-        <DefaultHeader />
-        <main>{children}</main>
+        <header className={styles.header} id="header">
+          <DefaultHeader />
+        </header>
+        <main className={styles.content} id="main-content">{children}</main>
       </div>
     </StrictMode>
   )
