@@ -1,7 +1,18 @@
-[] - move prefersreducedmotion checks to css
-[] - shadow text for home link in nav
-[] - figure out what to do with palette switcher
-[] - theme transitions at same time everywhere
-[] - no header when on main page
-[] - default dark mode then switch to light if needed
-[] - use headers to check for dark mode https://web.dev/user-preference-media-features-headers/
+# Task List
+- [ ] move prefersreducedmotion checks to css
+- [ ] move header to hero when on main page
+- [ ] shadow text for home link in nav
+- [ ] figure out what to do with palette switcher
+- [ ] theme transitions at same time everywhere
+- [ ] default dark mode then switch to light if needed
+- [ ] use headers to check for [dark mode](https://web.dev/user-preference-media-features-headers/)
+- [ ] enforce no semicolons
+- [ ] change code example theme based on light or dark mode
+- [ ] make lab page themes more readable
+- [ ] figure out a way to display code and run code that is displayed side by side
+- [ ] add 3d exercises to project 
+- [ ] add codepens to personal portfolio
+- [ ] layout and typography for text based articles
+- [ ] polish resume page
+- [ ] polish resume content and styling
+- [ ] [zelda](https://youtu.be/bGmr-zHDFfU) palette with anim and music 
