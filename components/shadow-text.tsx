@@ -7,7 +7,7 @@ import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
-function ShadowText({ children }) {
+function ShadowText({ children, textClass }) {
   const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
   const currentElement = useRef<HTMLDivElement>(null);
@@ -95,6 +95,7 @@ function ShadowText({ children }) {
       onClick={() => setSave(!save)}
       onTouchStart={handleTouch}
       onMouseMove={handleMouseMove}
+      className={textClass}
     >
       {children}
     </div>

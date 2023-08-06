@@ -1,15 +1,18 @@
 import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
+import ShadowText from './shadow-text'
 
 export default function Navbar({ theme }) {
   return (
     <nav id="nav-bar" className={`${styles.nav} ${utilStyles[theme]} ${styles[theme]}`}>
       <ul>
         {theme === 'labs' && (
-          <li className={styles.key}>
+          <li className={styles.cmyk}>
             <Link href="/">
-              Home
+              <ShadowText textClass={'texywexty'}>
+                Home
+              </ShadowText>
             </Link>
           </li>
         )}

@@ -6,10 +6,11 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
 import ShadowText from './shadow-text'
-// import { inter, noto_sans, roboto_mono } from '../app/fonts'
+import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
 export default function Hero() {
+
   const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
   const heroElement = useRef<HTMLDivElement>(null);
@@ -90,19 +91,16 @@ export default function Hero() {
   }, [reduceMotion, factor]);
 
   return (
-    <ShadowText>
-      <article className={`${styles.hero}`}>
-        <h1 id="name" className={styles.cmyk}>
-          Ximena
-          {/* <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto */}
-          <br />
-          Andrade
-        </h1>
-        {/* <h2 className={styles.cmyk}>
+    <ShadowText textClass={styles.hero}>
+      <h1 id="name" className={styles.cmyk}>
+        <span className={`${inter.variable}`}>X</span>&nbsp;imena
+        <br />
+        Andrade
+      </h1>
+      {/* <h2 className={styles.cmyk}>
           Creative Technologist
         </h2> */}
-        <Navbar theme='home' />
-      </article>
+      <Navbar theme='home' />
     </ShadowText>
   )
 }
