@@ -24,13 +24,16 @@ export const utilities = {
       angle
     }
   },
-  setCustomProperties: (properties: Record<string, string>) => {
+  setCustomProperties: (
+    properties: Record<string, string>,
+    element?: HTMLElement
+  ) => {
+    const targetElement = element || document.documentElement;
+  
     Object.entries(properties).forEach(([key, value]) => {
-      const style = document.documentElement.style
       const formattedKey = key.startsWith('--') ? key : `--${key}`;
-
-      style.setProperty(formattedKey, value)
-    })
+      targetElement.style.setProperty(formattedKey, value);
+    });
   }
 }
 

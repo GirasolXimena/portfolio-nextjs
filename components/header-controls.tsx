@@ -17,14 +17,14 @@ function HeaderControls() {
 
   return (
     <div className={styles.controls}>
-      <AudioPlayer
-        musicType={palettes[palette].audio}
-      />
+      <ThemeSwitcher />
       <PaletteSwitcher
         currentPalette={palette}
         setPalette={setPalette}
       />
-      <ThemeSwitcher />
+      <AudioPlayer
+        musicType={palettes[palette].audio}
+      />
     </div>
   );
 

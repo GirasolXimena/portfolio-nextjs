@@ -1,4 +1,21 @@
 .options {
   display: flex;
+  button {
+    background-color: var(--text);
+    color: var(--background);
+  }
+}
 
+[data-theme="light"] {
+  .options {
+    --text: var(--light);
+    --background: var(--dark);
+  }
+}
+
+[data-theme="dark"] {
+  .options {
+    --text: var(--dark);
+    --background: var(--light);
+  }
 }
