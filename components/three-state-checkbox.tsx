@@ -8,7 +8,7 @@ const updateInput = (ref, checked) => {
   }
 };
 
-const ThreeStateCheckbox = ({name, checked, onChange, id}) => {
+const ThreeStateCheckbox = ({name, checked, onChange, id, label, className, children}) => {
   const inputRef = useRef(null);
   const checkedRef = useRef(checked);
   useEffect(() => {
@@ -33,13 +33,17 @@ const ThreeStateCheckbox = ({name, checked, onChange, id}) => {
       }
   };
   return (
-    <input
+    <button
+      title="Toggles light & dark" 
+      aria-label="auto" 
+      aria-live="polite"
       ref={inputRef}
       id={id}
-      type="checkbox"
       name={name}
+      data-label={label}
+      className={className}
       onClick={handleClick}
-    />
+    >{ children } </button>
   );
 };
 

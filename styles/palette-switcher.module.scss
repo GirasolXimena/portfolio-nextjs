@@ -1,47 +1,33 @@
 // palette-switcher.module.scss
-.options {
-  display: flex;
+@import "./header-controls.module.scss";
 
-  
+.options {
+  @extend .centeredFlex;
+
   &,
   button {
-    align-items: center;
-    justify-content: center;
+    @extend .buttonBase;
     background-image:
-    radial-gradient(113% 91% at 17% -2%,var(--primary) 0%, transparent 100%),
-    radial-gradient(142% 91% at -6% 74%, var(--secondary) 0%, transparent 100%),
-    radial-gradient(75% 75% at 100% 50%, var(--tertiary) 0%, transparent 100%),
-    radial-gradient(142% 91% at 52% 56%, var(--background) 0%, var(--text) 100%);
+      radial-gradient(113% 91% at 17% -2%,
+        var(--primary) 0%,
+        transparent 100%),
+      radial-gradient(142% 91% at -6% 74%,
+        var(--secondary) 0%,
+        transparent 100%),
+      radial-gradient(75% 75% at 100% 50%,
+        var(--tertiary) 0%,
+        transparent 100%),
+      radial-gradient(142% 91% at 52% 56%,
+        var(--background) 0%,
+        var(--text) 100%);
     ;
-    border-radius: 50%;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  button {
-    border-width: 0;
-    opacity: 0;
-    transition: calc(.25s * 1) ease-in-out;
-    position: relative;
   }
 
-  button::after {
-    position: absolute;
-    text-align: center;
-    top: 100%;
-    content: attr(data-label);
-    display: block;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    color: var(--text);
+  button {
+    opacity: 0;
   }
 
   button:hover {
-    transform: scale(1.25);
     opacity: 1;
   }
 }

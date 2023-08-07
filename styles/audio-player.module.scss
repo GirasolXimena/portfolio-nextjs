@@ -1,40 +1,9 @@
 // audio-player.module.scss
+@import "./header-controls.module.scss";
 .container {
-  width: 36px;
-  height: 36px;
+  width: $width;
+  height: $height;
 }
 .button {
-  position: relative;
-  display: block;
-  border-radius: 50%;
-  padding: 0;
-  margin: 0;
-  border: none;
-  background-color: var(--text);
-  transition: calc(.25s * 1) ease-in-out;
-  cursor: pointer;
-}
-
-.button::after {
-  position: absolute;
-  text-align: center;
-  top: 0;
-  content: attr(data-label);
-  display: block;
-  width: 100%;
-  border-radius: 50%;
-  color: var(--text);
-  opacity: 0;
-}
-
-
-
-.button:hover {
-  scale: 1.25;
-  &::after {
-    opacity: 1;
-    top: 100%;
-    transform: translateY(0%);
-    transition: calc(.25s * 1) ease-in-out;
-  }
+  @extend .buttonBase;
 }

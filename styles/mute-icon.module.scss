@@ -1,21 +1,19 @@
 
+// shoutouts to chris cubellis 
+// for animation inspiration
+// https://codepen.io/chrscblls/pen/oNBbGba
 $spinAmount: 90deg; // has to be in units of 90deg
 $speed: 1; // higher speed is slower lol
   
-// codepen centering (ignore)
 
-// body {background: black; padding: calc(50vh - 60px) 50%; box-sizing: content-box; height: 100vh; overflow: hidden;}
 
 // svg
 
 svg.soundIcon {
   display: block;
   fill: var(--background);
-  opacity: 0.75;
   transition: calc(.25s * #{$speed}) ease-in-out;
-  &:hover {
-    opacity: 1;
-  }
+
 
   .mute {
     opacity: 1;

@@ -1,124 +1,20 @@
 // theme-switcher.module.scss
-.form {
-  --w: 4rem;
+@import "./header-controls.module.scss";
+
+.button {
+  --w: 64px;
   --h: calc(var(--w) / 2);
   --br: calc(var(--w) / 1);
   --size: calc(var(--w) * 0.45);
-
-  display: flex;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  
-  &, input, label {
-    width: var(--w);
-    height: var(--h);
-    margin: 0;
-    padding: 0;
+  @extend .buttonBase;
+  padding: 5%;
+  & svg {
+    display: block;
+    stroke-linecap: round;
   }
-  
-  input {
-    cursor: pointer;
-    // hide actual checkbox
+
+  .checkbox {
+    z-index: -1;
     opacity: 0;
-    // put it above label for focus and hover
-    z-index: 1;
-
-    + label {
-      &, &::after {
-        transition: transform .35s ease;
-      }
-    }
-
-    &:focus, &:hover {
-      + label {
-        --offset: 2px;
-        --offset-negative: calc(var(--offset) * -1);
-        --blur: calc(var(--offset) * 2);
-        --shadow-primary: 0 var(--offset-negative) var(--blur) var(--_primary);
-        --shadow-secondary: var(--offset-negative) var(--offset) var(--blur) var(--_secondary);
-        --shadow-tertiary: var(--offset) var(--offset) var(--blur) var(--_tertiary);
-        box-shadow:
-          var(--shadow-primary),
-          var(--shadow-secondary),
-          var(--shadow-tertiary);
-      }
-    }
-
-    &:hover {
-      + label {
-        transform: scale(1.05);
-        &::before {
-          transform: scale(1.05);
-          opacity: 1;
-        }
-      }
-    }
-
-    &:checked {
-      +label {
-        &::after {
-          transform: translate(-0%, 5%);
-        }
-      }
-    }
-
-    &:indeterminate {
-      +label {
-        &::after {
-          content: "|";
-          font-size: 36px;
-          display: grid;
-          place-items: center;
-          justify-content: center;
-          // centers the text vertically
-          font-weight: 900;
-          line-height: 44px;
-          transform: translate(-50%, 5%);
-        }
-      }
-    }
-  }
-
-  label {
-    position: absolute;
-    text-align: center;
-    top: 0;
-    background-color: var(--text);
-    border-radius: var(--br);
-    font-size: 0px;
-
-    &, &::before, &::after {
-      position: absolute;
-    }
-
-    &, &::after {
-      border-radius: var(--br);
-    }
-
-    &::before,
-    &::after {
-      font-size: initial;
-    }
-    
-    &::after {
-      content: "";
-      top: 0;
-      left: 50%;
-      transform: translate(-100%, 5%);
-      width: var(--size);
-      height: var(--size);
-      background-color: var(--background);
-    }
-
-    &::before {
-      content: attr(data-theme);
-      height: var(--h);
-      width: var(--w);
-      top: 100%;
-      left: 0;
-      opacity: 0;
-    }
   }
 }

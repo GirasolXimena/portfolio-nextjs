@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import styles from '../styles/theme-switcher.module.scss';
+import iconStyles from '../styles/theme-icon.module.scss';
 import ThreeStateCheckbox from './three-state-checkbox';
+import ThemeIcon from './theme-icon';
 
 function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -26,17 +28,16 @@ function ThemeSwitcher() {
   };
 
   return mounted && (
-    <form className={styles.form}>
-      <ThreeStateCheckbox
-        onChange={onChange}
-        name="dark-mode-toggle"
-        id="toggle"
-        checked={checked}
-      />
-      <label data-theme={theme} htmlFor="toggle">
-        {theme}
-      </label>
-    </form>
+    <ThreeStateCheckbox
+      className={`${styles.button} ${iconStyles.toggle}`}
+      onChange={onChange}
+      name="dark-mode-toggle"
+      id="toggle"
+      checked={checked}
+      label={theme}
+    >
+      <ThemeIcon />
+    </ThreeStateCheckbox>
   );
 }
 
