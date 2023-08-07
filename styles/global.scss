@@ -58,6 +58,7 @@ body {
   color: var(--text);
   height: 100%;
   width: 100%;
+  transition: color 1250ms ease, background-color 1250ms ease;
 }
 
 * {

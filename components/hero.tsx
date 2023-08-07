@@ -96,10 +96,6 @@ export default function Hero() {
         <br />
         Andrade
       </h1>
-      {/* <h2 className={styles.cmyk}>
-          Creative Technologist
-        </h2> */}
-      <Navbar theme='home' />
     </div>
   )
 }

@@ -1,12 +1,9 @@
 .hero {
-  transition: color 1250ms ease, background-color 1250ms ease;
   display: grid;
   grid-template-columns: min-content;
   grid-template-rows: repeat(3, max-content);
   justify-content: center;
   align-content: center;
-  background: var(--background);
-  color: var(--text);
 
   .cmyk {
     --x-primary: calc(0.25 * var(--_factor-x));
@@ -38,11 +35,6 @@
       var(--shadow-primary),
       var(--shadow-secondary),
       var(--shadow-tertiary);
-  }
-  
-  h1,
-  h2 {
-    transition: all 125ms ease;
   }
 
   h1 {
@@ -94,119 +86,6 @@
       @media screen and (min-width: 768px) {
         font-size: 1em;
         }
-    }
-  }
-}
-
-.form {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  display: flex;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  font-size: 0px;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    
-    + label {
-      outline: 2px solid transparent;
-      transform: scale(1,1);
-      transition:
-        outline 125s ease,
-        transform .15s ease;
-    }
-    
-    &:focus {
-      + label {
-        --shadow-primary: 0 4px 4px var(--_primary);
-        --shadow-secondary: -4px -4px 4px var(--_secondary);
-        --shadow-tertiary: 4px -4px 4px var(--_tertiary);
-        box-shadow:
-          var(--shadow-primary),
-          var(--shadow-secondary),
-          var(--shadow-tertiary);
-      }
-    }
-    
-    &:active {
-      + label {
-        transform: scale(1.05);
-      }
-    }
-  }
-  
-  label {
-    --w: 64px;
-    --h: calc(var(--w) / 2);
-    --br: calc(var(--w) / 1);
-    
-    position: relative;
-    background: var(--_dark);
-    display: block;
-    width: var(--w);
-    height: var(--h);
-    border-radius: var(--br);
-    box-shadow:
-      0px
-      calc(var(--w) / 7.5)
-      calc(var(--w) / 3.75)
-      0px
-      rgba(51, 51, 51, 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-    }
-    
-    // Vars for pseudo elements
-    --size: calc(var(--w) / 3);
-    --offset: calc(var(--w) / 12);
-    
-    &::before {
-      width: var(--size);
-      height: var(--size);
-      border-radius: 50%;
-      background: var(--_light);
-      left: 0px;
-      top: 50%;
-      transform: translate(var(--offset) , -50%);
-      box-shadow:
-        calc(var(--w) - calc(var(--offset) * 2) - var(--size))
-        0px
-        0px
-        var(--_dark);
-      
-      z-index: 1;
-    }
-    
-    &::after {
-      width: var(--size);
-      height: var(--size);
-      left: 0;
-      top: 50%;
-      background: var(--_light);
-      transform: translate(-100%, -50%) scale(1);
-      transform-origin: left;
-      border-radius: 50%;
-      transition:
-        transform .35s ease;
-    }
-    
-  }
-  
-  input:checked {
-    + label {
-      &::after {
-        transform: translate(-100%, -50%) scale(5);
-      }
     }
   }
 }
