@@ -5,7 +5,6 @@ import Navbar from './navbar'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
-import ShadowText from './shadow-text'
 import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
@@ -91,7 +90,7 @@ export default function Hero() {
   }, [reduceMotion, factor]);
 
   return (
-    <ShadowText textClass={styles.hero}>
+    <div className={styles.hero}>
       <h1 id="name" className={styles.cmyk}>
         <span className={`${inter.variable}`}>X</span>&nbsp;imena
         <br />
@@ -101,6 +100,6 @@ export default function Hero() {
           Creative Technologist
         </h2> */}
       <Navbar theme='home' />
-    </ShadowText>
+    </div>
   )
 }

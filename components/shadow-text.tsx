@@ -89,13 +89,15 @@ function ShadowText({ children, textClass }) {
 
   return (
     <div
+      style={{height: '100%', width: '100%'}}
+      id="shaodw-text"
       ref={currentElement}
       // todo: reduce motion rules
       onMouseLeave={resetMouse}
       onClick={() => setSave(!save)}
       onTouchStart={handleTouch}
       onMouseMove={handleMouseMove}
-      className={textClass}
+    className={textClass}
     >
       {children}
     </div>
