@@ -1,7 +1,6 @@
 # Task List
 - [ ] move prefersreducedmotion checks to css
 - [x] sync animation state when theme or palette transitions 
-- [ ] palette switcher button is animated gradient for next palette
 - [ ] move header to hero when on main page
 - [ ] shadow text for home link in nav
 - [x] default dark mode then switch to light if needed
@@ -14,6 +13,7 @@
 - [ ] add codepens to personal portfolio
 - [ ] layout and typography for text based articles
 - [ ] integrate [open props](https://css-tricks.com/open-props-and-custom-properties-as-a-system/)
+- [ ] palette switcher button is animated gradient for next palette [open props](https://css-tricks.com/open-props-and-custom-properties-as-a-system/)
 - [ ] polish resume page
 - [ ] polish resume content and styling
 - [ ] [zelda](https://youtu.be/bGmr-zHDFfU) palette with anim and music 
