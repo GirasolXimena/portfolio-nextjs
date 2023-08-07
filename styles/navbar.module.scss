@@ -1,3 +1,4 @@
+@import "animation.module.scss";
 .nav {
 
   .cyan,
@@ -40,27 +41,21 @@
   }
 
   .key {
-    a {
-      &:hover {
-        // color: var(--background);
-        text-shadow: -2px 2px 4px var(--_primary), 2px -2px 4px var(--_secondary), -2px -2px 4px var(--_tertiary);
-        text-decoration-color: var(--background);
-      }
-    }
+    @extend .textShadowMouse;
   }
 }
 
-.labs>ul {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-}
-
-.labs>ul>li {
-  margin: 0 1em;
-}
-
-.labs>ul>li:first-child {
-  margin-left: 0;
+.home, .labs {
+  & > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    & > li {
+      margin: 0 1em;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }

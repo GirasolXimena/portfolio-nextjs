@@ -10,8 +10,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 
 const { setCustomProperties } = utilities
 
-function HeaderControls() {
-  const segment = useSelectedLayoutSegment();
+function HeaderControls({ segment }) {
   const [palette, setPalette] = useState<string>('default');
   useEffect(() => {
     setCustomProperties(palettes[palette].properties)

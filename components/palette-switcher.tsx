@@ -21,7 +21,7 @@ function PaletteSwitcher({ currentPalette, setPalette, segment }) {
   }
 
   return (
-    <div className={`${styles.container} ${!segment && styles.home}`}>
+    <div className={`${styles.container} ${styles[segment]}`}>
       <button
         ref={paletteSwitcherRef}
         onClick={handleClick}

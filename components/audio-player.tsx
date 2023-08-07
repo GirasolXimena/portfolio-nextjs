@@ -4,7 +4,7 @@ import utilities from "../lib/util";
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
 
-function AudioPlayer({ musicType, segment }: { musicType: string | undefined ; segment: string | null }) {
+function AudioPlayer({ musicType, segment }: { musicType: string | undefined ; segment: string }) {
   const audioElement = useRef<HTMLAudioElement>(null);
   const audioData = useRef<AnalyserNode | null>(null);
   const [playing, setPlaying] = useState<number>(0);
@@ -64,7 +64,7 @@ function AudioPlayer({ musicType, segment }: { musicType: string | undefined ; s
   }
 
   return (
-    <div className={`${styles.container} ${!segment && styles.home}`}>
+    <div className={`${styles.container} ${styles[segment]}`}>
       {
         !!musicType && (
           <button

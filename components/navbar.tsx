@@ -2,12 +2,13 @@ import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
 
-export default function Navbar({ theme }) {
+export default function Navbar({ segment }) {
+
   return (
-    <nav id="nav-bar" className={`${styles.nav} ${utilStyles[theme]} ${styles[theme]}`}>
+    <nav id="nav-bar" className={`${styles.nav} ${utilStyles[segment]} ${styles[segment]}`}>
       <ul>
-        {theme === 'labs' && (
-          <li className={styles.cmyk}>
+        {segment !== 'home' && (
+          <li className={styles.key}>
             <Link href="/">
                 Home
             </Link>

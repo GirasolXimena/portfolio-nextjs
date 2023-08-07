@@ -29,7 +29,7 @@ function ThemeSwitcher({ segment }) {
 
 
   return mounted && (
-    <div className={`${styles.container} ${!segment && styles.home}`}>
+    <div className={`${styles.container} ${styles[segment]}`}>
       <ThreeStateCheckbox
         className={`${styles.button} ${iconStyles.toggle}`}
         onChange={onChange}

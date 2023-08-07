@@ -28,3 +28,35 @@
     background-position: right
   }
 }
+
+.textShadowMouse {
+  --x-primary: calc(0.25 * var(--_factor-x));
+  --y-primary: calc(0.25 * var(--_factor-y));
+  @media (prefers-reduced-motion: no-preference) {
+    --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
+    --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
+  }
+  --x-secondary: var(--x-primary);
+  --y-secondary: calc(var(--x-secondary) * -1);
+  --x-tertiary: calc(var(--x-primary) * -1);
+  --y-tertiary: calc(var(--y-primary) * -1);
+  --shadow-primary:
+    var(--x-primary)
+    var(--y-primary)
+    var(--_blur)
+    var(--_primary);
+  --shadow-secondary:
+    var(--x-secondary)
+    var(--y-secondary)
+    var(--_blur)
+    var(--_secondary);
+  --shadow-tertiary:
+    var(--x-tertiary)
+    var(--y-tertiary)
+    var(--_blur)
+    var(--_tertiary);
+  text-shadow:
+    var(--shadow-primary),
+    var(--shadow-secondary),
+    var(--shadow-tertiary);
+}
