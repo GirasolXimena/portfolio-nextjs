@@ -5,7 +5,7 @@ import iconStyles from '../styles/theme-icon.module.scss';
 import ThreeStateCheckbox from './three-state-checkbox';
 import ThemeIcon from './theme-icon';
 
-function ThemeSwitcher() {
+function ThemeSwitcher({ segment }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [checked, setChecked] = useState(theme === 'system' ? null : theme === 'dark');
@@ -27,17 +27,20 @@ function ThemeSwitcher() {
     setChecked(checked);
   };
 
+
   return mounted && (
-    <ThreeStateCheckbox
-      className={`${styles.button} ${iconStyles.toggle}`}
-      onChange={onChange}
-      name="dark-mode-toggle"
-      id="toggle"
-      checked={checked}
-      label={theme}
-    >
-      <ThemeIcon />
-    </ThreeStateCheckbox>
+    <div className={`${styles.container} ${!segment && styles.home}`}>
+      <ThreeStateCheckbox
+        className={`${styles.button} ${iconStyles.toggle}`}
+        onChange={onChange}
+        name="dark-mode-toggle"
+        id="toggle"
+        checked={checked}
+        label={theme}
+      >
+        <ThemeIcon />
+      </ThreeStateCheckbox>
+    </div>
   );
 }
 

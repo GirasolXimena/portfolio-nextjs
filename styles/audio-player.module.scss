@@ -1,8 +1,16 @@
 // audio-player.module.scss
 @import "./header-controls.module.scss";
 .container {
+  @extend .centeredFlex;
   width: $width;
   height: $height;
+
+  &.home {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
+  }
+
 }
 .button {
   @extend .buttonBase;

@@ -6,10 +6,12 @@ import utilities from "../lib/util";
 import styles from '../styles/layout.module.scss'
 import palettes from "../styles/palettes";
 import { useState, useEffect } from "react";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 const { setCustomProperties } = utilities
 
 function HeaderControls() {
+  const segment = useSelectedLayoutSegment();
   const [palette, setPalette] = useState<string>('default');
   useEffect(() => {
     setCustomProperties(palettes[palette].properties)
@@ -18,10 +20,14 @@ function HeaderControls() {
   return (
     <div className={styles.controls}>
       <AudioPlayer
+        segment={segment}
         musicType={palettes[palette].audio}
       />
-      <ThemeSwitcher />
+      <ThemeSwitcher
+        segment={segment}
+      />
       <PaletteSwitcher
+        segment={segment}
         currentPalette={palette}
         setPalette={setPalette}
       />

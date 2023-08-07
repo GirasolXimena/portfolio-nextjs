@@ -1,8 +1,14 @@
 // palette-switcher.module.scss
 @import "./header-controls.module.scss";
 
-.options {
+.container {
   @extend .centeredFlex;
+
+  &.home {
+    position: absolute;
+    bottom: 3em;
+    left: 3em;
+  }
 
   &,
   button {
@@ -33,14 +39,14 @@
 }
 
 [data-theme="light"] {
-  .options {
+  .container {
     --text: var(--dark);
     --background: var(--light);
   }
 }
 
 [data-theme="dark"] {
-  .options {
+  .container {
     --text: var(--light);
     --background: var(--dark);
   }

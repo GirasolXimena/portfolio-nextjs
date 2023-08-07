@@ -1,6 +1,13 @@
 // theme-switcher.module.scss
 @import "./header-controls.module.scss";
-
+.container {
+  @extend .centeredFlex;
+  &.home {
+    position: absolute;
+    top: 3em;
+    right: 3em;
+  }
+}
 .button {
   --w: 64px;
   --h: calc(var(--w) / 2);

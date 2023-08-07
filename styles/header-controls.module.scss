@@ -4,6 +4,7 @@ $scale: 1.15;
 $transition: calc(.25s * 1) ease-in-out;
 
 .buttonBase {
+  display: block;
   position: relative;
   color: var(--background);
   height: $height;
@@ -37,7 +38,7 @@ $transition: calc(.25s * 1) ease-in-out;
     transform: scale($scale);
     &::after {
       opacity: 1;
-      transform: translate(-50%, 100%);
+      transform: translate(-50%, 150%);
       transition: $transition;
     }
   }

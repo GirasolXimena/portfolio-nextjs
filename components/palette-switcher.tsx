@@ -3,7 +3,7 @@ import styles from "../styles/palette-switcher.module.scss"
 import utilities from "../lib/util"
 import { useEffect, useRef } from "react"
 
-function PaletteSwitcher({ currentPalette, setPalette }) {
+function PaletteSwitcher({ currentPalette, setPalette, segment }) {
   const paletteSwitcherRef = useRef<HTMLButtonElement>(null);
   const paletteKeys = Object.keys(palettes)
   const nextPaletteIndex = paletteKeys.indexOf(currentPalette) + 1
@@ -21,7 +21,7 @@ function PaletteSwitcher({ currentPalette, setPalette }) {
   }
 
   return (
-    <div className={styles.options}>
+    <div className={`${styles.container} ${!segment && styles.home}`}>
       <button
         ref={paletteSwitcherRef}
         onClick={handleClick}
