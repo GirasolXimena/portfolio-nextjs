@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   description: 'Welcome to Next.js',
 }
 
-const fontVariableNames = [noto_sans, roboto_mono, inter]
-  .map(({ variable }) => variable).join(' ')
+// const fontVariableNames = [noto_sans, roboto_mono, inter]
+  // .map(({ variable }) => variable).join(' ')
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning className={inter.className}>
       <body className={styles.body}>
         <Providers>
           <DefaultLayout home={true}>
