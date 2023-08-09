@@ -1,23 +1,13 @@
 'use client'
 
-import styles from '../styles/hero.module.scss'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
-import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
 // import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
 function ShadowText({ children, textClass }) {
-  const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
   const currentElement = useRef<HTMLDivElement>(null);
-  const [factor, setFactor] = useState<{
-    x: number;
-    y: number;
-  }>({
-    x: 1,
-    y: 1
-  });
 
 
   const handleMouseMove = (event) => {
@@ -38,8 +28,14 @@ function ShadowText({ children, textClass }) {
   }
 
   const resetMouse = () => {
+    console.log('reset mouse')
     setShadow({ x: 1 / 4, y: 1 / 4 })
-    setFactor({ x: 1, y: 1 })
+    setCustomProperties({
+      'factor-x': `calc(1em / 16)`,
+      'factor-y': `calc(1em / 8)`
+    })
+    document.documentElement.style.removeProperty('--_mouse-x')
+    document.documentElement.style.removeProperty('--_mouse-y')
     setSave(false)
   }
 
@@ -51,41 +47,6 @@ function ShadowText({ children, textClass }) {
       y: y * 2
     })
   }
-
-  useEffect(() => {
-    const { x, y } = factor
-    setCustomProperties({
-      'factor-x': `calc(${x}em / 16)`,
-      'factor-y': `calc(${y}em / 8)`
-    })
-
-  }, [factor]);
-
-  useEffect(() => {
-    const element = currentElement.current
-    if (!element) return
-
-    const handleScroll = (event: WheelEvent) => {
-      event.preventDefault()
-      const { deltaX, deltaY } = event
-      const { x, y } = factor
-      const factorX = x + deltaX / 100
-      const factorY = y + deltaY / 100
-      setFactor({
-        x: factorX,
-        y: factorY
-      })
-    }
-
-    // todo move reduceMotion to css
-    if (!reduceMotion) {
-      element.addEventListener('wheel', handleScroll, { passive: false })
-    }
-
-    return () => {
-      element.removeEventListener('wheel', handleScroll)
-    };
-  }, [reduceMotion, factor]);
 
   return (
     <div
