@@ -14,7 +14,7 @@
   --br: calc(var(--w) / 1);
   --size: calc(var(--w) * 0.45);
   @extend .buttonBase;
-  padding: 5%;
+  padding: 20%;
   & svg {
     display: block;
     stroke-linecap: round;
