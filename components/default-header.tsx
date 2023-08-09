@@ -7,7 +7,7 @@ function DefaultHeader() {
   const segment = useSelectedLayoutSegment() || 'home';
   return (
     <>
-      <Navbar segment={segment} />
+      {segment !== 'home' && <Navbar segment={segment} />}
       <HeaderControls segment={segment} />
     </>
   )

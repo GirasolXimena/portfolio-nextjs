@@ -92,10 +92,14 @@ export default function Hero() {
   return (
     <div className={styles.hero}>
       <h1 id="name" className={styles.cmyk}>
-        <span className={`${inter.variable}`}>X</span>&nbsp;imena
+        <span className={`${inter.variable}`}>S.</span>&nbsp;Roberto
         <br />
         Andrade
       </h1>
+      <h2 className={styles.cmyk}>
+        Creative Technologist
+      </h2>
+      <Navbar segment='home' />
     </div>
   )
 }
