@@ -17,7 +17,19 @@ function PaletteSwitcher({ currentPalette, setPalette, segment }) {
   }, [nextPalette])
 
   const handleClick = () => {
-    setPalette(nextPalette)
+    const bodyElem = document.body;
+
+    const handleTransitionEnd = (event) => {
+      console.log('transitionend', event)
+      setPalette(nextPalette);
+      if (event.propertyName === 'opacity') {
+        bodyElem.removeEventListener('transitionend', handleTransitionEnd);
+        bodyElem.classList.remove('transitioning');
+      }
+    };
+
+    bodyElem.classList.add('transitioning');
+    bodyElem.addEventListener('transitionend', handleTransitionEnd);
   }
 
   return (

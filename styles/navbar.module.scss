@@ -42,6 +42,7 @@
 
   .key {
     @extend .textShadowMouse;
+    transition: none;
   }
 }
 

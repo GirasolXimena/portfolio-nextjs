@@ -1,28 +1,35 @@
 @import "animation.module.scss";
 .hero {
+  @extend .boxShadowMouse;
   display: grid;
-  grid-template-columns: min-content;
+  grid-template-columns: max-content;
   grid-template-rows: repeat(3, max-content);
   justify-content: center;
   align-content: center;
+  background-image: radial-gradient(
+    100% 100% at 50% 50%,
+    var(--background) 0%,
+    transparent 90%
+  );
+  border-radius: 3em;
+  padding: 2em;
+  transition: --_amp 1s ease;
 
   h1 {
-    @extend .textShadowMouse;
     grid-row: 2 / span 1;
     font-size: 3em;
     font-weight: 900;
     line-height: 0.83em;
     margin: 0;
-    text-align: baseline;
 
     @media screen and (min-width: 768px) {
     font-size: 6em;
     }
 
     span {
-      margin-left: -0.25em;
-      margin-right: -0.25em;
-      pointer-events: none;
+      @extend .textShadowMouse;
+      margin: 0 -0.25em;
+      padding: 0;
     }
   }
 

@@ -8,7 +8,7 @@ const palettes: Palettes = {
       primary: 'yellow',
       secondary: 'magenta',
       tertiary: 'cyan',
-      font: 'Noto Sans'
+      font: 'noto_sans'
     },
   },
   shrek: {
@@ -25,10 +25,10 @@ const palettes: Palettes = {
   doom: {
     properties: {
     light: 'rgb(203, 0, 30)',
-    dark: 'rgb(116,108,148)',
+    tertiary: 'rgb(116,108,148)',
     primary: 'rgb(234, 170, 54)',
     secondary: 'rgb(85, 155, 166)',
-    tertiary: 'rgb(162, 175, 192)',
+    dark: 'rgb(162, 175, 192)',
     font: 'Doom'
     },
     audio: '/audio/doom.mp3'

@@ -38,7 +38,6 @@
   --_mouse-y: var(--mouse-y, calc(1/4));
   --_blur: var(--blur, calc(1em / 64));
   font-family: var(--font-inter);
-
 }
 
 [data-theme="light"] {
@@ -57,11 +56,49 @@ body {
   margin: 0;
   line-height: 1.6;
   font-size: 18px;
-  background-color: var(--background);
-  color: var(--text);
   height: 100%;
   width: 100%;
   transition: color 1250ms ease, background-color 1250ms ease;
+}
+
+html {
+  background-image: radial-gradient(
+      113% 91% at 17% 102%,
+      var(--primary) 0%,
+      transparent 100%
+    ),
+    radial-gradient(142% 91% at -6% 26%, var(--secondary) 0%, transparent 100%),
+    radial-gradient(75% 75% at 100% 50%, var(--tertiary) 0%, transparent 100%),
+    linear-gradient(var(--background), var(--text));
+  color: var(--text);
+}
+
+body {
+  &::before, &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+  }
+
+  &:after {
+    background-color: var(--background);
+    z-index: -1;
+    opacity: 0.5;
+
+  }
+  &::before {
+    pointer-events: none;
+    transition: background-color 1250ms ease, opacity 1250ms ease;
+    opacity: 0;
+    z-index: 2;
+  }
+  &.transitioning::before {
+    opacity: 1;
+  }
 }
 
 * {

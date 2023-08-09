@@ -3,10 +3,12 @@
 
 .container {
   @extend .centeredFlex;
+  // background-color: var(--background);
+  // background-color: white;
 
   &.home {
     position: absolute;
-    bottom: 3em;
+    top: 3em;
     left: 3em;
   }
 
@@ -14,19 +16,10 @@
   button {
     @extend .buttonBase;
     background-image:
-      radial-gradient(113% 91% at 17% -2%,
-        var(--primary) 0%,
-        transparent 100%),
-      radial-gradient(142% 91% at -6% 74%,
-        var(--secondary) 0%,
-        transparent 100%),
-      radial-gradient(75% 75% at 100% 50%,
-        var(--tertiary) 0%,
-        transparent 100%),
-      radial-gradient(142% 91% at 52% 56%,
-        var(--background) 0%,
-        var(--text) 100%);
-    ;
+      radial-gradient(113% 91% at 17% 102%, var(--primary) 0%, transparent 100%),
+      radial-gradient(142% 91% at -6% 26%, var(--secondary) 0%, transparent 100%),
+      radial-gradient(75% 75% at 100% 50%, var(--tertiary) 0%, transparent 100%),
+      linear-gradient(var(--background), var(--text));
   }
 
   button {
