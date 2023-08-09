@@ -1,18 +1,16 @@
 'use client'
 
 import styles from '../styles/hero.module.scss'
-import Navbar from './navbar'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import utilities from '../lib/util'
 import usePrefersReducedMotion from '../hooks/usePreferesReducedMotion'
-import { inter } from '../app/fonts'
+// import { inter, noto_sans, roboto_mono } from '../app/fonts'
 const { setCustomProperties, toCartesianCoords } = utilities
 
-export default function Hero() {
-
+function ShadowText({ children, textClass }) {
   const reduceMotion = usePrefersReducedMotion();
   const [save, setSave] = useState(false);
-  const heroElement = useRef<HTMLDivElement>(null);
+  const currentElement = useRef<HTMLDivElement>(null);
   const [factor, setFactor] = useState<{
     x: number;
     y: number;
@@ -64,8 +62,8 @@ export default function Hero() {
   }, [factor]);
 
   useEffect(() => {
-    const hero = heroElement.current
-    if (!hero) return
+    const element = currentElement.current
+    if (!element) return
 
     const handleScroll = (event: WheelEvent) => {
       event.preventDefault()
@@ -81,20 +79,29 @@ export default function Hero() {
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
-      // hero.addEventListener('wheel', handleScroll, { passive: false })
+      // element.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
-      // hero.removeEventListener('wheel', handleScroll)
+      // element.removeEventListener('wheel', handleScroll)
     };
   }, [reduceMotion, factor]);
 
-export default function Hero({ name }: { name: string }) {
-  useMouseInput();
   return (
-    <div className={styles.hero}>
-      <h1 id="name">{name}</h1>
-      <Navbar segment="home" />
+    <div
+      style={{height: '100%', width: '100%'}}
+      id="shaodw-text"
+      ref={currentElement}
+      // todo: reduce motion rules
+      onMouseLeave={resetMouse}
+      onClick={() => setSave(!save)}
+      onTouchStart={handleTouch}
+      onMouseMove={handleMouseMove}
+    className={textClass}
+    >
+      {children}
     </div>
-  );
+  )
 }
+
+export default ShadowText
