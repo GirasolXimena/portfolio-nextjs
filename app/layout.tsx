@@ -1,8 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
 import {
-  noto_sans,
-  roboto_mono,
   inter
 } from './fonts'
 import '../styles/global.scss'
@@ -16,12 +14,9 @@ export const metadata: Metadata = {
   description: 'Welcome to Next.js',
 }
 
-// const fontVariableNames = [noto_sans, roboto_mono, inter]
-  // .map(({ variable }) => variable).join(' ')
-
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html suppressHydrationWarning className={inter.className}>
+    <html suppressHydrationWarning className={inter.variable}>
       <body className={styles.body}>
         <Providers>
           <DefaultLayout home={true}>
