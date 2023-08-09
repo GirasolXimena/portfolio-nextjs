@@ -79,11 +79,11 @@ function ShadowText({ children, textClass }) {
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
-      element.addEventListener('wheel', handleScroll, { passive: false })
+      // element.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
-      element.removeEventListener('wheel', handleScroll)
+      // element.removeEventListener('wheel', handleScroll)
     };
   }, [reduceMotion, factor]);
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 const LabsLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className='layout labs'>
+  <div style={{height: '100%'}} className='layout labs'>
     {children}
   </div>
 )

@@ -81,11 +81,11 @@ export default function Hero() {
 
     // todo move reduceMotion to css
     if (!reduceMotion) {
-      hero.addEventListener('wheel', handleScroll, { passive: false })
+      // hero.addEventListener('wheel', handleScroll, { passive: false })
     }
 
     return () => {
-      hero.removeEventListener('wheel', handleScroll)
+      // hero.removeEventListener('wheel', handleScroll)
     };
   }, [reduceMotion, factor]);
 
