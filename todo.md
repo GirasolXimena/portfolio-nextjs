@@ -1,11 +1,11 @@
 # Task List
 - [ ] move prefersreducedmotion checks to css
 - [x] sync animation state when theme or palette transitions 
-- [ ] move header to hero when on main page
-- [ ] shadow text for home link in nav
+- [x] move header to hero when on main page
+- [x] shadow text for home link in nav
 - [x] default dark mode then switch to light if needed
 - [x] use headers to check for [dark mode](https://web.dev/user-preference-media-features-headers/)
-- [ ] enforce no semicolons
+- [x] enforce no semicolons
 - [ ] change code example theme based on light or dark mode
 - [x] make lab page themes more readable
 - [ ] figure out a way to display code and run code that is displayed side by side
@@ -17,3 +17,6 @@
 - [ ] polish resume page
 - [ ] polish resume content and styling
 - [ ] [zelda](https://youtu.be/bGmr-zHDFfU) palette with anim and music 
+- [ ] write a post describing how difficult theme picker was and why
+- [ ] write a post about gradient generator
+- [ ] follow mouse with gradient background of entire page
