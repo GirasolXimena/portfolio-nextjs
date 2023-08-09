@@ -1,4 +1,5 @@
 # Task List
+- [ ] do i actually need [unstated-next](https://github.com/jamiebuilds/unstated-next)?
 - [ ] move prefersreducedmotion checks to css
 - [x] sync animation state when theme or palette transitions 
 - [x] move header to hero when on main page
