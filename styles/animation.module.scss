@@ -29,13 +29,9 @@
   }
 }
 
-.textShadowMouse {
+.shadows {
   --x-primary: calc(0.25 * var(--_factor-x));
   --y-primary: calc(0.25 * var(--_factor-y));
-  @media (prefers-reduced-motion: no-preference) {
-    --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
-    --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
-  }
   --x-secondary: var(--x-primary);
   --y-secondary: calc(var(--x-secondary) * -1);
   --x-tertiary: calc(var(--x-primary) * -1);
@@ -55,7 +51,28 @@
     var(--y-tertiary)
     var(--_blur)
     var(--_tertiary);
+}
+
+.mouseFollow {
+  @media (prefers-reduced-motion: no-preference) {
+    --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
+    --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
+  }
+}
+
+.textShadowMouse {
+  @extend .shadows;
+  @extend .mouseFollow;
   text-shadow:
+    var(--shadow-primary),
+    var(--shadow-secondary),
+    var(--shadow-tertiary);
+}
+
+.boxShadowMouse {
+  @extend .shadows;
+  @extend .mouseFollow;
+  box-shadow:
     var(--shadow-primary),
     var(--shadow-secondary),
     var(--shadow-tertiary);
