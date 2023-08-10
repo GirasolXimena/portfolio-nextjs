@@ -8,8 +8,7 @@
     a {
       font-size: 2em;
       color: var(--text);
-      transition: color 1250ms, text-shadow 625ms;
-      transition-timing-function: ease;
+      transition: color 1250ms ease, text-shadow 1250ms ease, text-decoration-color 1250ms ease;
     }
   }
 
@@ -42,7 +41,9 @@
 
   .key {
     @extend .textShadowMouse;
-    transition: none;
+    a {
+      transition: none;
+    }
   }
 }
 
