@@ -4,8 +4,8 @@
   @extend .centeredFlex;
   &.home {
     position: absolute;
-    top: 3em;
-    right: 3em;
+    top: var(--size-fluid-4);
+    left: var(--size-fluid-4);
   }
 }
 .button {

@@ -7,8 +7,8 @@
 
   &.home {
     position: absolute;
-    bottom: 3em;
-    right: 3em;
+    bottom: var(--size-fluid-4);
+    right: var(--size-fluid-4);
   }
 
 }

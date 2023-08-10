@@ -17,6 +17,7 @@
   width: clamp(1px,66vw, 40rem);
 
   h1 {
+    color: var(--text);
     text-align: center;
     grid-row: 2 / span 1;
     font-size: var(--font-size-fluid-4);
@@ -38,13 +39,19 @@
   nav {
     grid-row: 3 / 4;
     ul {
+      padding: 0;
+      display: flex;
       justify-content: space-evenly;
+      list-style: none;
     }
     li {
       font-weight: var(--font-weight-5);
       font-size: calc(var(--font-size-fluid-4) / 2.5);
       margin: 0;
       padding: 0;
+      a {
+        padding: 0
+      }
     }
   }
 }

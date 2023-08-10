@@ -6,7 +6,6 @@
   .yellow,
   .key {
     a {
-      font-size: 2em;
       color: var(--text);
       transition: color 1250ms ease, text-shadow 1250ms ease, text-decoration-color 1250ms ease;
     }
@@ -47,7 +46,7 @@
   }
 }
 
-.home, .labs {
+.labs {
   & > ul {
     list-style: none;
     display: flex;
