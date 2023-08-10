@@ -3,9 +3,8 @@ import styles from '../styles/layout.module.scss'
 import DefaultHeader from './default-header'
 import { StrictMode } from 'react'
 
-const name = 'S. Roberto Andrade'
-const jobTitle = 'Creative Technologist'
-export const siteTitle = `${name} | ${jobTitle}`
+const name = process.env.NAME || 'Katerina Solensan'
+export const siteTitle = name
 
 export default function RootLayout({ children, home }) {
   return (
@@ -15,7 +14,7 @@ export default function RootLayout({ children, home }) {
           <link rel="icon" href="/favicon.ico" />
           <meta
             name="description"
-            content={`${name} | ${jobTitle} landing page`}
+            content={`Personal website for ${name}`}
           />
           <meta
             property="og:image"

@@ -3,18 +3,22 @@ import Navbar from './navbar'
 import { inter } from '../app/fonts'
 
 export default function Hero() {
+  const name = process.env.NAME || 'Katerina Solensan'
+  const [first, last] = name.split(' ')
+  const[firstLetter, ...rest] = first.split('')
   return (
     <div className={styles.hero}>
       <h1 id="name">
-        <span className={`${inter.variable}`}>
-          S.
-        </span>&nbsp;Roberto
-        <br />
-        Andrade
+        {name && (
+          <>
+            <span className={`${inter.variable}`}>
+              {firstLetter}
+            </span>&nbsp;{rest}
+            <br />
+            {last}
+          </>
+        )}
       </h1>
-      <h2>
-        Creative Technologist
-      </h2>
       <Navbar segment='home' />
     </div>
   )

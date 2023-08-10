@@ -97,3 +97,11 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+.articleLayout {
+  display: grid;
+  align-items: center;
+  justify-items:center;
+  height: 100%;
+  width: 100%;
+}
