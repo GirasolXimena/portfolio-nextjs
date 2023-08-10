@@ -1,68 +1,50 @@
 @import "animation.module.scss";
 .hero {
   @extend .boxShadowMouse;
-  display: grid;
-  grid-template-columns: max-content;
-  grid-template-rows: repeat(3, max-content);
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
   background-image: radial-gradient(
     115% 115% at 50% 50%,
-    var(--background) 0%,
+    var(--background),
     transparent,
   );
-  border-radius: 3em;
-  padding: 2em;
+  border-radius: var(--radius-4);
   transition: --_amp 1s ease;
 
-  h1 {
-    grid-row: 2 / span 1;
-    font-size: 3em;
-    font-weight: 900;
-    line-height: 0.83em;
-    margin: 0;
+  aspect-ratio: var(--ratio-golden);
+  width: clamp(1px,66vw, 40rem);
 
-    @media screen and (min-width: 768px) {
-    font-size: 6em;
-    }
+  h1 {
+    text-align: center;
+    grid-row: 2 / span 1;
+    font-size: var(--font-size-fluid-4);
+    font-weight: var(--font-weight-9);
+    line-height: var(--font-lineheight-00);
+    letter-spacing: var(--font-letterspacing-0);
+    margin: 0;
 
     span {
       @extend .textShadowMouse;
-      margin: 0 -0.25em;
+      font-size: calc(var(--font-size-fluid-4) * 1.5);
+      margin: 0 calc(var(--size-relative-1) / -1.5);
       padding: 0;
     }
   }
-
-  h2 {
-    font-size: 1em;
-    text-transform: uppercase;
-    grid-row: 1 / span 1;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
-
-    @media screen and (min-width: 768px) {
-      font-size: 2em;
-      }
-  }
-
-
-
+  
+  
+  
   nav {
     grid-row: 3 / 4;
-    margin-left: -0.125em;
-    
     ul {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
+      justify-content: space-evenly;
+    }
+    li {
+      font-weight: var(--font-weight-5);
+      font-size: calc(var(--font-size-fluid-4) / 2.5);
+      margin: 0;
       padding: 0;
-      margin-top: 0;
-      font-size: 0.5em;
-
-      @media screen and (min-width: 768px) {
-        font-size: 1em;
-        }
     }
   }
 }

@@ -1,5 +1,7 @@
 /* the props */
 @import "open-props/style";
+@import "open-props/normalize.min.css";
+
 
 @font-face {
   font-family: "Shrek";
@@ -57,6 +59,11 @@
       var(--tertiary) 0%,
       transparent 100%);
   font-family: var(--font-inter);
+  // extending open-props
+  --font-size-fluid-4: clamp(0.1rem, 10vw, 6rem);
+  --font-weight-audio: calc(var(--font-weight-9) + var(--_amp) * 20);
+
+
 }
 
 [data-theme="light"] {
