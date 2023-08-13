@@ -1,0 +1,22 @@
+
+.template {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1250ms ease;
+
+  &.loaded {
+    opacity: 1;
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--bg-gradient);
+    z-index: -2;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "Shrek";
+  src: url("/fonts/shrek.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Doom";
+  src: url("/fonts/doom.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vaporwave";
+  src: url("/fonts/vaporwave.otf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@property --_amp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+:root {
+  --_amp: var(--amp, 1);
+  --_light: var(--light, gainsboro);
+  --_dark: var(--dark, #323313);
+  --_primary: var(--primary, yellow);
+  --_secondary: var(--secondary, magenta);
+  --_tertiary: var(--tertiary, cyan);
+  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--_amp));
+  --_factor-y: var(--factor-y, calc(1em / 8) * var(--_amp));
+  --_mouse-x: var(--mouse-x, calc(1/4));
+  --_mouse-y: var(--mouse-y, calc(1/4));
+  --_blur: var(--blur, calc(1em / 64));
+    // since mouse-[x-y] are [-1, 1],
+  // dividing by --f will give us a range that is a percentage of the screen
+  // since f is 10, the range is [-10%, 10%]
+  --f: 5;
+  --primary-x: calc(0% * (1 + var(--_mouse-x) / var(--f)));
+  --primary-y: calc(102% * (1 + var(--_mouse-y) / var(--f)));
+  --secondary-x: calc(-6% * (1 + var(--_mouse-x) / var(--f)));
+  --secondary-y: calc(26% * (1 + var(--_mouse-y) / var(--f)));
+  --tertiary-x: calc(100% * (1 + var(--_mouse-x) / var(--f)));
+  --tertiary-y: calc(50% * (1 + var(--_mouse-y) / var(--f)));
+  --primary-width: calc(100% * (1 + var(--_amp) / 4));
+  --primary-height: calc(91% * (var(--_amp)));
+  --secondary-width: calc(142% * (var(--_amp)));
+  --secondary-height: calc(91% * (var(--_amp)));
+  --tertiary-width: calc(100% * (var(--_amp)));
+  --tertiary-height: calc(75% * (var(--_amp)));
+
+  --bg-gradient: radial-gradient(var(--primary-width) 91% at var(--primary-x) var(--primary-y),
+      var(--primary) 25%,
+      transparent 100%),
+    radial-gradient(142% 91% at var(--secondary-x) var(--secondary-y),
+      var(--secondary) 25%,
+      transparent 100%),
+    radial-gradient(100% 75% at var(--tertiary-x) var(--tertiary-y),
+      var(--tertiary) 25%,
+      transparent 100%);
+  font-family: var(--font-inter);
+  // extending open-props
+  --font-size-fluid-4: clamp(0.1rem, 10vw, 6rem);
+  --font-weight-audio: calc(var(--font-weight-9) + var(--_amp) * 20);
+
+  transition: --_amp 100ms linear;
+}
+
+[data-theme="light"] {
+  --background: var(--_light);
+  --text: var(--_dark);
+}
+
+[data-theme="dark"] {
+  --background: var(--_dark);
+  --text: var(--_light);
+}
