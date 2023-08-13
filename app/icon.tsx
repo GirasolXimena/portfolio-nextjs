@@ -8,8 +8,11 @@ export const size = {
   width: 32,
   height: 32,
 }
+
+import OpenProps from 'open-props';
+
 export const contentType = 'image/png'
- 
+
 // Image generation
 export default function Icon() {
   return new ImageResponse(
@@ -17,17 +20,30 @@ export default function Icon() {
       // ImageResponse JSX element
       <div
         style={{
-          fontSize: 24,
-          background: '#323313',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'gainsboro',
+          backgroundColor: '#323313',
+          borderRadius: '25%',
+          fontSize: 24,
         }}
-      >
-        XA
+        >
+        <span
+          style={{
+            color: 'magenta',
+          }}
+        >
+          X
+        </span>
+        <span
+          style={{
+            color: 'cyan',
+          }}
+        >
+          A
+        </span>
       </div>
     ),
     // ImageResponse options

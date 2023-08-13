@@ -68,7 +68,7 @@
       transparent 100%);
   font-family: var(--font-inter);
   // extending open-props
-  --font-size-fluid-4: clamp(0.1rem, 10vw, 6rem);
+  --font-size-fluid-4: clamp(12px, 10vw, 6rem);
   --font-weight-audio: calc(var(--font-weight-9) + var(--_amp) * 20);
 
   transition: --_amp 100ms linear;
