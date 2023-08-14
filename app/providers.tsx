@@ -1,8 +1,11 @@
 'use client'
-
+import { useContext, useRef, ReactNode } from 'react'
+import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context'
 import { ThemeProvider } from "next-themes"
 import { useEffect } from "react";
 import utilities from 'lib/util';
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 const { setCustomProperties, toCartesianCoords } = utilities
 
 const handleInput = (event: MouseEvent | TouchEvent) => {
@@ -27,8 +30,19 @@ const handleInput = (event: MouseEvent | TouchEvent) => {
 }
 
 
+function FrozenRouter({ children }: { children: ReactNode }) {
+  const context = useContext(LayoutRouterContext)
+  const frozen = useRef(context).current;
+  return (
+  <LayoutRouterContext.Provider value={frozen}>
+    {children}
+  </LayoutRouterContext.Provider>
+  )
+}
+
 
 export function Providers({ children }) {
+  const pathname = usePathname();
 
   useEffect(() => {
     const { body } = document;
@@ -43,8 +57,20 @@ export function Providers({ children }) {
   }, []);
 
   return (
-    <ThemeProvider>
-      {children}
-    </ThemeProvider>
+    <AnimatePresence>
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, type: 'tween' }}
+      >
+        <FrozenRouter>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </FrozenRouter>
+      </motion.div>
+    </AnimatePresence>
   )
 }
