@@ -21,3 +21,4 @@
 - [ ] write a post describing how difficult theme picker was and why
 - [ ] write a post about gradient generator
 - [ ] follow mouse with gradient background of entire page
+- [ ] incorporate variable font into audio viz

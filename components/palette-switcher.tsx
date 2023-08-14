@@ -25,7 +25,7 @@ function PaletteSwitcher({ currentPalette, setPalette, segment }) {
 
     const handleTransitionEnd = (event) => {
     
-      if (event.propertyName === 'opacity') {
+      if (event.propertyName === 'opacity' && event.srcElement.nodeName === 'BODY') {
         setPalette(nextPalette);
         bodyElem.removeEventListener('transitionend', handleTransitionEnd);
         bodyElem.classList.remove('transitioning');
