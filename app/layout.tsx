@@ -1,28 +1,38 @@
-import React from 'react'
 import { Metadata } from 'next'
 import {
   inter
 } from './fonts'
 import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
-import DefaultLayout from '../components/default-layout'
 import { Providers } from './providers'
+import { ReactNode } from 'react'
+const name = process.env.NAME || 'Katerina Solensan'
+export const siteTitle = name
+import { StrictMode } from 'react'
+import DefaultHeader from '@/components/default-header'
 
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Welcome to Next.js',
+  title: name,
+  description: `${name} is a software engineer and designer based in Minneapolis, MN.`,
 }
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html suppressHydrationWarning className={inter.variable}>
       <body className={styles.body}>
-        <Providers>
-          <DefaultLayout home={true}>
-            {children}
-          </DefaultLayout>
-        </Providers>
+        <StrictMode>
+          <Providers>
+            <div className={styles.container}>
+              <header className={styles.header} id="header">
+                <DefaultHeader />
+              </header>
+              <main className={styles.content} id="main-content">
+                {children}
+              </main>
+            </div>
+          </Providers>
+        </StrictMode>
       </body>
     </html>
   )
