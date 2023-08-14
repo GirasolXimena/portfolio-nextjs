@@ -1,0 +1,26 @@
+// theme-switcher.module.scss
+@import "./header-controls.module.scss";
+.container {
+  @extend .centeredFlex;
+  &.home {
+    position: absolute;
+    top: var(--size-fluid-4);
+    left: var(--size-fluid-4);
+  }
+}
+.button {
+  --w: 64px;
+  --h: calc(var(--w) / 2);
+  --br: calc(var(--w) / 1);
+  --size: calc(var(--w) * 0.45);
+  @extend .buttonBase;
+  padding: 20%;
+  & svg {
+    display: block;
+    stroke-linecap: round;
+  }
+
+  .checkbox {
+    opacity: 0;
+  }
+}

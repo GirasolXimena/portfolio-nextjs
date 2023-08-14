@@ -1,5 +1,17 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"],
+      "@/utils/*": ["lib/util/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/public/*": ["public/*"],
+      "@/types/*": ["types/*"],
+    },
+    // "noImplicitAny": true,
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "dom.iterable",

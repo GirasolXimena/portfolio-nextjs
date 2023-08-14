@@ -1,9 +1,8 @@
 .container {
+  width: 100%;
 }
 
-.list {
-  font-size: 2em;
-}
+
 
 .item, .item:visited:not(:hover) {
   color: var(--text);
@@ -13,7 +12,9 @@
 .item {
   display: flex;
   justify-content: space-between;
-  margin-left: 2rem;
+  gap: 1em;
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-7);
 }
 
 .section {

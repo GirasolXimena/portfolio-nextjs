@@ -5,25 +5,26 @@ let links = [
   {
     path: '/labs/eloquent-js-exercises',
     title: 'Eloquent JS Exercises',
-    section: 'exercises'
+    section: '📝'
   },
   {
     path: 'https://codepen.io/abstract_code',
     title: 'Codepen',
-    section: 'codepen'
+    section: '🔗'
   },
   {
     path: '/labs/c-programming-language',
     title: 'C Programming Language',
-    section: 'exercises'
+    section: '📝'
   }
 ]
 
 export default async function LabsIndexPage() {
   return (
     <>
-      <TitleBar title='Labs' />
-      <ListExercises items={links} />
+      <TitleBar title='Labs'>
+        <ListExercises items={links} />
+      </TitleBar>
     </>
   )
 }

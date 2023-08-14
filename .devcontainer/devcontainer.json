@@ -21,7 +21,8 @@
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
 				"GitHub.copilot-labs",
-				"GitHub.vscode-pull-request-github"
+				"GitHub.vscode-pull-request-github",
+				"bierner.markdown-checkbox"
 			],
 			"settings": {}
 		}

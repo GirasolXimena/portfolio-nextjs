@@ -1,16 +1,59 @@
-.container {
-  padding: 0 1rem;
+@import "utils.module.scss";
+.content {
+  min-height: 100%;
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.body {
+  @extend .gradientBackground;
 }
 
 .header {
+  @extend .contentBackground;
   display: flex;
-  flex-direction: column;
-  
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-7);
+
+
   @media print {
     display: none;
   }
 }
 
-.backToHome {
-  margin: 3rem 0 0;
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 18px;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  &:has(header) {
+    gap: var(--size-10);
+  }
+
+  @media(min-width: 360px) {
+    padding: var(--size-fluid-4) var(--size-fluid-2);
+  }
+  @media(min-width: 768px) {
+    padding: var(--size-fluid-5) var(--size-fluid-4);
+  }
+}
+
+.labs {
+  min-height: 100%;
+  width: 100%;
 }

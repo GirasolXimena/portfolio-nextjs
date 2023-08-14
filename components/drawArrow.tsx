@@ -17,7 +17,6 @@ function canvas_arrow(context, fromx, fromy, tox, toy, headlen = 50) {
 }
 
 export default function Arrow(ctx, fromx, fromy, tox, toy, headlen = 50) {
-
   ctx.beginPath();
   canvas_arrow(ctx, fromx, fromy, tox, toy, headlen);
   ctx.stroke();

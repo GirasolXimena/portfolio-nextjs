@@ -1,51 +1,8 @@
-@font-face {
-  font-family: "Shrek";
-  src: url("/fonts/shrek.ttf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
+/* the props */
+@import "open-props/style";
+@import "open-props/normalize.min.css";
+@import "./properties.scss";
 
-@font-face {
-  font-family: "Doom";
-  src: url("/fonts/doom.ttf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vaporwave";
-  src: url("/fonts/vaporwave.otf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-:root {
-  --_amp: var(--amp, 1);
-  --_light: var(--light, gainsboro);
-  --_dark: var(--dark, #323313);
-  --_primary: var(--primary, yellow);
-  --_secondary: var(--secondary, magenta);
-  --_tertiary: var(--tertiary, cyan);
-  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--_amp));
-  --_factor-y: var(--factor-y, calc(1em / 8) * var(--_amp));
-  --_mouse-x: var(--mouse-x, calc(1/4));
-  --_mouse-y: var(--mouse-y, calc(1/4));
-  --_blur: var(--blur, calc(1em / 64));
-  font-family: var(--font-inter);
-
-  @media (prefers-color-scheme: dark) {
-    --background: var(--_dark);
-    --text: var(--_light);
-  }
-
-  @media (prefers-color-scheme: light) {
-    --background: var(--_light);
-    --text: var(--_dark);
-  }
-}
 
 html,
 body {
@@ -53,9 +10,33 @@ body {
   margin: 0;
   line-height: 1.6;
   font-size: 18px;
-  background-color: var(--background);
+  min-height: 100%;
+  width: 100%;
+  // transition: opacity 1250ms ease, color 1250ms ease, background-color 1250ms ease;
+}
+
+html {
+  background: var(--background);
   color: var(--text);
 }
+body {
+  &::after {
+    transition: opacity 1250ms ease, color 1250ms ease, background-color 1250ms ease;
+    pointer-events: none;
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: var(--background);
+    z-index: var(--layer-5);
+    opacity: 0;
+
+  }
+  &.transitioning::after {
+    opacity: 1;
+    // transition: opacity 1250ms ease, color 1250ms ease, background-color 1250ms ease;
+  }
+}
+
 
 * {
   box-sizing: border-box;
@@ -63,16 +44,15 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--_primary);
+  color: var(--text);
 }
 
 a:visited {
-  color: var(--_secondary);
+  color: var(--text);
 }
 
 a:hover {
   text-decoration: underline;
-  color: var(--_primary);
 }
 
 img {
@@ -82,4 +62,56 @@ img {
 
 @page {
   size: A4 portrait;
+}
+
+
+.button {
+  display: inline-flex;
+  white-space: nowrap;
+  
+  font-size: var(--font-size-fluid-1);
+  font-weight: var(--font-weight-7);
+  
+  padding-inline: var(--size-6);
+  padding-block: var(--size-3);
+
+  color: var(--blue-9);
+  border: var(--border-size-2) solid var(--blue-5);
+  background-color: transparent;
+  border-radius: var(--radius-2);
+  
+  &:is(:hover, :focus) {
+    cursor: pointer;
+    color: var(--blue-0);
+    background-color: var(--blue-5);
+    
+    & .light & {
+      text-shadow: 0 1px 0 var(--blue-8);
+    }
+  }
+  
+  &:active:not(:focus-visible) {
+    position: relative;
+/*     inset-block-start: 2px; */
+  }
+
+  &.dark & {
+    border-color: var(--blue-3);
+    color: var(--blue-1);
+    
+    &:hover {
+      background-color: var(--blue-3);
+      color: black;
+    }
+  }
+}
+
+@media
+ (prefers-reduced-motion: no-preference) {
+  .button:focus {
+    transition: outline-offset .25s ease;
+  }
+  .button:focus:not(:active) {
+    outline-offset: 5px;
+  }
 }

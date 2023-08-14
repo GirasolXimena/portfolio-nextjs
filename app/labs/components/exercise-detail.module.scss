@@ -1,3 +1,5 @@
+@import "@/styles/utils.module.scss";
+
 .tomorrow-night-eighties {
   --ansi-black: #2d2d2d;
   --background-color: var(--ansi-black);
@@ -8,6 +10,7 @@
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
+  width: var(--size-content-3);
 }
 
 .see-more {
@@ -16,13 +19,11 @@
 
 .code {
   max-width: clamp(20ch, 80vw, 80ch);
-  padding: 1.25em;
   overflow-x: auto;
+  width: var(--size-content-3);
 }
 
 .description {
-  overflow-x: auto;
-  font-size: 0.8em;
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
@@ -41,20 +42,21 @@
 }
 
 .back {
-
-}
-
-.title, .back {
-  margin-bottom: 0.8em;
-  font-size: 10em;
+  @extend .backLink;
+  
 }
 
 .title {
-  text-align: right;
-
+  text-align: center;
+  margin-top: var(--size-8);
+  color: var(--text);
+  
 }
 .exercise {
   display: flex;
   flex-direction: column;
-  /* text-align: center; */
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-5);
+  @extend .contentBackground;
 }

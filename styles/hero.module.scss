@@ -1,214 +1,58 @@
+@import "animation.module.scss";
 .hero {
-  transition: color 1250ms ease, background-color 1250ms ease;
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-columns: min-content;
-  grid-template-rows: repeat(3, max-content);
+  // top: 50%;
+  // left: 50%;
+  // // top: 0;
+  // left: 0;
+  // transform: translate(-50%, 50%);
+  // position: fixed;
+  // top: 50%;
+  // margin-top: var(--size-11);
+  display: flex;
+  gap: var(--size-fluid-2);
+  flex-direction: column;
   justify-content: center;
   align-content: center;
-  background: var(--background);
-  color: var(--text);
-
-
-  @media screen and (min-width: 768px) {
-    padding: 5em;
-  }
-
-  .cmyk {
-    --x-primary: calc(var(--_mouse-x) * var(--_factor-x));
-    --y-primary: calc(var(--_mouse-y) * var(--_factor-y));
-    --x-secondary: var(--x-primary);
-    --y-secondary: calc(var(--x-secondary) * -1);
-    --x-tertiary: calc(var(--x-primary) * -1);
-    --y-tertiary: calc(var(--y-primary) * -1);
-    --shadow-primary:
-      var(--x-primary)
-      var(--y-primary)
-      var(--_blur)
-      var(--_primary);
-    --shadow-secondary:
-      var(--x-secondary)
-      var(--y-secondary)
-      var(--_blur)
-      var(--_secondary);
-    --shadow-tertiary:
-      var(--x-tertiary)
-      var(--y-tertiary)
-      var(--_blur)
-      var(--_tertiary);
-    text-shadow:
-      var(--shadow-primary),
-      var(--shadow-secondary),
-      var(--shadow-tertiary);
-  }
-  
-  h1,
-  h2 {
-    transition: all 125ms ease;
-  }
+  border-radius: var(--radius-5);
+  transition: --_amp 1s linear;
+  background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient);
+  background-size: auto, 100% 100%;
+  background-position: center;
+  padding: var(--size-fluid-3);
+  border-width: var(--size-fluid-1);
+  border-color: var(--background);
+  background-clip: content-box, border-box;
+  aspect-ratio: var(--ratio-golden);
+  width: clamp(320px,66vw, 40rem);
 
   h1 {
+    color: var(--text);
+    text-align: center;
     grid-row: 2 / span 1;
-    font-size: 3em;
-    font-weight: 900;
-    line-height: 0.83em;
-    margin: 0;
-    text-align: baseline;
+    font-size: var(--font-size-fluid-4);
+    font-weight: var(--font-weight-9);
+    line-height: var(--font-lineheight-00);
+    letter-spacing: var(--font-letterspacing-0);
+    margin: var(--size-fluid-1) auto 0;
+    width: min-content;
 
-    @media screen and (min-width: 768px) {
-    font-size: 6em;
-    }
-
-    span {
-      margin-left: -0.25em;
-      margin-right: -0.25em;
-      pointer-events: none;
+    &::first-letter {
+      background-image: var(--bg-gradient);
+      background-clip: text;
+      font-size: calc(var(--font-size-fluid-4) * 1.5);
+      color: transparent;
     }
   }
-
-  h2 {
-    font-size: 1em;
-    text-transform: uppercase;
-    grid-row: 1 / span 1;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
-
-    @media screen and (min-width: 768px) {
-      font-size: 2em;
-      }
-  }
-
-
-
+  
+  
+  
   nav {
-    grid-row: 3 / 4;
-    margin-left: -0.125em;
-    
+    margin-bottom: var(--size-fluid-1);
     ul {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      padding: 0;
-      margin-top: 0;
-      font-size: 0.5em;
-
-      @media screen and (min-width: 768px) {
-        font-size: 1em;
+      li {
+        a {
+          // color: var(--background);
         }
-    }
-  }
-}
-
-.form {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  display: flex;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  font-size: 0px;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    
-    + label {
-      outline: 2px solid transparent;
-      transform: scale(1,1);
-      transition:
-        outline 125s ease,
-        transform .15s ease;
-    }
-    
-    &:focus {
-      + label {
-        --shadow-primary: 0 4px 4px var(--_primary);
-        --shadow-secondary: -4px -4px 4px var(--_secondary);
-        --shadow-tertiary: 4px -4px 4px var(--_tertiary);
-        box-shadow:
-          var(--shadow-primary),
-          var(--shadow-secondary),
-          var(--shadow-tertiary);
-      }
-    }
-    
-    &:active {
-      + label {
-        transform: scale(1.05);
-      }
-    }
-  }
-  
-  label {
-    --w: 64px;
-    --h: calc(var(--w) / 2);
-    --br: calc(var(--w) / 1);
-    
-    position: relative;
-    background: var(--_dark);
-    display: block;
-    width: var(--w);
-    height: var(--h);
-    border-radius: var(--br);
-    box-shadow:
-      0px
-      calc(var(--w) / 7.5)
-      calc(var(--w) / 3.75)
-      0px
-      rgba(51, 51, 51, 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-    }
-    
-    // Vars for pseudo elements
-    --size: calc(var(--w) / 3);
-    --offset: calc(var(--w) / 12);
-    
-    &::before {
-      width: var(--size);
-      height: var(--size);
-      border-radius: 50%;
-      background: var(--_light);
-      left: 0px;
-      top: 50%;
-      transform: translate(var(--offset) , -50%);
-      box-shadow:
-        calc(var(--w) - calc(var(--offset) * 2) - var(--size))
-        0px
-        0px
-        var(--_dark);
-      
-      z-index: 1;
-    }
-    
-    &::after {
-      width: var(--size);
-      height: var(--size);
-      left: 0;
-      top: 50%;
-      background: var(--_light);
-      transform: translate(-100%, -50%) scale(1);
-      transform-origin: left;
-      border-radius: 50%;
-      transition:
-        transform .35s ease;
-    }
-    
-  }
-  
-  input:checked {
-    + label {
-      &::after {
-        transform: translate(-100%, -50%) scale(5);
       }
     }
   }

@@ -1,26 +1,35 @@
-import React from 'react'
 import { Metadata } from 'next'
 import {
-  noto_sans,
-  roboto_mono,
   inter
 } from './fonts'
 import '../styles/global.scss'
+import styles from '../styles/layout.module.scss'
+import { Providers } from './providers'
+import { ReactNode } from 'react'
+import { StrictMode } from 'react'
+import DefaultLayout from '@/components/default-layout'
+import { NAME } from 'lib/data'
+
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Welcome to Next.js',
+  title: NAME,
+  description: `${NAME} is a software engineer and designer based in Minneapolis, MN.`,
 }
 
-const fontVariableNames = [noto_sans, roboto_mono, inter]
-  .map(({ variable }) => variable).join(' ')
-
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
-  <html lang='en' className={fontVariableNames}>
-    <body className='body'>
-      {children}
-    </body>
-  </html>
-)
+const RootLayout = ({ children }: { children: ReactNode }) => {
+  return (
+    <html suppressHydrationWarning className={inter.variable}>
+      <body className={styles.body}>
+        <StrictMode>
+          <Providers>
+            <DefaultLayout>
+              {children}
+            </DefaultLayout>
+          </Providers>
+        </StrictMode>
+      </body>
+    </html>
+  )
+}
 
 export default RootLayout

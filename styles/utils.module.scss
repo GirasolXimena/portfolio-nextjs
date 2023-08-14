@@ -1,3 +1,5 @@
+@import "./animation.module.scss";
+
 .heading2Xl {
   font-size: 2.5rem;
   line-height: 1.2;
@@ -56,9 +58,11 @@
   list-style: none;
   padding: 0;
   margin: 0;
+
   li {
     display: inline-block;
     margin: 0;
+
     &:not(:last-child)::after {
       content: ',';
       margin-right: 0.25rem;
@@ -81,5 +85,66 @@
 .noPrint {
   @media print {
     display: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.articleLayout {
+  display: grid;
+  align-items: center;
+  justify-items:center;
+  min-height: 100%;
+  width: 100%;
+}
+
+.contentBackground {
+  position: relative;
+  padding: var(--size-5);
+  &::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-5);
+    content: '';
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+    background-color: var(--background);
+    z-index: -1;
+    opacity: 0.66;
+  }
+
+}
+
+.backLink {
+  @extend .gradient;
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-7);
+  padding-inline-start: var(--size-2);
+  align-self: flex-start;
+}
+
+.gradientBackground {
+  &::before {
+    position: fixed;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--bg-gradient), var(--noise-3);
+    z-index: -1;
+    opacity: 0.4;
   }
 }
