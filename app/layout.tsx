@@ -6,15 +6,14 @@ import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
 import { Providers } from './providers'
 import { ReactNode } from 'react'
-const name = process.env.NAME || 'Katerina Solensan'
-export const siteTitle = name
 import { StrictMode } from 'react'
 import DefaultLayout from '@/components/default-layout'
+import { NAME } from 'lib/data'
 
 
 export const metadata: Metadata = {
-  title: name,
-  description: `${name} is a software engineer and designer based in Minneapolis, MN.`,
+  title: NAME,
+  description: `${NAME} is a software engineer and designer based in Minneapolis, MN.`,
 }
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
