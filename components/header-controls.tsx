@@ -9,8 +9,12 @@ import { useState, useEffect } from "react";
 const { setCustomProperties } = utilities
 
 function HeaderControls({ segment }) {
-  const initialPalette = localStorage.getItem('user-palette') || 'default';
-  const [palette, setPalette] = useState<string>(initialPalette);
+  const [palette, setPalette] = useState<string>('default');
+
+  useEffect(() => {
+    const storedPalette = localStorage.getItem('user-palette') || 'default';
+    setPalette(storedPalette)
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('user-palette', palette)
