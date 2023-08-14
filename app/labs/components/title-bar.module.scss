@@ -1,0 +1,47 @@
+@import "@/styles/utils.module.scss";
+.container {
+  // background-color: peachpuff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+  position: relative;
+  gap: var(--size-5);
+  border-radius: var(--radius-5);
+  width: var(--size-content-3);
+  margin: var(--size-5) auto;
+  padding: var(--size-5) 0;
+
+  ol {
+    // list-style-position: inside;
+    // display: flex;
+    // flex-direction: column;
+    // padding: 0;
+    // align-items: stretch;
+  }
+
+
+  @extend .contentBackground;
+}
+
+.title, .link, .link:visited {
+  color: var(--text);
+}
+
+.container > *:is(:last-child) {
+  align-self: flex-start;  
+}
+
+.title {
+  text-align: center;
+  margin: var(--size-5) 0;
+}
+
+.container > *:not(:last-child, :first-child) {
+  flex: 1;
+}
+
+.link {
+  @extend .backLink;
+}

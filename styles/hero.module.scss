@@ -1,5 +1,13 @@
 @import "animation.module.scss";
 .hero {
+  // top: 50%;
+  // left: 50%;
+  // // top: 0;
+  // left: 0;
+  // transform: translate(-50%, 50%);
+  // position: fixed;
+  // top: 50%;
+  // margin-top: var(--size-11);
   display: flex;
   gap: var(--size-fluid-2);
   flex-direction: column;
@@ -7,18 +15,18 @@
   align-content: center;
   border-radius: var(--radius-5);
   transition: --_amp 1s linear;
-  background-image: linear-gradient(var(--text), var(--text)), var(--bg-gradient);
-  background-size: auto, 100vw 100vh;
+  background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient);
+  background-size: auto, 100% 100%;
   background-position: center;
-  padding: var(--size-fluid-2);
-  border-width: var(--size-fluid-3);
+  padding: var(--size-fluid-3);
+  border-width: var(--size-fluid-1);
+  border-color: var(--background);
   background-clip: content-box, border-box;
   aspect-ratio: var(--ratio-golden);
   width: clamp(320px,66vw, 40rem);
-  position: relative;
 
   h1 {
-    color: var(--background);
+    color: var(--text);
     text-align: center;
     grid-row: 2 / span 1;
     font-size: var(--font-size-fluid-4);
@@ -41,19 +49,10 @@
   nav {
     margin-bottom: var(--size-fluid-1);
     ul {
-      padding: 0;
-      display: flex;
-      justify-content: space-evenly;
-      list-style: none;
-    }
-    li {
-      font-weight: var(--font-weight-5);
-      font-size: calc(var(--font-size-fluid-4) / 2.5);
-      margin: 0;
-      padding: 0;
-      a {
-        color: var(--background);
-        padding: 0
+      li {
+        a {
+          // color: var(--background);
+        }
       }
     }
   }

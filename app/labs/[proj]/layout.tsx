@@ -1,6 +1,5 @@
 import React from 'react'
 import { activeProjects } from '../../../lib/projects'
-import Link from 'next/link'
 
 export async function generateStaticParams() {
   return activeProjects.map((project) => ({
@@ -13,7 +12,7 @@ const ProjectLayout = ({
 }: {
   children: React.ReactNode
 }) => (
- <div className='repository-layout'>
+ <div className='repository-layout' style={{ minHeight: '100%', display: 'flex', justifyContent: 'center' }}>
     {children}
  </div>
 )

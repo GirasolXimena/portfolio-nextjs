@@ -1,47 +1,58 @@
 @import "animation.module.scss";
+// @import "buttons.module.scss";
+
+
 .nav {
-
-  .cyan,
-  .magenta,
-  .yellow,
-  .key {
-    a {
-      color: var(--text);
-      transition: color 1250ms ease, text-shadow 1250ms ease, text-decoration-color 1250ms ease;
-    }
-  }
-
-  .cyan {
-    a {
-      &:hover {
+  ul {
+    display: flex;
+    margin: 0 var(--size-relative-2);
+    gap: var(--size-relative-7);
+    justify-content: space-evenly;
+    list-style: none;
+    padding: 0;
+    &:has(> :nth-child(3):last-child) {
+      &:first-child a:hover {
         text-shadow: 0 2px 2px var(--_primary), -2px -2px 2px var(--_secondary), 2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_tertiary);
       }
-    }
-  }
-
-  .magenta {
-    a {
-      &:hover {
+      &:nth-child(2) a:hover {
         text-shadow: 0 2px 2px var(--_primary), 1px -2px 2px var(--_secondary), -1px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_secondary);
       }
-    }
-  }
-
-  .yellow {
-    a {
-      &:hover {
-        text-shadow: 0 2px 2px yellow, 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
+      &:nth-child(3) a:hover {
+        text-shadow: 0 2px 2px var(--_primary), 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_primary);
       }
     }
-  }
+    &:has(> :nth-child(4):last-child) li {
+      &:first-child a {
+        @extend .textShadowMouse;
+        transition: none;
+      }
+      &:nth-child(2) a:hover {
+        text-shadow: 0 2px 2px var(--_primary), -2px -2px 2px var(--_secondary), 2px -2px 2px var(--_tertiary);
+        text-decoration-color: var(--_tertiary);
+      }
+      &:nth-child(3) a:hover {
+        text-shadow: 0 2px 2px var(--_primary), 1px -2px 2px var(--_secondary), -1px -2px 2px var(--_tertiary);
+        text-decoration-color: var(--_secondary);
+      }
+      &:nth-child(4) a:hover {
+        text-shadow: 0 2px 2px var(--_primary), 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
+        text-decoration-color: var(--_primary);
+      }
 
-  .key {
-    @extend .textShadowMouse;
+    }
+  }
+  li {
+    display: block;
+    font-weight: var(--font-weight-5);
+    font-size: var(--font-size-5);
+    font-weight: var(--font-weight-5);
+    
+
     a {
-      transition: none;
+      transition: color 1250ms ease, text-shadow 1250ms ease, text-decoration-color 1250ms ease;
     }
   }
 }
@@ -52,11 +63,7 @@
     display: flex;
     flex-direction: row;
     padding: 0;
-    & > li {
-      margin: 0 1em;
-      &:first-child {
-        margin-left: 0;
-      }
-    }
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }

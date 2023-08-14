@@ -1,7 +1,6 @@
 import React from 'react'
-// import Counter from './counter'
 import { Metadata } from 'next'
-import Navbar from '../../components/navbar'
+import styles from '@/styles/layout.module.scss'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const LabsLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className='layout labs'>
+  <div className={styles.labs}>
     {children}
   </div>
 )

@@ -46,7 +46,7 @@ export default async function Page({
     type={type}
     title={name}
     github_link={html_url}
-    subtitle={params.dir}
+    subtitle={`labs/${params.proj}`}
     content={highlightedContent}
     prismName={prismName}
   />
