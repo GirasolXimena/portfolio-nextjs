@@ -1,7 +1,5 @@
 .container {
-  // margin: 0 auto;
   width: 100%;
-  // margin-bottom: auto;
 }
 
 
@@ -15,7 +13,8 @@
   display: flex;
   justify-content: space-between;
   gap: 1em;
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-7);
 }
 
 .section {

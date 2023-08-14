@@ -110,7 +110,11 @@
 
 .contentBackground {
   position: relative;
+  padding: var(--size-5);
   &::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: var(--radius-5);
     content: '';
     width: 100%;
@@ -127,6 +131,20 @@
   @extend .gradient;
   font-size: var(--font-size-7);
   font-weight: var(--font-weight-7);
-  padding-inline-start: var(--size-8);
+  padding-inline-start: var(--size-2);
   align-self: flex-start;
+}
+
+.gradientBackground {
+  &::before {
+    position: fixed;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--bg-gradient), var(--noise-3);
+    z-index: -1;
+    opacity: 0.4;
+  }
 }

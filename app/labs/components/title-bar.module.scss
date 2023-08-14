@@ -9,18 +9,8 @@
   position: relative;
   gap: var(--size-5);
   border-radius: var(--radius-5);
-  width: var(--size-content-3);
-  margin: var(--size-5) auto;
-  padding: var(--size-5) 0;
-
-  ol {
-    // list-style-position: inside;
-    // display: flex;
-    // flex-direction: column;
-    // padding: 0;
-    // align-items: stretch;
-  }
-
+  max-width: var(--size-content-3);
+  margin: 0 auto;
 
   @extend .contentBackground;
 }

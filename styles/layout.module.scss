@@ -1,3 +1,4 @@
+@import "utils.module.scss";
 .content {
   min-height: 100%;
   flex-grow: 1;
@@ -7,18 +8,20 @@
   justify-content: center;
 }
 
+.body {
+  @extend .gradientBackground;
+}
+
 .header {
+  @extend .contentBackground;
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: var(--size-7);
-  > *:not(nav) {
-    align-self: flex-end;
-    @media(max-width: 360px) {
-      align-self: stretch;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
   }
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--size-7);
+
 
   @media print {
     display: none;
@@ -38,6 +41,9 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  &:has(header) {
+    gap: var(--size-10);
+  }
 
   @media(min-width: 360px) {
     padding: var(--size-fluid-4) var(--size-fluid-2);

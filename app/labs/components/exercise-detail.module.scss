@@ -19,7 +19,6 @@
 
 .code {
   max-width: clamp(20ch, 80vw, 80ch);
-  padding: var(--size-5);
   overflow-x: auto;
   width: var(--size-content-3);
 }
@@ -53,7 +52,6 @@
   
 }
 .exercise {
-  padding: var(--size-5) 0;
   display: flex;
   flex-direction: column;
   align-items: center;

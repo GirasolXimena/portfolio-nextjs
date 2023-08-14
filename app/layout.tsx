@@ -9,7 +9,7 @@ import { ReactNode } from 'react'
 const name = process.env.NAME || 'Katerina Solensan'
 export const siteTitle = name
 import { StrictMode } from 'react'
-import DefaultHeader from '@/components/default-header'
+import DefaultLayout from '@/components/default-layout'
 
 
 export const metadata: Metadata = {
@@ -23,14 +23,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <body className={styles.body}>
         <StrictMode>
           <Providers>
-            <div className={styles.container}>
-              <header className={styles.header} id="header">
-                <DefaultHeader />
-              </header>
-              <main className={styles.content} id="main-content">
-                {children}
-              </main>
-            </div>
+            <DefaultLayout>
+              {children}
+            </DefaultLayout>
           </Providers>
         </StrictMode>
       </body>
