@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import utilities from "../lib/util";
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
@@ -55,7 +55,6 @@ function AudioPlayer({ musicType, segment }: { musicType: string | undefined ; s
     setPlaying(id);
 
   }
-
   const stopPlaying = () => {
     if (!audioElement.current) return
     audioElement.current.pause()
@@ -63,6 +62,11 @@ function AudioPlayer({ musicType, segment }: { musicType: string | undefined ; s
     setPlaying(0)
   }
 
+
+  useEffect(() => {
+    stopPlaying()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [musicType])
   return (
     <div className={`${styles.container} ${styles[segment]}`}>
       {
