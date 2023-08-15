@@ -42,8 +42,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  &:has(header) {
-    gap: var(--size-10);
+  &:has(header) { 
+    gap: var(--size-3);
+    @media(min-width: 768px) {
+      gap: var(--size-10);
+    }
   }
 
   @media(min-width: 360px) {

@@ -50,7 +50,9 @@
   text-align: center;
   margin-top: var(--size-8);
   color: var(--text);
-  
+  @media (max-width: 768px) {
+    font-size: var(--size-5);
+  }
 }
 .exercise {
   display: flex;

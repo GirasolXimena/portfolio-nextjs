@@ -22,3 +22,4 @@
 - [ ] write a post about gradient generator
 - [ ] follow mouse with gradient background of entire page
 - [ ] incorporate variable font into audio viz
+- [ ] fix exercise detail mobile
