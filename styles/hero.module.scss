@@ -1,13 +1,9 @@
 @import "animation.module.scss";
+.container {
+  display: flex;
+  flex-grow: 1;
+}
 .hero {
-  // top: 50%;
-  // left: 50%;
-  // // top: 0;
-  // left: 0;
-  // transform: translate(-50%, 50%);
-  // position: fixed;
-  // top: 50%;
-  // margin-top: var(--size-11);
   display: flex;
   gap: var(--size-fluid-2);
   flex-direction: column;
@@ -23,7 +19,7 @@
   border-color: var(--background);
   background-clip: content-box, border-box;
   aspect-ratio: var(--ratio-golden);
-  width: clamp(320px,66vw, 40rem);
+  width: clamp(320px,90vw, 40rem);
 
   h1 {
     color: var(--text);

@@ -38,6 +38,7 @@
         text-decoration-color: var(--_secondary);
       }
       &:nth-child(4) a:hover {
+
         text-shadow: 0 2px 2px var(--_primary), 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_primary);
       }
@@ -47,7 +48,9 @@
   li {
     display: block;
     font-weight: var(--font-weight-5);
-    font-size: var(--font-size-5);
+    @media (min-width: 768px) {
+      font-size: var(--font-size-4);
+    }
     font-weight: var(--font-weight-5);
     
 
@@ -67,8 +70,7 @@
     flex-wrap: wrap;
 
     @media(max-width: 480px) {
-      flex-direction: column;
-      align-items: center;
+      justify-content: space-evenly;
     }
   }
 }

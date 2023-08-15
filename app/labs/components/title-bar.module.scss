@@ -26,6 +26,9 @@
 .title {
   text-align: center;
   margin: var(--size-5) 0;
+  @media (max-width: 768px) {
+    font-size: var(--size-5);
+  }
 }
 
 .container > *:not(:last-child, :first-child) {

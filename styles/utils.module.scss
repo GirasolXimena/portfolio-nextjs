@@ -129,10 +129,14 @@
 
 .backLink {
   @extend .gradient;
-  font-size: var(--font-size-7);
+  font-size: var(--font-size-6);
   font-weight: var(--font-weight-7);
   padding-inline-start: var(--size-2);
   align-self: flex-start;
+
+  @media(max-width: 768px) {
+    font-size: var(--font-size-4);
+  }
 }
 
 .gradientBackground {

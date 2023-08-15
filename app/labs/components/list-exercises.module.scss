@@ -1,5 +1,9 @@
 .container {
   width: 100%;
+  ol {
+    list-style: none;
+    padding: 0;
+  }
 }
 
 
@@ -13,7 +17,10 @@
   display: flex;
   justify-content: space-between;
   gap: 1em;
-  font-size: var(--font-size-4);
+  @media (min-width: 768px) {
+    font-size: var(--font-size-4);
+  }
+
   font-weight: var(--font-weight-7);
 }
 
