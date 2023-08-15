@@ -17,6 +17,7 @@
   display: flex;
   @media (max-width: 768px) {
     flex-direction: column-reverse;
+    gap: var(--size-3);
   }
   justify-content: space-between;
   align-items: center;
@@ -56,4 +57,5 @@
 .labs {
   min-height: 100%;
   width: 100%;
+  flex-grow: 1;
 }
