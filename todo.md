@@ -23,3 +23,9 @@
 - [ ] follow mouse with gradient background of entire page
 - [ ] incorporate variable font into audio viz
 - [ ] fix exercise detail mobile
+- [ ] create updated pdf resume feature based on the following:
+  - https://github.com/casualwriter/casual-markdown-cv
+  - https://mszep.github.io/pandoc_resume/
+  - https://github.com/vidluther/markdown-resume
+  - https://mszep.github.io/pandoc_resume/
+  - https://blog.chmd.fr/editing-a-cv-in-markdown-with-pandoc.html
