@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <article
       id="home"
-      className={`${styles.container} ${utilStyles.articleLayout}`}
+      className={`${styles.container}`}
     >
       <Hero />
     </article>

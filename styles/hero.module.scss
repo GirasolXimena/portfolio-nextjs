@@ -1,9 +1,8 @@
 @import "animation.module.scss";
 .container {
-  display: grid;
-  // flex-grow: 1;
-  align-items: center;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
 }
 .hero {
   display: flex;

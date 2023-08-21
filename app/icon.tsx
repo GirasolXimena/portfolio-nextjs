@@ -15,6 +15,9 @@ export const contentType = 'image/png'
 
 // Image generation
 export default function Icon() {
+  const name = process.env?.NAME ? process.env.NAME : 'Loba Andrade'
+  const firstInitial = name.split(' ')[0][0]
+  const lastInitial = name.split(' ')[1][0]
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -35,14 +38,14 @@ export default function Icon() {
             color: 'magenta',
           }}
         >
-          X
+          {firstInitial}
         </span>
         <span
           style={{
             color: 'cyan',
           }}
         >
-          A
+          {lastInitial}
         </span>
       </div>
     ),

@@ -3,7 +3,9 @@ import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
 
 export default function Navbar({ segment }) {
-
+  const name = process.env?.NAME ? process.env.NAME : 'Loba Andrade'
+  const variant = name.split(' ').join('-') 
+  const url = `${variant}-resume.pdf`
   return (
     <nav id="nav-bar" className={`${styles.nav} ${utilStyles[segment]} ${styles[segment]}`}>
       <ul>
@@ -15,7 +17,7 @@ export default function Navbar({ segment }) {
           </li>
         )}
         <li className={styles.cyan}>
-          <a href='assets/Andrade-Creative_Technologist.pdf' download="Andrade-Creative_Technologist.pdf">
+          <a href={`assets/${url}`} download={url}>
             Resume
           </a>
         </li>
