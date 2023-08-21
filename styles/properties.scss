@@ -78,31 +78,29 @@
   --secondary-y: calc(0% * var(--y));
   --tertiary-x: calc(50% * var(--x));
   --tertiary-y: calc(100% * var(--y));
-  --primary-width: calc(var(--base-width) * var(--amp-primary));
-  --primary-height: calc(var(--base-width) * var(--amp-primary));
-  --secondary-width: calc(var(--base-width) * var(--amp-secondary));
-  --secondary-height: calc(var(--base-width) * var(--amp-secondary));
-  --tertiary-width: calc(var(--base-width) * var(--amp-tertiary));
-  --tertiary-height: calc(var(--base-width) * var(--amp-tertiary));
 
   --color-stop: 0%;
+  --color-stop-primary: calc(var(--amp-primary, 0) * 100%);
+  --color-stop-secondary: calc(var(--amp-secondary, 0) * 100%);
+  --color-stop-tertiary: calc(var(--amp-tertiary, 0) * 100%);
+
   --transparent-stop: 100%;
-  --gradient-primary: radial-gradient(var(--primary-width) var(--primary-height) at var(--primary-x) var(--primary-y),
+  --gradient-primary: radial-gradient(farthest-corner at var(--primary-x) var(--primary-y),
+      var(--primary) var(--color-stop-primary),
+      transparent var(--transparent-stop));
+  --gradient-secondary: radial-gradient(farthest-corner at var(--secondary-x) var(--secondary-y),
+      var(--secondary) var(--color-stop-secondary),
+      transparent var(--transparent-stop));
+  --gradient-tertiary: radial-gradient(farthest-side at var(--tertiary-x) var(--tertiary-y),
+      var(--tertiary) var(--color-stop-tertiary),
+      transparent var(--transparent-stop));
+  --gradient-primary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--primary-x)) calc(100% - var(--primary-y)),
       var(--primary) var(--color-stop),
       transparent var(--transparent-stop));
-  --gradient-secondary: radial-gradient(var(--secondary-width) var(--secondary-height) at var(--secondary-x) var(--secondary-y),
+  --gradient-secondary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--secondary-x)) calc(100% - var(--secondary-y)),
       var(--secondary) var(--color-stop),
       transparent var(--transparent-stop));
-  --gradient-tertiary: radial-gradient(var(--tertiary-width) var(--tertiary-height) at var(--tertiary-x) var(--tertiary-y),
-      var(--tertiary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-primary-mirrored: radial-gradient(var(--primary-width) var(--primary-height) at calc(100% - var(--primary-x)) calc(100% - var(--primary-y)),
-      var(--primary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-secondary-mirrored: radial-gradient(var(--secondary-width) var(--secondary-height) at calc(100% - var(--secondary-x)) calc(100% - var(--secondary-y)),
-      var(--secondary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-tertiary-mirrored: radial-gradient(var(--tertiary-width) var(--tertiary-height) at calc(100% - var(--tertiary-x)) calc(100% - var(--tertiary-y)),
+  --gradient-tertiary-mirrored: radial-gradient(farthest-side at calc(100% - var(--tertiary-x)) calc(100% - var(--tertiary-y)),
       var(--tertiary) var(--color-stop),
       transparent var(--transparent-stop));
   --bg-gradient: var(--gradient-primary), var(--gradient-secondary), var(--gradient-tertiary);

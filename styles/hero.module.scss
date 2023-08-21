@@ -33,7 +33,7 @@
     width: min-content;
 
     &::first-letter {
-      background-image: var(--bg-gradient);
+      background-image: var(--bg-gradient-mirrored);
       background-clip: text;
       font-size: calc(var(--font-size-fluid-4) * 1.5);
       color: transparent;

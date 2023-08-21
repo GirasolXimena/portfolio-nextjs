@@ -148,7 +148,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-image: var(--bg-gradient), var(--noise-3);
+    background-image: var(--noise-3), var(--bg-gradient);
+    background-blend-mode: darken;
     filter: blur(32px);
     z-index: -1;
     opacity: 0.5;
