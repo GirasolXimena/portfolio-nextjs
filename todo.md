@@ -23,6 +23,9 @@
 - [ ] follow mouse with gradient background of entire page
 - [ ] incorporate variable font into audio viz
 - [ ] fix exercise detail mobile
+- [ ] article layout
+- [ ] move animations to framer-motion
+- [ ] give home page some play and rewind controls so its like a music viz
 - [ ] create updated pdf resume feature based on the following:
   - https://github.com/casualwriter/casual-markdown-cv
   - https://mszep.github.io/pandoc_resume/
