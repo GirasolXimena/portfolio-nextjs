@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
+import { NAME } from 'lib/data'
 
 export default function Navbar({ segment }) {
-  const name = process.env?.NAME ? process.env.NAME : 'Loba Andrade'
-  const variant = name.split(' ').join('-') 
+  const variant = NAME.split(' ').join('-') 
   const url = `${variant}-resume.pdf`
   return (
     <nav id="nav-bar" className={`${styles.nav} ${utilStyles[segment]} ${styles[segment]}`}>
