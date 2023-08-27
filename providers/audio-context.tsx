@@ -1,5 +1,14 @@
-import { ReactNode, createContext, useCallback, useContext, useRef, useState } from "react";
-import { usePaletteContext } from "./palette-context";
+import {
+  Dispatch,
+  MutableRefObject,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useCallback,
+  useRef,
+  useState
+} from "react";
+import usePaletteContext from "@/hooks/usePaletteContext";
 import palettes from "@/styles/palettes";
 import utilities from "@/utils/index";
 import usePrefersReducedMotion from "@/hooks/usePreferesReducedMotion";
@@ -7,8 +16,8 @@ import { useAnimationFrame } from "framer-motion";
 
 type AudioContextType = {
   playing: boolean;
-  setPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  audioData: React.MutableRefObject<AnalyserNode | null>;
+  setPlaying: Dispatch<SetStateAction<boolean>>;
+  audioData: MutableRefObject<AnalyserNode | null>;
   startPlaying: () => void;
   stopPlaying: () => void;
 }
@@ -117,14 +126,6 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
       <audio id="audio" ref={audioElement}></audio>
     </AudioContext.Provider>
   )
-}
-
-export const useAudioContext = () => {
-  const context = useContext(AudioContext)
-  if (context === undefined) {
-    throw new Error('useAudioContext must be used within an AudioContextProvider')
-  }
-  return context
 }
 
 export default AudioContextProvider;

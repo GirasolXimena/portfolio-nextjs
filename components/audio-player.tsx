@@ -1,9 +1,9 @@
 'use client'
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
-import { useAudioContext } from "providers/audio-context";
+import useAudioContext from "@/hooks/useAudioContext";
 
 function AudioPlayer({ musicType, segment }) {
   const { playing, startPlaying, stopPlaying } = useAudioContext();

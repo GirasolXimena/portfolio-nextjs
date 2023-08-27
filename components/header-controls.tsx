@@ -4,8 +4,8 @@ import ThemeSwitcher from "./theme-switcher";
 import utilities from "../lib/util";
 import styles from '../styles/layout.module.scss'
 import palettes from "../styles/palettes";
-import { useState, useEffect } from "react";
-import { usePaletteContext } from "providers/palette-context";
+import { useEffect } from "react";
+import usePaletteContext from "@/hooks/usePaletteContext";
 
 
 const { setCustomProperties } = utilities
