@@ -5,16 +5,18 @@ import utilities from "../lib/util";
 import styles from '../styles/layout.module.scss'
 import palettes from "../styles/palettes";
 import { useState, useEffect } from "react";
+import { usePalette } from "providers/palette-context";
+
 
 const { setCustomProperties } = utilities
 
 function HeaderControls({ segment }) {
-  const [palette, setPalette] = useState<string>('default');
+  const { palette, setPalette } = usePalette()
 
   useEffect(() => {
     const storedPalette = localStorage.getItem('user-palette') || 'default';
     setPalette(storedPalette)
-  }, [])
+  }, [setPalette])
 
   useEffect(() => {
     localStorage.setItem('user-palette', palette)

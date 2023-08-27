@@ -7,6 +7,8 @@ import utilities from 'lib/util';
 import { AnimatePresence, motion, useAnimationFrame } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import usePrefersReducedMotion from '@/hooks/usePreferesReducedMotion';
+import PaletteContextProvider, { usePalette } from 'providers/palette-context';
+import palettes from '@/styles/palettes';
 const { setCustomProperties, toCartesianCoords } = utilities
 
 const handleInput = (event: MouseEvent | TouchEvent) => {
@@ -65,7 +67,8 @@ function AudioProvider({ children }: { children: ReactNode }) {
   const audioData = useRef<AnalyserNode | null>(null);
   const [playing, setPlaying] = useState(false)
   const audioContext = useRef<AudioContext | null>(null);
-  const musicType = '/audio/raingurl.mp3'
+  const { palette } = usePalette()
+  const musicType = palettes[palette].audio
 
   const startPlaying = () => {
     if (playing || !musicType) return
@@ -151,7 +154,7 @@ function AudioProvider({ children }: { children: ReactNode }) {
   const shouldAnimate = !usePrefersReducedMotion()
   useAnimationFrame((time) => {
     if (!shouldAnimate) return
-    if(playing) {
+    if (playing) {
       audioAnimation(audioData)
     } else {
       noAudioAnimation(time)
@@ -164,6 +167,31 @@ function AudioProvider({ children }: { children: ReactNode }) {
     </AudioContext.Provider>
   )
 
+}
+
+
+const CompositeProvider = ({ children, pathname }: { children: ReactNode, pathname: string }) => {
+  return (
+    <AnimatePresence>
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, type: 'tween' }}
+      >
+        <FrozenRouter>
+          <ThemeProvider>
+            <PaletteContextProvider>
+              <AudioProvider>
+                {children}
+              </AudioProvider>
+            </PaletteContextProvider>
+          </ThemeProvider>
+        </FrozenRouter>
+      </motion.div>
+    </AnimatePresence>
+  )
 }
 
 
@@ -183,22 +211,10 @@ export function Providers({ children }) {
   }, []);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        key={pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.4, type: 'tween' }}
-      >
-        <FrozenRouter>
-          <ThemeProvider>
-            <AudioProvider>
-              {children}
-            </AudioProvider>
-          </ThemeProvider>
-        </FrozenRouter>
-      </motion.div>
-    </AnimatePresence>
+    <CompositeProvider pathname={pathname}>
+      {children}
+    </CompositeProvider>
   )
 }
+
+export default Providers

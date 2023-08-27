@@ -4,9 +4,8 @@ import {
 } from './fonts'
 import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
-import { Providers } from './providers'
-import { ReactNode } from 'react'
-import { StrictMode } from 'react'
+import Providers from '../providers'
+import { ReactNode, StrictMode } from 'react'
 import DefaultLayout from '@/components/default-layout'
 import { NAME } from 'lib/data'
 
