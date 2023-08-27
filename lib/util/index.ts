@@ -34,6 +34,10 @@ export const utilities = {
       const formattedKey = key.startsWith('--') ? key : `--${key}`;
       targetElement.style.setProperty(formattedKey, value);
     });
+  },
+  getCustomProperty: (property: string, element?: HTMLElement) => {
+    const targetElement = element || document.documentElement;
+    return getComputedStyle(targetElement).getPropertyValue(property);
   }
 }
 

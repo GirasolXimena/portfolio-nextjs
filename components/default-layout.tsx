@@ -18,10 +18,10 @@ function DefaultLayout({ children }) {
   }
   return (
     <div className={styles.container}>
-        <Header />
-        <main className={styles.content} id="main-content">
-          {children}
-        </main>
+      <Header />
+      <main className={styles.content} id="main-content">
+        {children}
+      </main>
     </div>
   )
 }
