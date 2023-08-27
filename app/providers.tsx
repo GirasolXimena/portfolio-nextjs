@@ -4,8 +4,9 @@ import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context'
 import { ThemeProvider } from "next-themes"
 import { useEffect } from "react";
 import utilities from 'lib/util';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useAnimationFrame } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import usePrefersReducedMotion from '@/hooks/usePreferesReducedMotion';
 const { setCustomProperties, toCartesianCoords } = utilities
 
 const handleInput = (event: MouseEvent | TouchEvent) => {
@@ -34,9 +35,9 @@ function FrozenRouter({ children }: { children: ReactNode }) {
   const context = useContext(LayoutRouterContext)
   const frozen = useRef(context).current;
   return (
-  <LayoutRouterContext.Provider value={frozen}>
-    {children}
-  </LayoutRouterContext.Provider>
+    <LayoutRouterContext.Provider value={frozen}>
+      {children}
+    </LayoutRouterContext.Provider>
   )
 }
 
@@ -81,6 +82,48 @@ function AudioProvider({ children }: { children: ReactNode }) {
     setPlaying(true)
   }
 
+  const audioAnimation = useCallback((audioData) => {
+    // create a new array of 32 bit floating point numbers
+    if (!audioData.current) return
+    let data = new Float32Array(audioData.current.frequencyBinCount)
+    // draw the audio data
+    const draw = (data: number) => {
+      const val = 0.33 + data / 3
+      utilities.setCustomProperties({
+        '--amp-primary': String(val),
+        '--amp-secondary': String(val),
+        '--amp-tertiary': String(val),
+      })
+    }
+    if (!audioData.current) return
+    audioData.current.getFloatTimeDomainData(data)
+    let sumQuares = 0.0
+    for (const ampliltude of data) {
+      sumQuares += ampliltude * ampliltude
+    }
+    const amp = Math.sqrt(sumQuares / data.length)
+    draw(amp)
+  }, [])
+
+  const noAudioAnimation = useCallback((time: number) => {
+    const now = time / 1000
+
+    // Normalize sin and cosine values to [0, 1] range
+    const primaryAmp = (Math.sin(2 * Math.PI * now / 15) + 1) / 2;
+    const secondaryAmp = (Math.sin(2 * Math.PI * now / 30) + 1) / 2;
+    const tertiaryAmp = (Math.sin(2 * Math.PI * now / 60) + 1) / 2;
+
+    // Scale and translate to desired range, for example, [1, 1.5]
+    const primaryValue = primaryAmp / 2;
+    const secondaryValue = secondaryAmp / 2;
+    const tertiaryValue = tertiaryAmp / 2;
+    utilities.setCustomProperties({
+      '--amp-primary': String(primaryValue),
+      '--amp-secondary': String(secondaryValue),
+      '--amp-tertiary': String(tertiaryValue),
+    })
+  }, [])
+
   const stopPlaying = useCallback(() => {
     if (!audioElement.current) return
     audioElement.current.pause()
@@ -104,12 +147,23 @@ function AudioProvider({ children }: { children: ReactNode }) {
     startPlaying,
     stopPlaying,
   }
+
+  const shouldAnimate = !usePrefersReducedMotion()
+  useAnimationFrame((time) => {
+    if (!shouldAnimate) return
+    if(playing) {
+      audioAnimation(audioData)
+    } else {
+      noAudioAnimation(time)
+    }
+  })
   return (
     <AudioContext.Provider value={value}>
       {children}
-    <audio id="audio" ref={audioElement}></audio>
+      <audio id="audio" ref={audioElement}></audio>
     </AudioContext.Provider>
   )
+
 }
 
 
@@ -140,7 +194,7 @@ export function Providers({ children }) {
         <FrozenRouter>
           <ThemeProvider>
             <AudioProvider>
-            {children}
+              {children}
             </AudioProvider>
           </ThemeProvider>
         </FrozenRouter>
