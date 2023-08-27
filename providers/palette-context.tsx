@@ -1,7 +1,14 @@
-import { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState
+} from "react";
 
 type PaletteContextProviderProps = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 type PaletteContextType = {
@@ -15,14 +22,15 @@ const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
 
   return (
     <PaletteContext.Provider value={{
-      palette, setPalette
+      palette,
+      setPalette
     }}>
       {children}
     </PaletteContext.Provider>
   )
 }
 
-export const usePalette = () => {
+export const usePaletteContext = () => {
   const context = useContext(PaletteContext)
   if (context === undefined) {
     throw new Error(`usePalette must be used within a PaletteContextProvider`)
