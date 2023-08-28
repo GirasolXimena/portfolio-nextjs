@@ -6,7 +6,7 @@ import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
 import Providers from '../providers'
 import { ReactNode, StrictMode } from 'react'
-import DefaultLayout from '@/components/default-layout'
+import DefaultLayout from 'components/default-layout'
 import { NAME } from 'lib/data'
 
 

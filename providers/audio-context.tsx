@@ -8,10 +8,10 @@ import {
   useRef,
   useState
 } from "react";
-import usePaletteContext from "@/hooks/usePaletteContext";
-import palettes from "@/styles/palettes";
-import utilities from "@/utils/index";
-import usePrefersReducedMotion from "@/hooks/usePreferesReducedMotion";
+import usePaletteContext from "hooks/usePaletteContext";
+import usePrefersReducedMotion from "hooks/usePreferesReducedMotion";
+import palettes from "styles/palettes";
+import utilities from "lib/util/index";
 import { useAnimationFrame } from "framer-motion";
 
 type AudioContextType = {

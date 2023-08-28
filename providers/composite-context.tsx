@@ -1,7 +1,7 @@
 import { ThemeProvider } from "next-themes"
-import PaletteContextProvider from './palette-context';
-import AudioContextProvider from './audio-context';
-import FrozenRouterContextProvider from './frozen-router-context';
+import PaletteContextProvider from 'providers/palette-context';
+import AudioContextProvider from 'providers/audio-context';
+import FrozenRouterContextProvider from 'providers/frozen-router-context';
 import { ReactNode } from "react";
 
 const providers = [

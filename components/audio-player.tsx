@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
-import useAudioContext from "@/hooks/useAudioContext";
+import useAudioContext from "hooks/useAudioContext";
 
 function AudioPlayer({ musicType, segment }) {
   const { playing, startPlaying, stopPlaying } = useAudioContext();
