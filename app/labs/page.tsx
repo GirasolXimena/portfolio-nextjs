@@ -1,6 +1,6 @@
-import Link from "next/link";
 import TitleBar from "./components/title-bar";
 import ListExercises from "./components/list-exercises";
+
 let links = [
   {
     path: '/labs/eloquent-js-exercises',
