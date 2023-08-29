@@ -3,8 +3,6 @@
 
 .container {
   @extend .centeredFlex;
-  // background-color: var(--background);
-  // background-color: white;
 
   &.home {
     position: absolute;
@@ -15,19 +13,12 @@
   &,
   button {
     @extend .buttonBase;
+    opacity: 1;
     background-image:
       radial-gradient(113% 91% at 17% 102%, var(--primary) 0%, transparent 100%),
       radial-gradient(142% 91% at -6% 26%, var(--secondary) 0%, transparent 100%),
       radial-gradient(75% 75% at 100% 50%, var(--tertiary) 0%, transparent 100%),
       linear-gradient(var(--background), var(--text));
-  }
-
-  button {
-    opacity: 0;
-  }
-
-  button:hover {
-    opacity: 1;
   }
 }
 

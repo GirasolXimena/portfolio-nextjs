@@ -1,5 +1,6 @@
 # Task List
-- [ ] do i actually need [unstated-next](https://github.com/jamiebuilds/unstated-next)?
+- [x] do i actually need [unstated-next](https://github.com/jamiebuilds/unstated-next)?
+  - no I'm just going to use context
 - [ ] move prefersreducedmotion checks to css
 - [x] sync animation state when theme or palette transitions 
 - [x] move header to hero when on main page
@@ -17,6 +18,7 @@
 - [ ] palette switcher button is animated gradient for next palette [open props](https://css-tricks.com/open-props-and-custom-properties-as-a-system/)
 - [ ] polish resume page
 - [ ] polish resume content and styling
+- [ ] link resume to pandoc-resume repo for always having up to date resume available on site
 - [ ] [zelda](https://youtu.be/bGmr-zHDFfU) palette with anim and music 
 - [ ] write a post describing how difficult theme picker was and why
 - [ ] write a post about gradient generator
@@ -32,3 +34,7 @@
   - https://github.com/vidluther/markdown-resume
   - https://mszep.github.io/pandoc_resume/
   - https://blog.chmd.fr/editing-a-cv-in-markdown-with-pandoc.html
+- [ ] color changing animation on palette-switcher gradient
+- [ ] mouse / gyro interaction is hero facing the cursor
+- [ ] alter color animation so it's more brilliant and less gray
+- [ ] refactor files not in typescript

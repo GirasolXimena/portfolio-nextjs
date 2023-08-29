@@ -1,30 +1,75 @@
 import { animate } from "framer-motion"
 
-export const toCartesianCoords = ({ x, y }) => {
-  const { width, height } = document.documentElement.getBoundingClientRect()
-  const halfWidth = width / 2
-  const halfHeight = height / 2
-  const xPos = x - halfWidth
-  const yPos = y - halfHeight
-  return {
-    x: xPos / width,
-    y: yPos / height
-  }
-}
+type InputCoords = {
+  x?: number;
+  y?: number;
+};
 
-export const toPolarCoords = ({ x, y }) => {
-  const { width, height } = document.documentElement.getBoundingClientRect()
-  const halfWidth = width / 2
-  const halfHeight = height / 2
-  const xPos = x - halfWidth
-  const yPos = y - halfHeight
-  const distance = Math.sqrt(xPos * xPos + yPos * yPos)
-  const angle = Math.atan2(yPos, xPos)
-  return {
-    distance: distance / Math.min(width, height),
-    angle
+type ConvertedCoords = {
+  x?: number;
+  y?: number;
+};
+
+type PolarCoords = {
+  distance?: number;
+  angle?: number;
+};
+
+
+export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
+  const { width, height } = document.documentElement.getBoundingClientRect();
+  const halfWidth = width / 2;
+  const halfHeight = height / 2;
+  
+  let result: ConvertedCoords = {};
+
+  if (typeof x !== "undefined") {
+    const xPos = x - halfWidth;
+    result.x = xPos / width;
   }
-}
+
+  if (typeof y !== "undefined") {
+    const yPos = y - halfHeight;
+    result.y = yPos / height;
+  }
+
+  return result;
+};
+
+export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
+  const { width, height } = document.documentElement.getBoundingClientRect();
+  const halfWidth = width / 2;
+  const halfHeight = height / 2;
+  
+  let result: PolarCoords = {};
+
+  // If both x and y are provided, compute both distance and angle.
+  if (typeof x !== "undefined" && typeof y !== "undefined") {
+    const xPos = x - halfWidth;
+    const yPos = y - halfHeight;
+    const distance = Math.sqrt(xPos * xPos + yPos * yPos);
+    const angle = Math.atan2(yPos, xPos);
+    result = {
+      distance: distance / Math.min(width, height),
+      angle
+    };
+  } 
+  // If only x is provided, compute its related polar coordinate.
+  else if (typeof x !== "undefined") {
+    const xPos = x - halfWidth;
+    result.distance = Math.abs(xPos) / Math.min(width, height);
+    result.angle = xPos >= 0 ? 0 : Math.PI; // 0 for positive x, π for negative x
+  } 
+  // If only y is provided, compute its related polar coordinate.
+  else if (typeof y !== "undefined") {
+    const yPos = y - halfHeight;
+    result.distance = Math.abs(yPos) / Math.min(width, height);
+    result.angle = yPos >= 0 ? Math.PI / 2 : -Math.PI / 2; // π/2 for positive y, -π/2 for negative y
+  }
+
+  return result;
+};
+
 
 export const setCustomProperties = (
   properties: Record<string, string>,
@@ -43,10 +88,10 @@ export const getCustomProperty = (property: string, element?: HTMLElement) => {
   return getComputedStyle(targetElement).getPropertyValue(property);
 }
 
-export const animateProperties = (from, to, property) => {
+export const animateProperties = (from, to, property, element: undefined | HTMLElement = undefined) => {
   animate(from, to, {
     duration: 2,
-    onUpdate: (latest) => utilities.setCustomProperties({ [property]: latest }),
+    onUpdate: (latest) => utilities.setCustomProperties({ [property]: latest }, element),
   });
 }
 

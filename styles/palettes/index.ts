@@ -24,13 +24,13 @@ const palettes: Palettes = {
   },
   doom: {
     properties: {
-      light: 'rgb(203, 0, 30)',
-      tertiary: 'rgb(116,108,148)',
-      primary: 'rgb(234, 170, 54)',
-      secondary: 'rgb(85, 155, 166)',
-      dark: 'rgb(162, 175, 192)',
+      light: '#CB001E',
+      tertiary: '#746C94',
+      primary: '#EAAA36',
+      secondary: '#559BA6',
+      dark: '#A2AFC0',
       font: 'Doom'
-    },
+    },    
     audio: '/audio/doom.mp3'
   },
   vaporwave: {
