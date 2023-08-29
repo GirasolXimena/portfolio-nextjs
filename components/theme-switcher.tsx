@@ -6,7 +6,7 @@ import iconStyles from '../styles/theme-icon.module.scss';
 import ThreeStateCheckbox from './three-state-checkbox';
 import ThemeIcon from './theme-icon';
 import usePaletteContext from 'hooks/usePaletteContext';
-import { animateProperties } from 'lib/util';
+import { animateColorTransition } from 'lib/util';
 import { useUpdateEffect } from 'usehooks-ts';
 
 function ThemeSwitcher({ segment }) {
@@ -18,8 +18,8 @@ function ThemeSwitcher({ segment }) {
   const animateTheme = useCallback(() => {
     const { light, dark } = currentPalette.palette.properties;
     const isLightTheme = resolvedTheme === 'light';
-    animateProperties(isLightTheme ? light : dark, isLightTheme ? dark : light, 'text');
-    animateProperties(isLightTheme ? dark : light, isLightTheme ? light : dark, 'background');
+    animateColorTransition([isLightTheme ? light : dark, isLightTheme ? dark : light], 'text');
+    animateColorTransition([isLightTheme ? dark : light, isLightTheme ? light : dark], 'background');
   }, [resolvedTheme, currentPalette.palette.properties]);
 
   useUpdateEffect(() => {

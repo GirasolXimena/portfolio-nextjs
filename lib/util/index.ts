@@ -47,8 +47,8 @@ export const applyPaletteAnimation = (
 
 
 export const animateColorTransition = async (
-  colors: string[], 
-  propertyKey: string, 
+  colors: string[],
+  propertyKey: string,
   element?: HTMLElement
 ) => {
   for (let i = 0; i < colors.length - 1; i++) {
@@ -66,21 +66,23 @@ export const animateColorTransition = async (
 
     // Animate to the midpoint
     await animate(startString, midpointString, {
-      duration: 0.5,
+      duration: 1 / 2,
+      ease: "easeIn",
       onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
     });
 
     // Animate from the midpoint to the next color
     await animate(midpointString, endString, {
-      duration: 0.5,
+      duration: 1 / 2,
+      ease: "easeOut",
       onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
     });
   }
 };
 
 export const animateMultipleColorGroups = async (
-  colorGroups: string[][], 
-  propertyKey: string, 
+  colorGroups: string[][],
+  propertyKey: string,
   element?: HTMLElement
 ) => {
   for (let colorArray of colorGroups) {
@@ -92,7 +94,7 @@ export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
-  
+
   let result: ConvertedCoords = {};
 
   if (typeof x !== "undefined") {
@@ -112,7 +114,7 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
-  
+
   let result: PolarCoords = {};
 
   // If both x and y are provided, compute both distance and angle.
@@ -125,13 +127,13 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
       distance: distance / Math.min(width, height),
       angle
     };
-  } 
+  }
   // If only x is provided, compute its related polar coordinate.
   else if (typeof x !== "undefined") {
     const xPos = x - halfWidth;
     result.distance = Math.abs(xPos) / Math.min(width, height);
     result.angle = xPos >= 0 ? 0 : Math.PI; // 0 for positive x, π for negative x
-  } 
+  }
   // If only y is provided, compute its related polar coordinate.
   else if (typeof y !== "undefined") {
     const yPos = y - halfHeight;
@@ -160,19 +162,11 @@ export const getCustomProperty = (property: string, element?: HTMLElement) => {
   return getComputedStyle(targetElement).getPropertyValue(property);
 }
 
-export const animateProperties = (from, to, property, element: undefined | HTMLElement = undefined) => {
-  animate(from, to, {
-    duration: 2,
-    onUpdate: (latest) => utilities.setCustomProperties({ [property]: latest }, element),
-  });
-}
-
 export const utilities = {
   toCartesianCoords,
   toPolarCoords,
   setCustomProperties,
   getCustomProperty,
-  animateProperties
 }
 
 export default utilities
