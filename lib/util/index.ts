@@ -89,8 +89,6 @@ export const animateMultipleColorGroups = async (
 };
 
 export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
-  // if (!document) return {};
-  if(typeof document === "undefined") return {};
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;

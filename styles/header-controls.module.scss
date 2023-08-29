@@ -47,9 +47,9 @@ $transition: calc(.25s * 1) ease-in-out;
     --offset: 2px;
     --offset-negative: calc(var(--offset) * -1);
     --blur: calc(var(--offset) * 2);
-    --shadow-primary: 0 var(--offset-negative) var(--blur) var(--_primary);
-    --shadow-secondary: var(--offset-negative) var(--offset) var(--blur) var(--_secondary);
-    --shadow-tertiary: var(--offset) var(--offset) var(--blur) var(--_tertiary);
+    --shadow-primary: 0 var(--offset-negative) var(--blur) var(--primary);
+    --shadow-secondary: var(--offset-negative) var(--offset) var(--blur) var(--secondary);
+    --shadow-tertiary: var(--offset) var(--offset) var(--blur) var(--tertiary);
     box-shadow:
       var(--shadow-primary),
       var(--shadow-secondary),

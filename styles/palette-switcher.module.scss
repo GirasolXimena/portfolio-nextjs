@@ -10,10 +10,8 @@
     right: var(--size-fluid-4);
   }
 
-  &,
   button {
     @extend .buttonBase;
-    opacity: 1;
     background-image:
       radial-gradient(113% 91% at 17% 102%, var(--primary) 0%, transparent 100%),
       radial-gradient(142% 91% at -6% 26%, var(--secondary) 0%, transparent 100%),
