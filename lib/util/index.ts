@@ -33,13 +33,18 @@ export const getPaletteData = (key: string): { palette: Palette; key: string } =
 export const applyPaletteAnimation = (
   sourceProps: PaletteProperties,
   targetProps: PaletteProperties,
-  element?: HTMLElement) => {
-  Object.entries(sourceProps).forEach(([propertyKey, sourceValue]) => {
-    if (propertyKey === "font") return;
+  element?: HTMLElement
+): Promise<void[]> => {
+  const animations = Object.entries(sourceProps).map(([propertyKey, sourceValue]) => {
+    if (propertyKey === "font") return Promise.resolve();
     const targetValue = targetProps[propertyKey];
-    animateColorTransition([sourceValue, targetValue], propertyKey, element);
+    return animateColorTransition([sourceValue, targetValue], propertyKey, element);
   });
+
+  // Return a promise that resolves when all animations have completed
+  return Promise.all(animations);
 };
+
 
 export const animateColorTransition = async (
   colors: string[], 
@@ -84,7 +89,8 @@ export const animateMultipleColorGroups = async (
 };
 
 export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
-  if (!document) return {};
+  // if (!document) return {};
+  if(typeof document === "undefined") return {};
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;

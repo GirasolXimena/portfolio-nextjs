@@ -16,11 +16,11 @@ function PaletteSwitcher({ segment }) {
     applyPaletteAnimation(sourceProperties, targetProperties, paletteSwitcherRef.current as HTMLButtonElement)
   });
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsTransitioning(true);
     const sourceProperties = nextPalette.palette.properties;
     const targetProperties = nextNextPalette.palette.properties;
-    applyPaletteAnimation(
+    await applyPaletteAnimation(
       sourceProperties,
       targetProperties,
       paletteSwitcherRef.current as HTMLButtonElement
