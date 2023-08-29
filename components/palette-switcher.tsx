@@ -2,13 +2,12 @@ import palettes from "../styles/palettes"
 import styles from "../styles/palette-switcher.module.scss"
 import utilities from "../lib/util"
 import { useEffect, useRef } from "react"
+import usePaletteContext from "hooks/usePaletteContext";
 
-function PaletteSwitcher({ currentPalette, setPalette, segment }) {
+function PaletteSwitcher({ segment }) {
   const paletteSwitcherRef = useRef<HTMLButtonElement>(null);
-  const paletteKeys = Object.keys(palettes)
-  const nextPaletteIndex = paletteKeys.indexOf(currentPalette) + 1
-  const nextPalette = paletteKeys[nextPaletteIndex] || paletteKeys[0]
   const isTransitioning = useRef(false)
+  const { palette, setPalette, nextPalette } = usePaletteContext()
 
   useEffect(() => {
     if (!paletteSwitcherRef.current) return
@@ -16,6 +15,16 @@ function PaletteSwitcher({ currentPalette, setPalette, segment }) {
     const element = paletteSwitcherRef.current
     utilities.setCustomProperties(properties, element)
   }, [nextPalette])
+
+  useEffect(() => {
+    const storedPalette = localStorage.getItem('user-palette') || 'default';
+    setPalette(storedPalette)
+  }, [setPalette])
+
+  useEffect(() => {
+    localStorage.setItem('user-palette', palette)
+    utilities.setCustomProperties(palettes[palette].properties)
+  }, [palette])
 
   const handleClick = () => {
     // prevent double clicks

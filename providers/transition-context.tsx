@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, animate, motion } from 'framer-motion';
 
 type TransitionContextType = {
   children: ReactNode;
@@ -20,4 +20,5 @@ const TransitionContext: FC<TransitionContextType> = ({ children, transitionKey 
   </AnimatePresence>
 );
 
-export default TransitionContext
+
+export default TransitionContext;

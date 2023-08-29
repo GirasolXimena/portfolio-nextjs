@@ -9,11 +9,11 @@ export function Providers({ children }) {
   useMouseInput();
 
   return (
-    <TransitionContext key={pathname}>
-      <CompositeProvider>
+    <CompositeProvider>
+      <TransitionContext key={pathname}>
         {children}
-      </CompositeProvider>
-    </TransitionContext>
+      </TransitionContext>
+    </CompositeProvider>
   )
 }
 

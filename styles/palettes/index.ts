@@ -3,11 +3,11 @@ import { Palettes } from "../../types"
 const palettes: Palettes = {
   default: {
     properties: {
-      light: 'gainsboro',
+      light: '#DCDCDC',
       dark: '#323313',
-      primary: 'yellow',
-      secondary: 'magenta',
-      tertiary: 'cyan',
+      primary: '#FFFF00',
+      secondary: '#FF00FF',
+      tertiary: '#00FFFF',
       font: 'noto_sans'
     },
   },

@@ -4,8 +4,11 @@ import { useEffect } from "react";
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
+import usePaletteContext from "hooks/usePaletteContext";
 
-function AudioPlayer({ musicType, segment }) {
+function AudioPlayer({ segment }) {
+  const { currentPalette } = usePaletteContext()
+  const musicType = currentPalette.audio
   const { playing, startPlaying, stopPlaying } = useAudioContext();
 
   const togglePlaying = () => {

@@ -6,8 +6,8 @@ import { ReactNode } from "react";
 
 const providers = [
   { provider: FrozenRouterContextProvider, props: {} },
-  { provider: ThemeProvider, props: {} },
   { provider: PaletteContextProvider, props: {} },
+  { provider: ThemeProvider, props: {} },
   { provider: AudioContextProvider, props: {} },
 ]
 

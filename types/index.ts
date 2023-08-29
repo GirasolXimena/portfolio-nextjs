@@ -30,7 +30,7 @@ type PaletteProperties = {
   font: string;
 };
 
-type Palette = {
+export type Palette = {
   properties: PaletteProperties;
   audio?: string; // the audio property is optional
 };
