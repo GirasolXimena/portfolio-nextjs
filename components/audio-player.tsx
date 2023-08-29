@@ -8,7 +8,7 @@ import usePaletteContext from "hooks/usePaletteContext";
 
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
-  const musicType = currentPalette.audio
+  const musicType = currentPalette.palette.audio
   const { playing, startPlaying, stopPlaying } = useAudioContext();
 
   const togglePlaying = () => {

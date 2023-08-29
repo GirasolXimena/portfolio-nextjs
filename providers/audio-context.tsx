@@ -29,7 +29,7 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
   const [playing, setPlaying] = useState(false);
   const audioContext = useRef<AudioContext | null>(null);
   const { currentPalette } = usePaletteContext();
-  const musicType = currentPalette.audio;
+  const musicType = currentPalette.palette.audio;
 
   const startPlaying = () => {
     if (playing || !musicType) return

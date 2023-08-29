@@ -21,7 +21,7 @@ export interface GithubRepoItem {
 
 export type GithhubRepoItems = GithubRepoItem[];
 
-type PaletteProperties = {
+export type PaletteProperties = {
   light: string;
   dark: string;
   primary: string;

@@ -37,11 +37,11 @@
   --x-tertiary: calc(var(--x-primary) * -1);
   --y-tertiary: calc(var(--y-primary) * -1);
   --shadow-primary:
-    var(--x-primary) var(--y-primary) var(--_blur) var(--_primary);
+    var(--x-primary) var(--y-primary) var(--_blur) var(--primary);
   --shadow-secondary:
-    var(--x-secondary) var(--y-secondary) var(--_blur) var(--_secondary);
+    var(--x-secondary) var(--y-secondary) var(--_blur) var(--secondary);
   --shadow-tertiary:
-    var(--x-tertiary) var(--y-tertiary) var(--_blur) var(--_tertiary);
+    var(--x-tertiary) var(--y-tertiary) var(--_blur) var(--tertiary);
 }
 
 .mouseFollow {

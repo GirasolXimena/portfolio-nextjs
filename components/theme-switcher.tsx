@@ -16,11 +16,11 @@ function ThemeSwitcher({ segment }) {
   const [mounted, setMounted] = useState(false);
 
   const animateTheme = useCallback(() => {
-    const { light, dark } = currentPalette.properties;
+    const { light, dark } = currentPalette.palette.properties;
     const isLightTheme = resolvedTheme === 'light';
     animateProperties(isLightTheme ? light : dark, isLightTheme ? dark : light, 'text');
     animateProperties(isLightTheme ? dark : light, isLightTheme ? light : dark, 'background');
-  }, [resolvedTheme, currentPalette.properties]);
+  }, [resolvedTheme, currentPalette.palette.properties]);
 
   useUpdateEffect(() => {
     if (resolvedTheme !== 'system' && resolvedTheme !== currentTheme.current) {

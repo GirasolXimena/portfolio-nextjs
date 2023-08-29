@@ -1,4 +1,8 @@
 import { animate } from "framer-motion"
+import convert from "color-convert";
+import { PaletteProperties } from "types";
+import palettes from "styles/palettes";
+import { Palette } from "types";
 
 type InputCoords = {
   x?: number;
@@ -15,8 +19,72 @@ type PolarCoords = {
   angle?: number;
 };
 
+export const getNextPaletteKey = (current: string, offset: number): string => {
+  const paletteNames = Object.keys(palettes);
+  const currentIndex = paletteNames.indexOf(current);
+  return paletteNames[(currentIndex + offset) % paletteNames.length];
+};
+
+export const getPaletteData = (key: string): { palette: Palette; key: string } => ({
+  palette: palettes[key],
+  key: key,
+});
+
+export const applyPaletteAnimation = (
+  sourceProps: PaletteProperties,
+  targetProps: PaletteProperties,
+  element?: HTMLElement) => {
+  Object.entries(sourceProps).forEach(([propertyKey, sourceValue]) => {
+    if (propertyKey === "font") return;
+    const targetValue = targetProps[propertyKey];
+    animateColorTransition([sourceValue, targetValue], propertyKey, element);
+  });
+};
+
+export const animateColorTransition = async (
+  colors: string[], 
+  propertyKey: string, 
+  element?: HTMLElement
+) => {
+  for (let i = 0; i < colors.length - 1; i++) {
+    const startColor = convert.hex.hsl(colors[i]);
+    const endColor = convert.hex.hsl(colors[i + 1]);
+    const midpoint = [
+      (startColor[0] + endColor[0]) / 2,
+      (startColor[1] + endColor[1]) / 2,
+      (startColor[2] + endColor[2]) / 2,
+    ];
+
+    const startString = `hsl(${startColor.join(", ")})`;
+    const midpointString = `hsl(${midpoint.join(", ")})`;
+    const endString = `hsl(${endColor.join(", ")})`;
+
+    // Animate to the midpoint
+    await animate(startString, midpointString, {
+      duration: 0.5,
+      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
+    });
+
+    // Animate from the midpoint to the next color
+    await animate(midpointString, endString, {
+      duration: 0.5,
+      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
+    });
+  }
+};
+
+export const animateMultipleColorGroups = async (
+  colorGroups: string[][], 
+  propertyKey: string, 
+  element?: HTMLElement
+) => {
+  for (let colorArray of colorGroups) {
+    await animateColorTransition(colorArray, propertyKey, element);
+  }
+};
 
 export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
+  if (!document) return {};
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
