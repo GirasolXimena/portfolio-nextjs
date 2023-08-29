@@ -20,13 +20,13 @@ function PaletteSwitcher({ segment }) {
     setIsTransitioning(true);
     const sourceProperties = nextPalette.palette.properties;
     const targetProperties = nextNextPalette.palette.properties;
+    setPalette(nextPalette.key);
     await applyPaletteAnimation(
       sourceProperties,
       targetProperties,
       paletteSwitcherRef.current as HTMLButtonElement
-    );
+      );
 
-    setPalette(nextPalette.key);
     setIsTransitioning(false);
   };
 
