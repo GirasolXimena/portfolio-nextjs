@@ -38,3 +38,6 @@
 - [ ] mouse / gyro interaction is hero facing the cursor
 - [ ] alter color animation so it's more brilliant and less gray
 - [ ] refactor files not in typescript
+- [ ] choose between react-hooks-ts, ahooks, and use-hooks
+- [ ] implement gyro interaction when mouse not present
+- [ ] move bg animation to canvas

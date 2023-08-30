@@ -154,7 +154,7 @@
 
     @media screen and (-webkit-min-device-pixel-ratio:0) { 
       /* Safari only override */
-      background: radial-gradient(circle, var(--primary), var(--secondary), var(--tertiary));
+      background: radial-gradient(circle, var(--tertiary) calc(100% * var(--amp-tertiary)), transparent);
       opacity: 0.5;
   }
 
