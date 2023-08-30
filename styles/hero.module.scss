@@ -13,8 +13,8 @@
   border-radius: var(--radius-5);
   transition: --_amp 1s linear;
   background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient-mirrored);
-  background-size: auto, 100% 100%;
-  background-position: center;
+  background-size: auto, 100vh 100vw;
+  background-position: center, 50% 50%;
   padding: var(--size-fluid-3);
   border-width: var(--size-fluid-1);
   border-color: var(--background);
@@ -45,12 +45,5 @@
   
   nav {
     margin-bottom: var(--size-fluid-1);
-    ul {
-      li {
-        a {
-          // color: var(--background);
-        }
-      }
-    }
   }
 }

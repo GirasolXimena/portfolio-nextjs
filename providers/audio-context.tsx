@@ -11,8 +11,8 @@ import {
 import usePaletteContext from "hooks/usePaletteContext";
 import usePrefersReducedMotion from "hooks/usePreferesReducedMotion";
 import palettes from "styles/palettes";
-import utilities from "lib/util/index";
-import { useAnimationFrame } from "framer-motion";
+import utilities, { setCustomProperties } from "lib/util/index";
+import { animate, useAnimationFrame, useMotionValue, useMotionValueEvent, useTransform } from "framer-motion";
 
 type AudioContextType = {
   playing: boolean;
@@ -30,6 +30,15 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
   const audioContext = useRef<AudioContext | null>(null);
   const { currentPalette } = usePaletteContext();
   const musicType = currentPalette.palette.audio;
+  const primaryValue = useMotionValue(0)
+  const secondaryValue = useMotionValue(0)
+  const tertiaryValue = useMotionValue(0)
+  const audioLevel = useMotionValue(0)
+
+  const normalizedPrimaryLevel = useTransform(primaryValue, [0, 1], [0, 1])
+  const normalizedSecondaryLevel = useTransform(secondaryValue, [0, 1], [0, 1])
+  const normalizedTertiaryLevel = useTransform(tertiaryValue, [0, 1], [0, 1])
+  const normalizedAudioLevel = useTransform(audioLevel, [0, 0.5], [0, 1])
 
   const startPlaying = () => {
     if (playing || !musicType) return
@@ -51,15 +60,13 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
     if (!audioData.current) return
     let data = new Float32Array(audioData.current.frequencyBinCount)
     // draw the audio data
+    if (!audioData.current) return
     const draw = (data: number) => {
-      const val = 0.33 + data / 3
-      utilities.setCustomProperties({
-        '--amp-primary': String(val),
-        '--amp-secondary': String(val),
-        '--amp-tertiary': String(val),
+      animate(audioLevel, data, {
+        duration: 0.25,
+        ease: 'easeOut'
       })
     }
-    if (!audioData.current) return
     audioData.current.getFloatTimeDomainData(data)
     let sumQuares = 0.0
     for (const ampliltude of data) {
@@ -78,14 +85,9 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
     const tertiaryAmp = (Math.sin(2 * Math.PI * now / 60) + 1) / 2;
 
     // Scale and translate to desired range, for example, [1, 1.5]
-    const primaryValue = primaryAmp / 2;
-    const secondaryValue = secondaryAmp / 2;
-    const tertiaryValue = tertiaryAmp / 2;
-    utilities.setCustomProperties({
-      '--amp-primary': String(primaryValue),
-      '--amp-secondary': String(secondaryValue),
-      '--amp-tertiary': String(tertiaryValue),
-    })
+    animate(primaryValue, primaryAmp / 2)
+    animate(secondaryValue, secondaryAmp / 2)
+    animate(tertiaryValue, tertiaryAmp / 2)
   }, [])
 
   const stopPlaying = useCallback(() => {
@@ -113,6 +115,28 @@ const AudioContextProvider = ({ children }: { children: ReactNode }) => {
     } else {
       noAudioAnimation(time)
     }
+  })
+
+  useMotionValueEvent(normalizedAudioLevel, 'change', (value) => {
+    console.log({ value })
+    setCustomProperties({
+      'amp-tertiary': String(value),
+    })
+  })
+  useMotionValueEvent(normalizedPrimaryLevel, 'change', (value) => {
+    setCustomProperties({
+      'amp-primary': String(value),
+    })
+  })
+  useMotionValueEvent(normalizedSecondaryLevel, 'change', (value) => {
+    setCustomProperties({
+      'amp-secondary': String(value),
+    })
+  })
+  useMotionValueEvent(normalizedTertiaryLevel, 'change', (value) => {
+    setCustomProperties({
+      'amp-tertiary': String(value),
+    })
   })
   return (
     <AudioContext.Provider value={{

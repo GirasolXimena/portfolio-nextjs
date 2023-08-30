@@ -5,13 +5,13 @@ import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
 import usePaletteContext from "hooks/usePaletteContext";
-import { useSsr } from "usehooks-ts";
+import { useIsClient } from "usehooks-ts";
 
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
   const musicType = currentPalette.palette.audio
   const { playing, startPlaying, stopPlaying } = useAudioContext();
-  const { isBrowser} = useSsr()
+  const isClient = useIsClient()
 
   const togglePlaying = () => {
     if (playing) {
@@ -28,7 +28,7 @@ function AudioPlayer({ segment }) {
     stopPlaying()
   }, [musicType, stopPlaying])
 
-  return isBrowser && (
+  return isClient && (
     <div className={`${styles.container} ${styles[segment]}`}>
       {
         !!musicType && (
