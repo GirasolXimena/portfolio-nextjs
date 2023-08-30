@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   min-height: 100%;
+  perspective: 1000px;
 }
 .hero {
   display: flex;
@@ -11,7 +12,6 @@
   justify-content: center;
   align-content: center;
   border-radius: var(--radius-5);
-  transition: --_amp 1s linear;
   background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient-mirrored);
   background-size: auto, 100vh 100vw;
   background-position: center, 50% 50%;
@@ -21,6 +21,9 @@
   background-clip: content-box, border-box;
   aspect-ratio: var(--ratio-golden);
   width: clamp(320px,90vw, 40rem);
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--mouse-y) * -15deg)) rotateY(calc(var(--mouse-x) * 15deg));
+  box-shadow: calc(var(--mouse-x) * -10px) calc(var(--mouse-y) * -10px) 20px var(--text);
 
   h1 {
     color: var(--text);
