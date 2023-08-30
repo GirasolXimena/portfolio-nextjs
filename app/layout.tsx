@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html suppressHydrationWarning className={inter.variable}>
+    <html suppressHydrationWarning className={inter.variable} lang='en-us'>
       <body className={styles.body}>
         <StrictMode>
           <Providers>
