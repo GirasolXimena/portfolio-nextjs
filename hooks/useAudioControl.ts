@@ -1,20 +1,21 @@
 import { useRef, useCallback, MutableRefObject } from 'react';
 import usePaletteContext from 'hooks/usePaletteContext'
-import { useBoolean, useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useBoolean, useEffectOnce, useIsClient, useUpdateEffect } from 'usehooks-ts';
 
 export type AudioDataType = MutableRefObject<AnalyserNode | null>;
 
 export type UseAudioControlReturn = {
   playing: boolean;
   audioData: AudioDataType;
-  audioElement: React.MutableRefObject<HTMLAudioElement | null>;
+  audioElement: MutableRefObject<HTMLAudioElement | null>;
   startPlaying: () => void;
   stopPlaying: () => void;
 };
 
 const useAudioControl = (): UseAudioControlReturn => {
+  const isClient = useIsClient()
   const { currentPalette } = usePaletteContext();
-  const audioElement = useRef<HTMLAudioElement>(new Audio());
+  const audioElement = useRef<HTMLAudioElement | null>(null);
   const audioData = useRef<AnalyserNode | null>(null);
   const { value: playing, setTrue: setPlayingTrue, setFalse: setPlayingFalse } = useBoolean(false);
   const audioContext = useRef<AudioContext | null>(null);
@@ -24,6 +25,7 @@ const useAudioControl = (): UseAudioControlReturn => {
   }, []);
 
   const startPlaying = useCallback(() => {
+    if(!audioElement.current) return console.error('Audio element not found');
     if (playing || !audioElement.current.src) return;
 
     if (!audioContext.current) {
@@ -55,6 +57,12 @@ const useAudioControl = (): UseAudioControlReturn => {
   }, [setPlayingFalse]);
 
   useUpdateEffect(() => {
+    if (!isClient) return;
+
+    if(audioElement.current === null) {
+      audioElement.current = new Audio();
+    }
+
     const musicType = currentPalette.palette.audio || ''
     setMusicType(musicType)
   }, [currentPalette, setMusicType])
