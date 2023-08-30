@@ -15,6 +15,7 @@ import {
   useTransform
 } from "framer-motion";
 import useAudioControl, { AudioDataType, UseAudioControlReturn } from "hooks/useAudioControl";
+import { useBoolean, useUpdateEffect } from "usehooks-ts";
 
 type AudioContextType = {
   playing: boolean;
@@ -38,6 +39,7 @@ const setAmpProperty = (value: number, property: string) => {
 
 const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: AudioContextProviderProps) => {
   const dataArrayRef = useRef<Float32Array | null>(null)
+  const { value: animating, setTrue: setAnimatingTrue } = useBoolean(false)
   const {
     playing,
     audioData,
@@ -94,7 +96,7 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     animate(tertiaryValue, tertiaryAmp / 2)
   }, [primaryValue, secondaryValue, tertiaryValue])
 
-  const shouldAnimate = !usePrefersReducedMotion()
+  const shouldAnimate = !usePrefersReducedMotion() && animating
   useAnimationFrame((time) => {
     if (!shouldAnimate) return
     if (playing) {
@@ -112,6 +114,10 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     (value) => setAmpProperty(value, 'secondary'));
   useMotionValueEvent(normalizedTertiaryLevel, 'change',
     (value) => setAmpProperty(value, 'tertiary'));
+
+  useUpdateEffect(() => {
+    setAnimatingTrue()
+  })
 
   return (
     <AudioContext.Provider value={{
