@@ -15,7 +15,7 @@ import {
   useTransform
 } from "framer-motion";
 import useAudioControl, { AudioDataType, UseAudioControlReturn } from "hooks/useAudioControl";
-import { useBoolean, useUpdateEffect } from "usehooks-ts";
+import { useBoolean, useEffectOnce, useUpdateEffect } from "usehooks-ts";
 
 type AudioContextType = {
   playing: boolean;
@@ -39,6 +39,7 @@ const setAmpProperty = (value: number, property: string) => {
 
 const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: AudioContextProviderProps) => {
   const dataArrayRef = useRef<Float32Array | null>(null)
+  const audioWorkerRef = useRef<Worker | null>(null)
   const { value: animating, setTrue: setAnimatingTrue } = useBoolean(false)
   const {
     playing,
@@ -53,25 +54,22 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
   const audioAnimation = useCallback((audioData: AudioDataType) => {
     // create a new array of 32 bit floating point numbers
     if (!audioData.current) return
+
     if (!dataArrayRef.current) {
-      dataArrayRef.current = new Float32Array(audioData.current.fftSize)
+      dataArrayRef.current = new Float32Array(audioData.current.fftSize);
     }
-    // draw the audio data
-    const draw = (data: number) => {
-      animate(audioLevel, data, {
-        duration: 0.25,
-        ease: 'easeOut'
-      })
-    }
-    if(!audioData.current) return
-    audioData.current.getFloatTimeDomainData(dataArrayRef.current)
-    let sumQuares = 0.0
-    for (const ampliltude of dataArrayRef.current) {
-      sumQuares += ampliltude * ampliltude
-    }
-    const amp = Math.sqrt(sumQuares / dataArrayRef.current.length)
-    draw(amp)
-  }, [audioLevel])
+
+
+    audioData.current.getFloatTimeDomainData(dataArrayRef.current);
+
+    const clonedBuffer = dataArrayRef.current.buffer.slice(0);
+
+    audioWorkerRef.current?.postMessage({
+      type: 'GET_AUDIO_DATA',
+      data: clonedBuffer
+  }, [clonedBuffer]);
+  
+  }, [])
 
   const shouldAnimate = !usePrefersReducedMotion() && animating
   useAnimationFrame((time) => {
@@ -89,6 +87,30 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
   useUpdateEffect(() => {
     setAnimatingTrue()
   })
+
+  useEffectOnce(() => {
+    audioWorkerRef.current = new Worker('/workers/audioWorker.js');
+
+    audioWorkerRef.current.onmessage = (e) => {
+      const { type, rms } = e.data;
+
+      switch (type) {
+        case 'AUDIO_RMS_DATA':
+          animate(audioLevel, rms, {
+            duration: 0.25,
+            ease: 'easeOut'
+          })
+          break;
+      }
+    }
+
+    return () => {
+      if(audioWorkerRef.current) {
+        audioWorkerRef.current.terminate();
+        audioWorkerRef.current = null;
+      }
+    }
+});
 
   return (
     <AudioContext.Provider value={{
