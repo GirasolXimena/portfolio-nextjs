@@ -54,6 +54,7 @@
 
 :root {
   --_amp: var(--amp, 1);
+  --amp-audio: var(--amp-audio, 0);
   --_light: var(--light, gainsboro);
   --_dark: var(--dark, #323313);
   --_primary: var(--primary, yellow);
@@ -94,18 +95,15 @@
   --gradient-tertiary: radial-gradient(farthest-side at var(--tertiary-x) var(--tertiary-y),
       var(--tertiary) var(--color-stop-tertiary),
       transparent var(--transparent-stop));
-  --gradient-primary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--primary-x)) calc(100% - var(--primary-y)),
-      var(--primary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-secondary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--secondary-x)) calc(100% - var(--secondary-y)),
-      var(--secondary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-tertiary-mirrored: radial-gradient(farthest-side at calc(100% - var(--tertiary-x)) calc(100% - var(--tertiary-y)),
-      var(--tertiary) var(--color-stop),
-      transparent var(--transparent-stop));
   --bg-gradient: var(--gradient-primary), var(--gradient-secondary), var(--gradient-tertiary);
-  --bg-gradient-mirrored: var(--gradient-tertiary-mirrored), var(--gradient-secondary-mirrored), var(--gradient-primary-mirrored);
 
+  // --bg-gradient: linear-gradient(to top, var(--primary) calc(var(--amp-tertiary) * 50%), var(--secondary), var(--tertiary));
+  --primary-stop: calc(0% + var(--amp-primary) * 66%);
+  --secondary-stop: calc(33% + var(--amp-secondary) * 66%);
+  --tertiary-stop: calc(66% + var(--amp-tertiary) * 66%);
+  --bg-gradient: linear-gradient(to top, var(--primary) var(--primary-stop), var(--secondary) var(--secondary-stop), var(--tertiary) var(--tertiary-stop));
+
+  --bg-gradient-mirrored: linear-gradient(to bottom, var(--tertiary) calc(var(--amp-tertiary) * 50%), var(--secondary), var(--primary));
   font-family: var(--font-inter);
   // extending open-props
   --font-size-fluid-4: clamp(12px, 10vw, 6rem);

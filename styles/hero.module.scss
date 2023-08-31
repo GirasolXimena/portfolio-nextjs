@@ -12,17 +12,15 @@
   justify-content: center;
   align-content: center;
   border-radius: var(--radius-5);
-  background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient-mirrored);
-  background-size: auto, 100vh 100vw;
-  background-position: center, 50% 50%;
+  background-color: var(--background);
   padding: var(--size-fluid-3);
   border-width: var(--size-fluid-1);
   border-color: var(--background);
-  background-clip: content-box, border-box;
+  background-clip: content-box;
   aspect-ratio: var(--ratio-golden);
   width: clamp(320px,90vw, 40rem);
   transform-style: preserve-3d;
-  transform: rotateX(calc(var(--mouse-y) * -15deg)) rotateY(calc(var(--mouse-x) * 15deg));
+  transform: scale(calc(1 + var(--amp-audio, 0) / 50)) rotateX(calc(var(--mouse-y) * -15deg)) rotateY(calc(var(--mouse-x) * 15deg));
   box-shadow: calc(var(--mouse-x) * -10px) calc(var(--mouse-y) * -10px) 20px var(--text);
 
   h1 {
@@ -37,7 +35,9 @@
     width: min-content;
 
     &::first-letter {
-      background-image: var(--bg-gradient-mirrored);
+      background-image: linear-gradient(to bottom, var(--tertiary) calc(var(--amp-tertiary) * 50%), var(--secondary), var(--primary));
+      background-size: cover;
+      background-position: 100% 100%;
       background-clip: text;
       font-size: calc(var(--font-size-fluid-4) * 1.5);
       color: transparent;

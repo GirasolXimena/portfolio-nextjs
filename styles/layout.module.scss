@@ -9,7 +9,26 @@
 }
 
 .body {
-  @extend .gradientBackground;
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+  &::before {
+    z-index: -2;
+    background-image: var(--noise-1), var(--bg-gradient);
+  }
+
+  &::after {
+    z-index: -1;
+    background-color: var(--background);
+    mix-blend-mode: darken;
+    opacity: 0.5;
+  }
 }
 
 .header {

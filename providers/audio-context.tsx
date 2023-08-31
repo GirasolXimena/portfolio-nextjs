@@ -107,7 +107,7 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
   })
 
   useMotionValueEvent(normalizedAudioLevel, 'change',
-    (value) => setAmpProperty(value, 'tertiary'));
+    (value) => setAmpProperty(value, 'audio'));
   useMotionValueEvent(normalizedPrimaryLevel, 'change',
     (value) => setAmpProperty(value, 'primary'));
   useMotionValueEvent(normalizedSecondaryLevel, 'change',
