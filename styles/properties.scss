@@ -102,7 +102,7 @@
   --secondary-stop: calc(33% + var(--amp-secondary) * 66%);
   --tertiary-stop: calc(66% + var(--amp-tertiary) * 66%);
   --bg-gradient: linear-gradient(to top, var(--primary) var(--primary-stop), var(--secondary) var(--secondary-stop), var(--tertiary) var(--tertiary-stop));
-
+  --bg-gradient-static: linear-gradient(to top, var(--primary), var(--secondary), var(--tertiary));
   --bg-gradient-mirrored: linear-gradient(to bottom, var(--tertiary) calc(var(--amp-tertiary) * 50%), var(--secondary), var(--primary));
   font-family: var(--font-inter);
   // extending open-props

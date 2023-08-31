@@ -30,7 +30,7 @@ function ThemeSwitcher({ segment }) {
       currentTheme.current = resolvedTheme;
     }
   }, [resolvedTheme]);
-
+  // fix theme flash when system on dark mode
   useEffect(() => {
     setMounted(true);
   }, []);
