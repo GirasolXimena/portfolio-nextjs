@@ -12,11 +12,12 @@
   justify-content: center;
   align-content: center;
   border-radius: var(--radius-5);
-  background-color: var(--background);
+  background-image: linear-gradient(var(--background), var(--background)), var(--noise-5), var(--bg-gradient);
   padding: var(--size-fluid-3);
   border-width: var(--size-fluid-1);
   border-color: var(--background);
-  background-clip: content-box;
+  background-clip: content-box, border-box, border-box;
+  background-size: cover;
   aspect-ratio: var(--ratio-golden);
   width: clamp(320px,90vw, 40rem);
   transform-style: preserve-3d;

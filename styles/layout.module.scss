@@ -20,19 +20,20 @@
   }
   &::before {
     z-index: -2;
-    background-image: var(--noise-1), var(--bg-gradient-static);
+    background-color: var(--text);
+    // background-image: var(--noise-1), var(--bg-gradient-static);
     // overflow: hidden;
-    // opacity: 0.25;
+    // opacity: 0.5;
+    // opacity: 0.75;
   }
   
   &::after {
     z-index: -1;
     background-color: var(--background);
-    mix-blend-mode: darken;
-    // opacity: 0.5;
-    opacity: 0.25;
-    opacity: calc(0.25 - var(--amp-audio) * 0.25);
-    transition: opacity 150ms linear;
+    // mix-blend-mode: darken;
+    opacity: 0.75;
+    // opacity: 0.25;
+    // opacity: calc(0.5 - var(--amp-audio) * 0.5);
     // opacity: 0;
   }
 }
