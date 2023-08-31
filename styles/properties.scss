@@ -153,12 +153,12 @@
   --font-size-fluid-4: clamp(12px, 10vw, 6rem);
 
   --bg-gradient: linear-gradient(to top,
-      var(--primary) 0%, var(--primary) var(--primary-stop),
-      var(--secondary) var(--secondary-stop), var(--tertiary) var(--tertiary-stop), var(--tertiary) 100%);
+      var(--_primary) 0%, var(--_primary) var(--primary-stop),
+      var(--_secondary) var(--secondary-stop), var(--_tertiary) var(--tertiary-stop), var(--_tertiary) 100%);
   --bg-gradient-mirrored: linear-gradient(to top,
-      var(--tertiary)  calc(0% + var(--amp-audio) * 100%),
-      var(--secondary),
-      var(--primary));
+      var(--_tertiary)  calc(0% + var(--amp-audio) * 50%),
+      var(--_secondary),
+      var(--_primary));
 
 
 

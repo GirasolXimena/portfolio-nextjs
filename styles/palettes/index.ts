@@ -10,6 +10,7 @@ const palettes: Palettes = {
       tertiary: '#00FFFF',
       font: 'noto_sans'
     },
+    audio: '/audio/default.mp3'
   },
   raingurl: {
     properties: {

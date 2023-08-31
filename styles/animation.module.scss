@@ -1,5 +1,7 @@
 .gradient {
-  background: var(--bg-gradient);
+  background: linear-gradient(to right, var(--secondary), transparent, var(--tertiary)), radial-gradient(farthest-side at 50% 50%,
+      var(--primary),
+      transparent);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -20,7 +22,9 @@
 }
 
 @keyframes shine {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: top left;
   }
 
