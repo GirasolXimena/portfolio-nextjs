@@ -25,7 +25,11 @@ const useAudioControl = (): UseAudioControlReturn => {
   }, []);
 
   const startPlaying = useCallback(() => {
-    if(!audioElement.current) return console.error('Audio element not found');
+    if(!audioElement.current) {
+      audioElement.current = new Audio();
+      audioElement.current.src = currentPalette.palette.audio || ''
+    }
+    console.log('play', playing, audioElement.current.src)
     if (playing || !audioElement.current.src) return;
 
     if (!audioContext.current) {
@@ -47,7 +51,7 @@ const useAudioControl = (): UseAudioControlReturn => {
         console.error('Error playing audio: ', error)
       }
     }
-  }, [playing, setPlayingTrue]);
+  }, [playing, setPlayingTrue, currentPalette.palette.audio]);
 
   const stopPlaying = useCallback(() => {
     if (audioElement.current) {

@@ -79,10 +79,7 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     if (playing) {
       audioAnimation(audioData)
     } else {
-      animate(audioLevel, 0, {
-        duration: 0.25,
-        ease: 'easeOut'
-      })
+      audioLevel.set(0)
     }
   })
 

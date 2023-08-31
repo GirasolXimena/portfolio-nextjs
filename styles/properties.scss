@@ -88,48 +88,25 @@
   initial-value: 0%;
 }
 
-@keyframes primaryAmpAnimation {
-  0%, 100% {
-    --amp-primary: 0.5; /* start and end at the midpoint since it's a sine wave */
-  }
-  50% {
-    --amp-primary: 1; /* peak of sine wave */
-  }
-}
-
-@keyframes secondaryAmpAnimation {
-  0%, 100% {
-    --amp-secondary: 0.5; /* start and end at the midpoint since it's a sine wave */
-  }
-  50% {
-    --amp-secondary: 1; /* peak of sine wave */
-  }
-}
-
-@keyframes tertiaryAmpAnimation {
-  0%, 100% {
-    --amp-tertiary: 0.5; /* start and end at the midpoint since it's a sine wave */
-  }
-  50% {
-    --amp-tertiary: 1; /* peak of sine wave */
-  }
-}
 @keyframes gradientShift {
   0% {
     --primary-stop: 0%;
     --secondary-stop: 30%;
     --tertiary-stop: 70%;
   }
+
   33% {
     --primary-stop: 20%;
     --secondary-stop: 50%;
     --tertiary-stop: 80%;
   }
+
   66% {
     --primary-stop: 40%;
     --secondary-stop: 60%;
     --tertiary-stop: 90%;
   }
+
   100% {
     --primary-stop: 0%;
     --secondary-stop: 30%;
@@ -146,8 +123,8 @@
   --_primary: var(--primary, yellow);
   --_secondary: var(--secondary, magenta);
   --_tertiary: var(--tertiary, cyan);
-  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--_amp));
-  --_factor-y: var(--factor-y, calc(1em / 8) * var(--_amp));
+  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--amp-audio));
+  --_factor-y: var(--factor-y, calc(1em / 8) * var(--amp-audio));
   --_mouse-x: var(--mouse-x, calc(1/4));
   --_mouse-y: var(--mouse-y, calc(1/4));
   --_blur: var(--blur, calc(1em / 64));
@@ -166,46 +143,25 @@
   --tertiary-x: calc(50% * var(--x));
   --tertiary-y: calc(100% * var(--y));
 
-  --color-stop: 0%;
-  --color-stop-primary: calc(var(--amp-primary, 0) * 100%);
-  --color-stop-secondary: calc(var(--amp-secondary, 0) * 100%);
-  --color-stop-tertiary: calc(var(--amp-tertiary, 0) * 100%);
 
-  --transparent-stop: 100%;
-  --gradient-primary: radial-gradient(farthest-corner at var(--primary-x) var(--primary-y),
-      var(--primary) var(--color-stop-primary),
-      transparent var(--transparent-stop));
-  --gradient-secondary: radial-gradient(farthest-corner at var(--secondary-x) var(--secondary-y),
-      var(--secondary) var(--color-stop-secondary),
-      transparent var(--transparent-stop));
-  --gradient-tertiary: radial-gradient(farthest-side at var(--tertiary-x) var(--tertiary-y),
-      var(--tertiary) var(--color-stop-tertiary),
-      transparent var(--transparent-stop));
-  --gradient-primary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--primary-x)) calc(100% - var(--primary-y)),
-      var(--primary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-secondary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--secondary-x)) calc(100% - var(--secondary-y)),
-      var(--secondary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-tertiary-mirrored: radial-gradient(farthest-side at calc(100% - var(--tertiary-x)) calc(100% - var(--tertiary-y)),
-      var(--tertiary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --bg-gradient: var(--gradient-primary), var(--gradient-secondary), var(--gradient-tertiary);
-  --bg-gradient-mirrored: var(--gradient-tertiary-mirrored), var(--gradient-secondary-mirrored), var(--gradient-primary-mirrored);
 
-  // --bg-gradient: linear-gradient(to top, var(--primary) calc(var(--amp-tertiary) * 50%), var(--secondary), var(--tertiary));
   --primary-stop: calc(0% + var(--amp-primary) * 66%);
   --secondary-stop: calc(33% + var(--amp-secondary) * 66%);
   --tertiary-stop: calc(66% + var(--amp-tertiary) * 66%);
   font-family: var(--font-inter);
   // extending open-props
   --font-size-fluid-4: clamp(12px, 10vw, 6rem);
-  --font-weight-audio: calc(var(--font-weight-9) + var(--_amp) * 20);
 
-  --bg-gradient: linear-gradient(to top, 
-  var(--primary) 0%, var(--primary) var(--primary-stop),
-  var(--secondary) var(--secondary-stop), var(--tertiary) var(--tertiary-stop), var(--tertiary) 100%);
-  --bg-gradient-mirrored: linear-gradient(to top, var(--tertiary) calc(33% - var(--amp-audio) * 33%), var(--secondary), var(--primary) calc(66% + var(--amp-audio) * 33%));
+  --bg-gradient: linear-gradient(to top,
+      var(--primary) 0%, var(--primary) var(--primary-stop),
+      var(--secondary) var(--secondary-stop), var(--tertiary) var(--tertiary-stop), var(--tertiary) 100%);
+  --bg-gradient-mirrored: linear-gradient(to top,
+      var(--tertiary)  calc(0% + var(--amp-audio) * 100%),
+      var(--secondary),
+      var(--primary));
+
+
+
   animation: gradientShift 60s infinite;
 }
 
