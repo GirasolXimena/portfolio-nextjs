@@ -57,6 +57,8 @@
 
   &.home {
     justify-content: flex-end;
+    width: min-content;
+    margin-left: auto;
 
     @extend .contentBackground;
 
