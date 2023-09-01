@@ -22,9 +22,9 @@ export default function Navbar({ segment }) {
           </a>
         </li>
         <li className={styles.magenta}>
-          <Link href="/labs">
+          <a href="https://codepen.io/abstract_code">
               Labs
-          </Link>
+          </a>
         </li>
         <li className={styles.yellow}>
           <a href='https://github.com/RobertAndradeJr'>
