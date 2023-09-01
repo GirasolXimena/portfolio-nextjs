@@ -88,32 +88,6 @@
   initial-value: 0%;
 }
 
-@keyframes gradientShift {
-  0% {
-    --primary-stop: 0%;
-    --secondary-stop: 30%;
-    --tertiary-stop: 70%;
-  }
-
-  33% {
-    --primary-stop: 20%;
-    --secondary-stop: 50%;
-    --tertiary-stop: 80%;
-  }
-
-  66% {
-    --primary-stop: 40%;
-    --secondary-stop: 60%;
-    --tertiary-stop: 90%;
-  }
-
-  100% {
-    --primary-stop: 0%;
-    --secondary-stop: 30%;
-    --tertiary-stop: 70%;
-  }
-}
-
 
 :root {
   --_amp: var(--amp, 1);
@@ -153,8 +127,9 @@
   --font-size-fluid-4: clamp(12px, 10vw, 6rem);
 
   --bg-gradient: linear-gradient(to top,
-      var(--_primary) 0%, var(--_primary) var(--primary-stop),
-      var(--_secondary) var(--secondary-stop), var(--_tertiary) var(--tertiary-stop), var(--_tertiary) 100%);
+      var(--_primary),
+      var(--_secondary) calc(50% + var(--mouse-y) * 20%),
+      var(--_tertiary));
   --bg-gradient-mirrored: linear-gradient(to top,
       var(--_tertiary)  calc(0% + var(--amp-audio) * 50%),
       var(--_secondary),
@@ -162,7 +137,6 @@
 
 
 
-  animation: gradientShift 60s infinite;
 }
 
 [data-theme="light"] {
