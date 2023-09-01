@@ -2,18 +2,20 @@
 import utilities from 'lib/util';
 import { useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
 import { useEventListener, useIsClient } from 'usehooks-ts';
+import { useMediaQuery } from 'usehooks-ts';
 
 const { setCustomProperties, toCartesianCoords } = utilities;
 
 export const useMouseInput = () => {
   const isBrowser = useIsClient();
+  const hasMouse = useMediaQuery('(hover: hover)');
 
   // Always create the motion values.
   const motionX = useMotionValue(0);
   const motionY = useMotionValue(0);
 
   const handlePointerMove = ({ clientX, clientY }: PointerEvent) => {
-    if (!isBrowser) return;
+    if (!isBrowser || !hasMouse) return;
     
     motionY.set(clientY);
     motionX.set(clientX);

@@ -5,12 +5,6 @@
   width: $width;
   height: $height;
 
-  &.home {
-    position: absolute;
-    bottom: var(--size-fluid-4);
-    right: var(--size-fluid-4);
-  }
-
 }
 .button {
   @extend .buttonBase;

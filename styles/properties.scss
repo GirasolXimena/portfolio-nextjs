@@ -124,11 +124,11 @@
   --tertiary-stop: calc(66% + var(--amp-tertiary) * 66%);
   font-family: var(--font-inter);
   // extending open-props
-  --font-size-fluid-4: clamp(12px, 10vw, 6rem);
+  --font-size-fluid-4: calc(var(--font-size-fluid-3) * 1.5);
 
   --bg-gradient: linear-gradient(to top,
       var(--_primary),
-      var(--_secondary) calc(50% + var(--mouse-y) * 20%),
+      var(--_secondary) calc(50% + var(--_mouse-y) * 20%),
       var(--_tertiary));
   --bg-gradient-mirrored: linear-gradient(to top,
       var(--_tertiary)  calc(0% + var(--amp-audio) * 50%),

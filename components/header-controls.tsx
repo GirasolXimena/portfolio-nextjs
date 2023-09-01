@@ -6,11 +6,11 @@ import styles from '../styles/layout.module.scss'
 function HeaderControls({ segment }) {
 
   return (
-    <div className={styles.controls}>
-      <AudioPlayer
+    <div className={`${styles.controls} ${styles[segment]}`}>
+      <ThemeSwitcher
         segment={segment}
       />
-      <ThemeSwitcher
+      <AudioPlayer
         segment={segment}
       />
       <PaletteSwitcher

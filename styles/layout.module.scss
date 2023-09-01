@@ -54,6 +54,16 @@
   justify-content: space-evenly;
   gap: 18px;
   align-items: center;
+
+  &.home {
+    justify-content: flex-end;
+
+    @extend .contentBackground;
+
+    @media(min-width: 240px) {
+      gap: var(--size-fluid-3);
+    }
+  }
 }
 
 .container {
@@ -72,7 +82,7 @@
     padding: var(--size-fluid-4) var(--size-fluid-2);
   }
   @media(min-width: 768px) {
-    padding: var(--size-fluid-5) var(--size-fluid-4);
+    padding: var(--size-fluid-3) var(--size-fluid-4);
   }
 }
 

@@ -2,11 +2,6 @@
 @import "./header-controls.module.scss";
 .container {
   @extend .centeredFlex;
-  &.home {
-    position: absolute;
-    top: var(--size-fluid-4);
-    left: var(--size-fluid-4);
-  }
 }
 .button {
   --w: 64px;

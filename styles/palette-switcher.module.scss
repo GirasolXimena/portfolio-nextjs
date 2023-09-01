@@ -5,12 +5,6 @@
 .container {
   @extend .centeredFlex;
 
-  &.home {
-    position: absolute;
-    top: var(--size-fluid-4);
-    right: var(--size-fluid-4);
-  }
-
   button {
     @extend .buttonBase;
     @extend .gradient;
