@@ -28,7 +28,7 @@ function AudioPlayer({ segment }) {
     stopPlaying()
   }, [musicType, stopPlaying])
 
-  return isClient && (
+  return isClient ? (
     <div className={`${styles.container} ${styles[segment]}`}>
       {
         !!musicType && (
@@ -42,6 +42,12 @@ function AudioPlayer({ segment }) {
           </button>
         )
       }
+    </div>
+  ) : (
+    <div className={`${styles.container} ${styles[segment]}`}>
+      <button className={`${styles.button}`}>
+        <SoundIcon size="36" playing={playing} />
+      </button>
     </div>
   )
 }

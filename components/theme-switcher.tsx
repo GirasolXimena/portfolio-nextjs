@@ -24,7 +24,7 @@ function ThemeSwitcher({ segment }) {
 
   useUpdateEffect(() => {
     if (resolvedTheme !== 'system' && resolvedTheme !== currentTheme.current) {
-      if(currentTheme.current !== 'system') {
+      if (currentTheme.current !== 'system') {
         animateTheme();
       }
       currentTheme.current = resolvedTheme;
@@ -45,7 +45,7 @@ function ThemeSwitcher({ segment }) {
     return themeVal === 'dark';
   };
 
-  return mounted && (
+  return mounted ? (
     <div className={`${styles.container} ${styles[segment]}`}>
       <ThreeStateCheckbox
         className={`${styles.button} ${iconStyles.toggle}`}
@@ -57,6 +57,12 @@ function ThemeSwitcher({ segment }) {
       >
         <ThemeIcon />
       </ThreeStateCheckbox>
+    </div>
+  ) : (
+    <div className={`${styles.container} ${styles[segment]}`}>
+      <button className={`${styles.button} ${iconStyles.toggle}`}>
+        <ThemeIcon />
+      </button>
     </div>
   );
 }

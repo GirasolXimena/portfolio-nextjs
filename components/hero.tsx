@@ -1,12 +1,14 @@
-import { NAME } from 'lib/data'
+'use client'
+import { useMouseInput } from 'hooks/useMouseInput'
 import styles from '../styles/hero.module.scss'
 import Navbar from './navbar'
 
-export default function Hero() {
+export default function Hero({ name }: { name : string}) {
+  useMouseInput()
   return (
     <div className={styles.hero}>
       <h1 id="name">
-        {NAME}
+        {name}
       </h1>
       <Navbar segment='home' />
     </div>

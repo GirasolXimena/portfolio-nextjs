@@ -1,13 +1,14 @@
 import styles from "../styles/palette-switcher.module.scss";
 import { useRef, useState } from "react";
 import usePaletteContext from "hooks/usePaletteContext";
-import { useEffectOnce } from "usehooks-ts";
+import { useEffectOnce, useIsClient } from "usehooks-ts";
 import { applyPaletteAnimation } from "lib/util";
 
 function PaletteSwitcher({ segment }) {
   const paletteSwitcherRef = useRef<HTMLButtonElement>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { setPalette, nextPalette, nextNextPalette, currentPalette } = usePaletteContext();
+  const isClient = useIsClient();
 
 
   useEffectOnce(() => {
@@ -33,14 +34,23 @@ function PaletteSwitcher({ segment }) {
 
   return (
     <div className={`${styles.container} ${styles[segment]}`}>
-      <button
-        type="button"
-        disabled={isTransitioning}
-        ref={paletteSwitcherRef}
-        onClick={handleClick}
-        aria-label="Change color palette"
-        data-label="palette"
-      ></button>
+      {
+        isClient ? (
+          <button
+            type="button"
+            disabled={isTransitioning}
+            ref={paletteSwitcherRef}
+            onClick={handleClick}
+            aria-label="Change color palette"
+            data-label="palette"
+          ></button>
+
+        ) : (
+          <button
+          type="button"
+        >dummy button</button> 
+        )
+      }
     </div>
   );
 }

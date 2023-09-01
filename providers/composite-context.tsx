@@ -1,3 +1,4 @@
+'use client'
 import { ThemeProvider } from "next-themes"
 import PaletteContextProvider from 'providers/palette-context';
 import AudioContextProvider from 'providers/audio-context';
