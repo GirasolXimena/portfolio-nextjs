@@ -41,3 +41,8 @@
 - [ ] choose between react-hooks-ts, ahooks, and use-hooks
 - [ ] implement gyro interaction when mouse not present
 - [ ] move bg animation to canvas
+- [ ] idle animation when inactive like dvd player thing
+- [ ] decide on hooks libraries between
+  - [react-use](https://github.com/streamich/react-use)
+  - [ahooks](https://ahooks.js.org/)
+  - [usehooks-ts](https://usehooks-ts.com/)
