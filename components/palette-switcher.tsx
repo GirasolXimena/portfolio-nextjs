@@ -13,7 +13,8 @@ function PaletteSwitcher({ segment }) {
   useEffectOnce(() => {
     const sourceProperties = currentPalette.palette.properties;
     const targetProperties = nextPalette.palette.properties;
-    applyPaletteAnimation(sourceProperties, targetProperties, paletteSwitcherRef.current as HTMLButtonElement)
+    const element = paletteSwitcherRef.current || undefined;
+    applyPaletteAnimation(sourceProperties, targetProperties, element)
   });
 
   const handleClick = async () => {
@@ -33,6 +34,7 @@ function PaletteSwitcher({ segment }) {
   return (
     <div className={`${styles.container} ${styles[segment]}`}>
       <button
+        type="button"
         disabled={isTransitioning}
         ref={paletteSwitcherRef}
         onClick={handleClick}
