@@ -10,7 +10,6 @@ const palettes: Palettes = {
       tertiary: '#00FFFF',
       font: 'noto_sans'
     },
-    audio: '/audio/default.mp3'
   },
   raingurl: {
     properties: {
@@ -45,7 +44,7 @@ const palettes: Palettes = {
     },
     audio: '/audio/vaporwave.mp3'
   },
-  queer: {
+  pride: {
     properties: {
       light: '#E8C948',
       dark: '#7D417D',
@@ -53,7 +52,8 @@ const palettes: Palettes = {
       secondary: '#FFFFFF',
       tertiary: '#12B8FF',
       font: 'Noto Sans'
-    }
+    },
+    audio: '/audio/pride.mp3'
   },
   shrek: {
     properties: {

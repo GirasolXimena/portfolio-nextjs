@@ -48,7 +48,7 @@ const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
     applyPaletteAnimation(sourceProperties, targetProperties)
 
     prevPalette.current = palettes[palette];
-  }, [palette, currentPalette.palette.properties]);
+  }, [currentPalette.palette.properties]);
 
   return (
     <PaletteContext.Provider
