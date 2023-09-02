@@ -21,8 +21,8 @@
   aspect-ratio: var(--ratio-golden);
   width: min(100%, 800px);
   transform-style: preserve-3d;
-  transform: scale(calc(1 + var(--amp-audio, 0) / 50)) rotateX(calc(var(--mouse-y) * -15deg)) rotateY(calc(var(--mouse-x) * 15deg));
-  box-shadow: calc(var(--mouse-x) * -10px) calc(var(--mouse-y) * -10px) 20px var(--text);
+  transform: scale(calc(1 + var(--amp-audio, 0) / 50)) rotateX(calc(var(--_mouse-y) * -15deg)) rotateY(calc(var(--_mouse-x) * 15deg));
+  box-shadow: calc(var(--_mouse-x) * -10px) calc(var(--_mouse-y) * -10px) 20px var(--text);
   @media (max-width:480px) {
     padding: var(--size-fluid-2);
   }

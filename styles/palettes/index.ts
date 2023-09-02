@@ -66,6 +66,17 @@ const palettes: Palettes = {
     },
     audio: '/audio/shrek.mp3'
   },
+  grayscale: {
+    properties: {
+      light: "#ffffff",
+      dark: "#000000",
+      primary: "#40413d",
+      secondary: "#80837b",
+      tertiary: "#bfc1bd",
+      font: 'Noto Sans'
+    }
+    
+  }
 }
 
 export default palettes

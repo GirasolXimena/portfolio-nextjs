@@ -33,9 +33,9 @@ function AudioPlayer({ segment }) {
     <div className={`${styles.container} ${styles[segment]}`}>
       <AnimatePresence>
         {
-          !!musicType && (
+          !!musicType && isClient && (
             <motion.button
-              initial={{ opacity: 0 }}
+              initial={{opacity: 0}}
               animate={{ opacity: 0.66 }}
               exit={{ opacity: 0 }}
               transition={{

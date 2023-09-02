@@ -28,6 +28,8 @@ export type PaletteProperties = {
   secondary: string;
   tertiary: string;
   font: string;
+  background?: string;
+  text?: string;
 };
 
 export type Palette = {

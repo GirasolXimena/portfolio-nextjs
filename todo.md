@@ -47,3 +47,4 @@
   - [ahooks](https://ahooks.js.org/)
   - [usehooks-ts](https://usehooks-ts.com/)
   - [react-recipes](https://github.com/craig1123/react-recipes)
+- [ ] move control buttons to custom framer components so they can share animations

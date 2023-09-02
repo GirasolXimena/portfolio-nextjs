@@ -68,11 +68,11 @@
 :root {
   --_amp: var(--amp, 1);
   --amp-audio: 0;
-  --_light: var(--light, gainsboro);
-  --_dark: var(--dark, #323313);
-  --_primary: var(--primary, yellow);
-  --_secondary: var(--secondary, magenta);
-  --_tertiary: var(--tertiary, cyan);
+  --_light: var(--light, hsl(85, 3%, 100%));
+  --_dark: var(--dark, hsl(85 3% 0%));
+  --_primary: var(--primary, hsl(85 3% 25%));
+  --_secondary: var(--secondary, hsl(85 3% 50%));
+  --_tertiary: var(--tertiary, hsl(85 3% 75%));
   --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--amp-audio));
   --_factor-y: var(--factor-y, calc(1em / 8) * var(--amp-audio));
   --_mouse-x: var(--mouse-x, calc(1/4));
