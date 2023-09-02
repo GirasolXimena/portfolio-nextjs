@@ -7,10 +7,9 @@ import {
   useRef,
   useMemo,
 } from "react";
-import { applyPaletteAnimation, setCustomProperties } from "lib/util";
 import palettes from "styles/palettes";
 import { Palette } from "types";
-import { useEffectOnce, useLocalStorage, useUpdateEffect } from "usehooks-ts";
+import { useLocalStorage } from "usehooks-ts";
 import { getNextPaletteKey, getPaletteData } from "lib/util";
 
 type PaletteContextProviderProps = {
@@ -36,20 +35,6 @@ const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
   const nextNextPalette = useMemo(() => getPaletteData(nextNextPaletteKey), [nextNextPaletteKey]);
 
   const currentPalette = {palette: palettes[palette], key: palette};
-  const prevPalette = useRef<undefined | Palette>(palettes[palette]);
-
-  useEffectOnce(() => {
-    setCustomProperties(currentPalette.palette.properties);
-  });
-
-  useUpdateEffect(() => {
-    if (!prevPalette.current || prevPalette.current === palettes[palette]) return;
-    const sourceProperties = prevPalette.current.properties;
-    const targetProperties = currentPalette.palette.properties;
-    applyPaletteAnimation(sourceProperties, targetProperties)
-
-    prevPalette.current = palettes[palette];
-  }, [currentPalette.palette.properties]);
 
   return (
     <PaletteContext.Provider
@@ -61,7 +46,7 @@ const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
         setPalette,
       }}
     >
-      {children}
+        {children}
     </PaletteContext.Provider>
   );
 };
