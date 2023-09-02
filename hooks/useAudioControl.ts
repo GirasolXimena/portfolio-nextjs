@@ -29,7 +29,6 @@ const useAudioControl = (): UseAudioControlReturn => {
       audioElement.current = new Audio();
       audioElement.current.src = currentPalette.palette.audio || ''
     }
-    console.log('play', playing, audioElement.current.src)
     if (playing || !audioElement.current.src) return;
 
     if (!audioContext.current) {

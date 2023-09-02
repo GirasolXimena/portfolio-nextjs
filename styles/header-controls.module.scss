@@ -17,9 +17,6 @@ $transition: calc(.25s * 1) ease-in-out;
   align-items: center;
   justify-content: center;
   background-color: var(--text);
-  transition: $transition;
-  transition-property: transform;
-  opacity: 0.66;
 
   &::after {
     position: absolute;
@@ -35,8 +32,6 @@ $transition: calc(.25s * 1) ease-in-out;
   }
 
   &:hover {
-    opacity: 1;
-    transform: scale($scale);
     &::after {
       opacity: 1;
       transform: translate(-50%, 100%);

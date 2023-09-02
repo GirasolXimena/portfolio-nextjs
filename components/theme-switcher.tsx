@@ -7,33 +7,14 @@ import ThreeStateCheckbox from './three-state-checkbox';
 import ThemeIcon from './theme-icon';
 import usePaletteContext from 'hooks/usePaletteContext';
 import { animateColorTransition } from 'lib/util';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useIsClient, useUpdateEffect } from 'usehooks-ts';
+import HeaderControlsButton from './header-controls-button';
 
 function ThemeSwitcher({ segment }) {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const { currentPalette } = usePaletteContext();
   const currentTheme = useRef(resolvedTheme);
-  const [mounted, setMounted] = useState(false);
-
-  const animateTheme = useCallback(() => {
-    const { light, dark } = currentPalette.palette.properties;
-    const isLightTheme = resolvedTheme === 'light';
-    animateColorTransition([isLightTheme ? light : dark, isLightTheme ? dark : light], 'text');
-    animateColorTransition([isLightTheme ? dark : light, isLightTheme ? light : dark], 'background');
-  }, [resolvedTheme, currentPalette.palette.properties]);
-
-  useUpdateEffect(() => {
-    if (resolvedTheme !== 'system' && resolvedTheme !== currentTheme.current) {
-      if (currentTheme.current !== 'system') {
-        animateTheme();
-      }
-      currentTheme.current = resolvedTheme;
-    }
-  }, [resolvedTheme]);
-  // fix theme flash when system on dark mode
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isClient = useIsClient()
 
   const onChange = (newChecked: boolean | null) => {
     const newTheme = newChecked === null ? 'system' : (newChecked ? 'dark' : 'light');
@@ -45,8 +26,8 @@ function ThemeSwitcher({ segment }) {
     return themeVal === 'dark';
   };
 
-  return mounted ? (
-    <div className={`${styles.container} ${styles[segment]}`}>
+  return isClient ? (
+    <HeaderControlsButton className={`${styles.container} ${styles[segment]}`}>
       <ThreeStateCheckbox
         className={`${styles.button} ${iconStyles.toggle}`}
         onChange={onChange}
@@ -57,7 +38,7 @@ function ThemeSwitcher({ segment }) {
       >
         <ThemeIcon />
       </ThreeStateCheckbox>
-    </div>
+    </HeaderControlsButton>
   ) : (
     <div className={`${styles.container} ${styles[segment]}`}>
       <button className={`${styles.button} ${iconStyles.toggle}`}>

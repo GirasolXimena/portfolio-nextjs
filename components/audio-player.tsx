@@ -7,6 +7,7 @@ import useAudioContext from "hooks/useAudioContext";
 import usePaletteContext from "hooks/usePaletteContext";
 import { useIsClient } from "usehooks-ts";
 import { AnimatePresence, motion, useWillChange } from "framer-motion";
+import HeaderControlsButton from "./header-controls-button";
 
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
@@ -31,13 +32,13 @@ function AudioPlayer({ segment }) {
   }, [musicType, stopPlaying])
 
   return (
-    <div className={`${styles.container} ${styles[segment]}`}>
+    <HeaderControlsButton className={`${styles.container} ${styles[segment]}`}>
       <AnimatePresence>
         {
           !!musicType && isClient && (
             <motion.button
               initial={{opacity: 0}}
-              animate={{ opacity: 0.66 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               style={{
                 willChange
@@ -56,7 +57,7 @@ function AudioPlayer({ segment }) {
           )
         }
       </AnimatePresence>
-    </div>
+    </HeaderControlsButton>
   )
 }
 

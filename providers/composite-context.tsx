@@ -4,12 +4,14 @@ import PaletteContextProvider from 'providers/palette-context';
 import AudioContextProvider from 'providers/audio-context';
 import FrozenRouterContextProvider from 'providers/frozen-router-context';
 import { ReactNode } from "react";
+import TransitionContext from "./transition-context";
 
 const providers = [
-  { provider: FrozenRouterContextProvider, props: {} },
-  { provider: PaletteContextProvider, props: {} },
   { provider: ThemeProvider, props: {} },
+  { provider: PaletteContextProvider, props: {} },
+  { provider: TransitionContext, props: {} },
   { provider: AudioContextProvider, props: {} },
+  { provider: FrozenRouterContextProvider, props: {} },
 ]
 
 const CompositeProvider = ({ children }: { children: ReactNode }) => {
