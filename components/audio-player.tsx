@@ -6,6 +6,7 @@ import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
 import usePaletteContext from "hooks/usePaletteContext";
 import { useIsClient } from "usehooks-ts";
+import { AnimatePresence, motion } from "framer-motion";
 
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
@@ -28,26 +29,29 @@ function AudioPlayer({ segment }) {
     stopPlaying()
   }, [musicType, stopPlaying])
 
-  return isClient ? (
+  return (
     <div className={`${styles.container} ${styles[segment]}`}>
-      {
-        !!musicType && (
-          <button
-            className={`${styles.button}`}
-            onClick={togglePlaying}
-            data-label={`${playing ? 'mute' : 'audio'}`}
-            aria-label={`${playing ? 'stop' : 'play'} audio`}
-          >
-            <SoundIcon size="36" playing={playing} />
-          </button>
-        )
-      }
-    </div>
-  ) : (
-    <div className={`${styles.container} ${styles[segment]}`}>
-      <button className={`${styles.button}`}>
-        <SoundIcon size="36" playing={playing} />
-      </button>
+      <AnimatePresence>
+        {
+          !!musicType && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.66 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 0.5,
+                ease: 'easeInOut',
+              }}
+              className={`${styles.button}`}
+              onClick={togglePlaying}
+              data-label={`${playing ? 'mute' : 'audio'}`}
+              aria-label={`${playing ? 'stop' : 'play'} audio`}
+            >
+              <SoundIcon size="36" playing={playing} />
+            </motion.button>
+          )
+        }
+      </AnimatePresence>
     </div>
   )
 }
