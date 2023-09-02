@@ -6,13 +6,14 @@ import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
 import usePaletteContext from "hooks/usePaletteContext";
 import { useIsClient } from "usehooks-ts";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useWillChange } from "framer-motion";
 
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
   const musicType = currentPalette.palette.audio
   const { playing, startPlaying, stopPlaying } = useAudioContext();
   const isClient = useIsClient()
+  const willChange = useWillChange()
 
   const togglePlaying = () => {
     if (playing) {
@@ -38,6 +39,9 @@ function AudioPlayer({ segment }) {
               initial={{opacity: 0}}
               animate={{ opacity: 0.66 }}
               exit={{ opacity: 0 }}
+              style={{
+                willChange
+              }}
               transition={{
                 duration: 0.5,
                 ease: 'easeInOut',
