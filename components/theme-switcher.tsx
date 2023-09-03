@@ -1,19 +1,16 @@
 'use client'
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import styles from '../styles/theme-switcher.module.scss';
 import iconStyles from '../styles/theme-icon.module.scss';
 import ThreeStateCheckbox from './three-state-checkbox';
 import ThemeIcon from './theme-icon';
-import usePaletteContext from 'hooks/usePaletteContext';
-import { animateColorTransition } from 'lib/util';
-import { useIsClient, useUpdateEffect } from 'usehooks-ts';
+import { useIsClient } from 'usehooks-ts';
 import HeaderControlsButton from './header-controls-button';
+import useTransitionContext from 'hooks/useTransitionContext';
 
 function ThemeSwitcher({ segment }) {
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const { currentPalette } = usePaletteContext();
-  const currentTheme = useRef(resolvedTheme);
+  const { theme, setTheme } = useTheme();
+  const { transitioning } = useTransitionContext();
   const isClient = useIsClient()
 
   const onChange = (newChecked: boolean | null) => {
@@ -34,7 +31,8 @@ function ThemeSwitcher({ segment }) {
         name="dark-mode-toggle"
         id="toggle"
         checked={getCheckedFromTheme(theme)}
-        label={theme}
+        label={theme || 'theme'}
+        disabled={transitioning}
       >
         <ThemeIcon />
       </ThreeStateCheckbox>
