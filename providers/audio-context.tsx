@@ -10,13 +10,12 @@ import usePrefersReducedMotion from "hooks/usePreferesReducedMotion";
 import { setCustomProperties } from "lib/util/index";
 import {
   animate,
-  useAnimationFrame,
   useMotionValue,
   useMotionValueEvent,
   useTransform
 } from "framer-motion";
 import useAudioControl, { AudioDataType, UseAudioControlReturn } from "hooks/useAudioControl";
-import { useBoolean, useEffectOnce, useUpdateEffect } from "usehooks-ts";
+import { useEffectOnce, useIsomorphicLayoutEffect } from "usehooks-ts";
 
 type AudioContextType = {
   playing: boolean;
@@ -39,9 +38,9 @@ const setAmpProperty = (value: number, property: string) => {
 }
 
 const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: AudioContextProviderProps) => {
-  const dataArrayRef = useRef<Float32Array | null>(null)
+  const dataArrayRef = useRef<Uint8Array | null>(null)
   const audioWorkerRef = useRef<Worker | null>(null)
-  const { value: animating, setTrue: setAnimatingTrue } = useBoolean(false)
+  const frameIdRef = useRef<number | null>(null)
   const {
     playing,
     audioData,
@@ -50,51 +49,67 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
   } = audioControlHook()
   const audioLevel = useMotionValue(0)
 
-  const normalizedAudioLevel = useTransform(audioLevel, [0, 0.5], [0, 1])
+  const normalizedAudioLevel = useTransform(audioLevel, [120, 140], [0, 1.75])
+  const shouldAnimate = !usePrefersReducedMotion()
 
   const audioAnimation = useCallback((audioData: AudioDataType) => {
-    // create a new array of 32 bit floating point numbers
+    // need audioData to exist to analyze it
     if (!audioData.current) return
-
+    // create new Uint8Array for audio data if first time
     if (!dataArrayRef.current) {
-      dataArrayRef.current = new Float32Array(audioData.current.fftSize);
+      dataArrayRef.current = new Uint8Array(audioData.current.fftSize);
     }
 
 
-    audioData.current.getFloatTimeDomainData(dataArrayRef.current);
+    // get byte data is faster than get float data
+    audioData.current.getByteTimeDomainData(dataArrayRef.current);
 
+    // clone buffer to avoid transferable error
     const clonedBuffer = dataArrayRef.current.buffer.slice(0);
 
+    // send data to worker
     audioWorkerRef.current?.postMessage({
       type: 'GET_AUDIO_DATA',
       data: clonedBuffer
-  }, [clonedBuffer]);
-  
-  }, [])
+    }, [clonedBuffer]);
 
-  const shouldAnimate = !usePrefersReducedMotion() && animating
-  useAnimationFrame((time) => {
-    if (!shouldAnimate) return
-    if (playing) {
-      audioAnimation(audioData)
-    } else {
-      audioLevel.set(0)
+    // if audio is playing, request next frame
+    if (playing && shouldAnimate) {
+      frameIdRef.current = requestAnimationFrame(() => audioAnimation(audioData));
     }
-  })
 
+  }, [playing, shouldAnimate])
+
+
+  useIsomorphicLayoutEffect(() => {
+    // if audio is playing, request frame
+    if (playing && shouldAnimate) {
+      audioAnimation(audioData)
+    }
+
+    return () => {
+      audioLevel.set(0)
+      if (frameIdRef.current !== null) {
+        // cancel frame with newest id
+        cancelAnimationFrame(frameIdRef.current);
+        frameIdRef.current = null;
+      }
+    }
+  }, [playing, shouldAnimate, audioAnimation, audioData, audioLevel])
+
+  // set audio level property
+  // with latest audio level
   useMotionValueEvent(normalizedAudioLevel, 'change',
     (value) => setAmpProperty(value, 'audio'));
 
-  useUpdateEffect(() => {
-    setAnimatingTrue()
-  })
 
   useEffectOnce(() => {
+    // set up audio worker when component mounts
     audioWorkerRef.current = new Worker('/workers/audioWorker.js');
-
     audioWorkerRef.current.onmessage = (e) => {
       const { type, rms } = e.data;
-
+      // getting root mean square of audio data
+      // good way to visualize single channel audio
       switch (type) {
         case 'AUDIO_RMS_DATA':
           animate(audioLevel, rms, {
@@ -106,12 +121,13 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     }
 
     return () => {
-      if(audioWorkerRef.current) {
+      // terminate worker when component unmounts
+      if (audioWorkerRef.current) {
         audioWorkerRef.current.terminate();
         audioWorkerRef.current = null;
       }
     }
-});
+  });
 
   return (
     <AudioContext.Provider value={{
