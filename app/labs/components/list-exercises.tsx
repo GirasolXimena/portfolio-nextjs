@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import styles from './list-exercises.module.scss'
-import animation from '@/styles/animation.module.scss'
+import animation from 'styles/animation.module.scss'
 
 type ListItems = {
   path: string

@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import styles from '../styles/navbar.module.scss'
 import utilStyles from '../styles/utils.module.scss'
+import { NAME } from 'lib/data'
+import { useIsClient } from 'usehooks-ts'
 
 export default function Navbar({ segment }) {
-  const name = process.env?.NAME ? process.env.NAME : 'Loba Andrade'
-  const variant = name.split(' ').join('-') 
-  const url = `${variant}-resume.pdf`
+  const isClient = useIsClient()
+  const variant = NAME.split(' ').join('-') 
+  const url = isClient ? `assets/${variant}-resume.pdf` : ''
   return (
     <nav id="nav-bar" className={`${styles.nav} ${utilStyles[segment]} ${styles[segment]}`}>
       <ul>
@@ -17,14 +19,14 @@ export default function Navbar({ segment }) {
           </li>
         )}
         <li className={styles.cyan}>
-          <a href={`assets/${url}`} download={url}>
+          <a href={url} download={url}>
             Resume
           </a>
         </li>
         <li className={styles.magenta}>
-          <Link href="/labs">
+          <a href="https://codepen.io/abstract_code">
               Labs
-          </Link>
+          </a>
         </li>
         <li className={styles.yellow}>
           <a href='https://github.com/RobertAndradeJr'>

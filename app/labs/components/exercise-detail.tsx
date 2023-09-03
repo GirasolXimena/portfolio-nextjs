@@ -1,7 +1,7 @@
 'use client'
 import "prismjs/themes/prism-tomorrow.css";
 import styles from './exercise-detail.module.scss'
-import animation from '@/styles/animation.module.scss'
+import animation from 'styles/animation.module.scss'
 import Link from 'next/link'
 
 // This is a Client Component. It receives data as props and

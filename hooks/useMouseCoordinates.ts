@@ -5,11 +5,8 @@ function useMouseCoordinates(cartesian = false, prefersReducedMotion = false, ca
   const [mouseCoordinatesState, setMouseCoordinatesState] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    console.log('setting up mouse coordinates')
 
     const handleMouseMove = (event) => {
-      console.log('mouse move')
-
       let newCoordinates;
 
       if (cartesian) {

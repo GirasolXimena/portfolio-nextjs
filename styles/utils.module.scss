@@ -141,17 +141,4 @@
 }
 
 .gradientBackground {
-  &::before {
-    position: fixed;
-    content: "";
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: var(--noise-1), var(--bg-gradient);
-    background-blend-mode: darken;
-    // filter: blur(32px);
-    z-index: -1;
-    opacity: 0.5;
-  }
 }

@@ -1,10 +1,7 @@
-"use client";
 import Navbar from "./navbar";
 import HeaderControls from "./header-controls";
-import { useSelectedLayoutSegment } from "next/navigation";
 
-function DefaultHeader() {
-  const segment = useSelectedLayoutSegment() || 'home';
+function DefaultHeader({ segment}: { segment: string}) {
   return (
     <>
       {segment !== 'home' && <Navbar segment={segment} />}

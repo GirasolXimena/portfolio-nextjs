@@ -1,4 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, ButtonHTMLAttributes, ReactNode } from "react";
+
+type ThreeStateCheckboxProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> & {
+  children: ReactNode;
+  checked: boolean | null;
+  label: string;
+  onChange: (newChecked: boolean | null) => void;
+};
 
 const updateInput = (ref, checked) => {
   const input = ref.current;
@@ -8,7 +15,7 @@ const updateInput = (ref, checked) => {
   }
 };
 
-const ThreeStateCheckbox = ({name, checked, onChange, id, label, className, children}) => {
+const ThreeStateCheckbox = ({children, checked, onChange, label, ...props}: ThreeStateCheckboxProps) => {
   const inputRef = useRef(null);
   const checkedRef = useRef(checked);
   useEffect(() => {
@@ -38,10 +45,9 @@ const ThreeStateCheckbox = ({name, checked, onChange, id, label, className, chil
       aria-label="auto" 
       aria-live="polite"
       ref={inputRef}
-      id={id}
-      name={name}
       data-label={label}
-      className={className}
+      {...props}
+
       onClick={handleClick}
     >{ children } </button>
   );

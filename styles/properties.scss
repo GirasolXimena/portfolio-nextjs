@@ -1,27 +1,3 @@
-@font-face {
-  font-family: "Shrek";
-  src: url("/fonts/shrek.ttf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Doom";
-  src: url("/fonts/doom.ttf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Vaporwave";
-  src: url("/fonts/vaporwave.otf");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
 @property --_amp {
   syntax: "<number>";
   inherits: true;
@@ -52,15 +28,53 @@
   initial-value: 0%;
 }
 
+@property --amp-primary {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --amp-secondary {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --amp-tertiary {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --primary-stop {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@property --secondary-stop {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@property --tertiary-stop {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+
 :root {
   --_amp: var(--amp, 1);
-  --_light: var(--light, gainsboro);
-  --_dark: var(--dark, #323313);
-  --_primary: var(--primary, yellow);
-  --_secondary: var(--secondary, magenta);
-  --_tertiary: var(--tertiary, cyan);
-  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--_amp));
-  --_factor-y: var(--factor-y, calc(1em / 8) * var(--_amp));
+  --amp-audio: 0;
+  --_light: var(--light, hsl(85, 3%, 100%));
+  --_dark: var(--dark, hsl(85 3% 0%));
+  --_primary: var(--primary, hsl(85 3% 25%));
+  --_secondary: var(--secondary, hsl(85 3% 50%));
+  --_tertiary: var(--tertiary, hsl(85 3% 75%));
+  --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--amp-audio));
+  --_factor-y: var(--factor-y, calc(1em / 8) * var(--amp-audio));
   --_mouse-x: var(--mouse-x, calc(1/4));
   --_mouse-y: var(--mouse-y, calc(1/4));
   --_blur: var(--blur, calc(1em / 64));
@@ -79,39 +93,14 @@
   --tertiary-x: calc(50% * var(--x));
   --tertiary-y: calc(100% * var(--y));
 
-  --color-stop: 0%;
-  --color-stop-primary: calc(var(--amp-primary, 0) * 100%);
-  --color-stop-secondary: calc(var(--amp-secondary, 0) * 100%);
-  --color-stop-tertiary: calc(var(--amp-tertiary, 0) * 100%);
 
-  --transparent-stop: 100%;
-  --gradient-primary: radial-gradient(farthest-corner at var(--primary-x) var(--primary-y),
-      var(--primary) var(--color-stop-primary),
-      transparent var(--transparent-stop));
-  --gradient-secondary: radial-gradient(farthest-corner at var(--secondary-x) var(--secondary-y),
-      var(--secondary) var(--color-stop-secondary),
-      transparent var(--transparent-stop));
-  --gradient-tertiary: radial-gradient(farthest-side at var(--tertiary-x) var(--tertiary-y),
-      var(--tertiary) var(--color-stop-tertiary),
-      transparent var(--transparent-stop));
-  --gradient-primary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--primary-x)) calc(100% - var(--primary-y)),
-      var(--primary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-secondary-mirrored: radial-gradient(farthest-corner at calc(100% - var(--secondary-x)) calc(100% - var(--secondary-y)),
-      var(--secondary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --gradient-tertiary-mirrored: radial-gradient(farthest-side at calc(100% - var(--tertiary-x)) calc(100% - var(--tertiary-y)),
-      var(--tertiary) var(--color-stop),
-      transparent var(--transparent-stop));
-  --bg-gradient: var(--gradient-primary), var(--gradient-secondary), var(--gradient-tertiary);
-  --bg-gradient-mirrored: var(--gradient-tertiary-mirrored), var(--gradient-secondary-mirrored), var(--gradient-primary-mirrored);
 
+  --primary-stop: calc(0% + var(--amp-primary) * 66%);
+  --secondary-stop: calc(33% + var(--amp-secondary) * 66%);
+  --tertiary-stop: calc(66% + var(--amp-tertiary) * 66%);
   font-family: var(--font-inter);
   // extending open-props
-  --font-size-fluid-4: clamp(12px, 10vw, 6rem);
-  --font-weight-audio: calc(var(--font-weight-9) + var(--_amp) * 20);
-
-  transition: --_amp 150ms linear;
+  --font-size-fluid-4: calc(var(--font-size-fluid-3) * 1.5);
 }
 
 [data-theme="light"] {
@@ -123,3 +112,4 @@
   --background: var(--_dark);
   --text: var(--_light);
 }
+

@@ -1,53 +1,43 @@
-import palettes from "../styles/palettes"
-import styles from "../styles/palette-switcher.module.scss"
-import utilities from "../lib/util"
-import { useEffect, useRef } from "react"
+import styles from "../styles/palette-switcher.module.scss";
+import { useRef } from "react";
+import usePaletteContext from "hooks/usePaletteContext";
+import { motion } from "framer-motion";
+import HeaderControlsButton from "./header-controls-button";
+import useTransitionContext from "hooks/useTransitionContext";
 
-function PaletteSwitcher({ currentPalette, setPalette, segment }) {
+function PaletteSwitcher({ segment }: { segment: string }) {
   const paletteSwitcherRef = useRef<HTMLButtonElement>(null);
-  const paletteKeys = Object.keys(palettes)
-  const nextPaletteIndex = paletteKeys.indexOf(currentPalette) + 1
-  const nextPalette = paletteKeys[nextPaletteIndex] || paletteKeys[0]
-  const isTransitioning = useRef(false)
+  const { transitioning } = useTransitionContext();
+  const { setPalette, nextPalette } = usePaletteContext();
 
-  useEffect(() => {
-    if (!paletteSwitcherRef.current) return
-    const properties = palettes[nextPalette].properties
-    const element = paletteSwitcherRef.current
-    utilities.setCustomProperties(properties, element)
-  }, [nextPalette])
 
-  const handleClick = () => {
-    // prevent double clicks
-    if (isTransitioning.current) return
-
-    const bodyElem = document.body;
-
-    const handleTransitionEnd = (event) => {
-    
-      if (event.propertyName === 'opacity' && event.srcElement.nodeName === 'BODY') {
-        setPalette(nextPalette);
-        bodyElem.removeEventListener('transitionend', handleTransitionEnd);
-        bodyElem.classList.remove('transitioning');
-        isTransitioning.current = false
-      }
-    };
-    isTransitioning.current = true
-    bodyElem.classList.add('transitioning');
-    bodyElem.addEventListener('transitionend', handleTransitionEnd);
-  }
+  const handleClick = async (): Promise<void> => {
+    setPalette(nextPalette.key);
+  };
 
   return (
-    <div className={`${styles.container} ${styles[segment]}`}>
-      <button
-        disabled={isTransitioning.current}
+    <HeaderControlsButton
+      className={`${styles.container} ${styles[segment]}`}
+    >
+      <motion.button
+        animate={{
+          '--primary': nextPalette.palette.properties.primary,
+          '--secondary': nextPalette.palette.properties.secondary,
+          '--tertiary': nextPalette.palette.properties.tertiary,
+        } as any}
+        transition={{
+          duration: 2,
+          ease: 'easeInOut',
+        }}
+        type="button"
+        disabled={transitioning}
         ref={paletteSwitcherRef}
         onClick={handleClick}
-        aria-label="change palette"
-        data-label="palette"
-      ></button>
-    </div>
-  )
+        aria-label={"Change color palette"}
+        data-label={"palette"}
+      ></motion.button>
+    </HeaderControlsButton>
+  );
 }
 
 export default PaletteSwitcher;

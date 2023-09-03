@@ -10,6 +10,21 @@
     justify-content: space-evenly;
     list-style: none;
     padding: 0;
+
+    @media (max-width: 240px) {
+      gap: 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 360px) {
+      gap: var(--size-relative-0);
+      font-size: 16px;
+    }
+
+    @media (min-width: 768px) {
+      margin: 0 var(--size-relative-4);
+    }
+
     &:has(> :nth-child(3):last-child) {
       &:first-child a:hover {
         text-shadow: 0 2px 2px var(--_primary), -2px -2px 2px var(--_secondary), 2px -2px 2px var(--_tertiary);
@@ -55,11 +70,26 @@
     
 
     a {
-      transition: color 1250ms ease, text-shadow 1250ms ease, text-decoration-color 1250ms ease;
+      transition: text-shadow 1250ms ease, text-decoration-color 1250ms ease;
     }
   }
 }
+.home {
+  ul {
+    li {
+      font-size: var(--font-size-fluid-0);
 
+      @media(min-width: 480px) {
+        font-size: var(--font-size-fluid-1);
+      }
+
+      @media(min-width: 768px) {
+        font-size: var(--font-size-fluid-2);
+      }
+
+    }
+  }
+}
 .labs {
   & > ul {
     list-style: none;

@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "../components/hero";
-import utilStyles from '../styles/utils.module.scss'
 import styles from '../styles/hero.module.scss'
+import { NAME } from "lib/data";
 
 export default function Page() {
   return (
@@ -9,7 +9,7 @@ export default function Page() {
       id="home"
       className={`${styles.container}`}
     >
-      <Hero />
+      <Hero name={NAME} />
     </article>
   )
 }

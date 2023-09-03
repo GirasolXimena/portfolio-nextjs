@@ -31,14 +31,16 @@ svg.soundIcon {
     transform-origin: 0 30px;
     opacity: 0;
     fill: var(--background);
-    .one {
-
+  }
+  &:not(.playing) {
+    .mute {
+      // animation: muteEntrance calc(.5s * #{$speed}) ease-in-out 1s forwards;
+      animation-duration: 0.3s;
+      // animation: none;
+    transform: rotate(calc(#{$spinAmount} + #{$spinAmount})) scale(1)
     }
-    .two {
-      
-    }
-    .three {
-      
+    .decibels {
+      display: none;
     }
   }
   &.playing {

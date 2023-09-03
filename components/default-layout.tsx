@@ -9,7 +9,7 @@ function DefaultLayout({ children }) {
   function Header() {
     return segment ? (
       <header className={styles.header} id="header">
-        <DefaultHeader />
+        <DefaultHeader segment={segment} />
       </header>
     ) : (
       <HeaderControls segment={'home'} />

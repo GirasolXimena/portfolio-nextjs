@@ -1,8 +1,11 @@
 @import "animation.module.scss";
+@import "variables.module.scss";
+
 .container {
   display: flex;
   justify-content: center;
   min-height: 100%;
+  perspective: 1000px;
 }
 .hero {
   display: flex;
@@ -11,16 +14,24 @@
   justify-content: center;
   align-content: center;
   border-radius: var(--radius-5);
-  transition: --_amp 1s linear;
-  background-image: linear-gradient(var(--background), var(--background)), var(--bg-gradient-mirrored);
-  background-size: auto, 100% 100%;
-  background-position: center;
-  padding: var(--size-fluid-3);
+  background-image: linear-gradient(var(--background), var(--background)), var(--noise-5), $bg-gradient;
+  padding: var(--size-fluid-4);
   border-width: var(--size-fluid-1);
   border-color: var(--background);
-  background-clip: content-box, border-box;
+  background-clip: content-box, border-box, border-box;
+  background-size: cover;
   aspect-ratio: var(--ratio-golden);
-  width: clamp(320px,90vw, 40rem);
+  width: min(100%, 800px);
+  transform-style: preserve-3d;
+  transform: scale(calc(1 + var(--amp-audio, 0) / 50)) rotateX(calc(var(--_mouse-y) * -15deg)) rotateY(calc(var(--_mouse-x) * 15deg));
+  box-shadow: calc(var(--_mouse-x) * -10px) calc(var(--_mouse-y) * -10px) 20px var(--text);
+  @media (max-width:480px) {
+    padding: var(--size-fluid-2);
+  }
+  @media (max-width:320px) {
+    padding: var(--size-fluid-1);
+    border-radius: var(--radius-3);
+  }
 
   h1 {
     color: var(--text);
@@ -32,11 +43,22 @@
     letter-spacing: var(--font-letterspacing-0);
     margin: var(--size-fluid-1) auto 0;
     width: min-content;
+    font-size: var(--font-size-fluid-2);
+
+    @media(min-width: 240px) {
+      font-size: var(--font-size-fluid-3);
+    }
+
+    @media(min-width: 360px) {
+      font-size: var(--font-size-fluid-4);
+    }
 
     &::first-letter {
-      background-image: var(--bg-gradient-mirrored);
+      font-size: 1.5em;
+      background-image: $bg-gradient-mirrored;
+      background-size: cover;
+      background-position: 100% 100%;
       background-clip: text;
-      font-size: calc(var(--font-size-fluid-4) * 1.5);
       color: transparent;
     }
   }
@@ -45,12 +67,5 @@
   
   nav {
     margin-bottom: var(--size-fluid-1);
-    ul {
-      li {
-        a {
-          // color: var(--background);
-        }
-      }
-    }
   }
 }

@@ -1,6 +1,11 @@
 .gradient {
-  background: linear-gradient(to right, var(--_primary), var(--_secondary), var(--_tertiary), var(--_tertiary), var(--_secondary), var(--_primary));
-  background-size: 200%;
+  --primary: var(--_primary);
+  --secondary: var(--_secondary);
+  --tertiary: var(--_tertiary);
+  background: var(--noise-1), linear-gradient(to right, var(--secondary), transparent, var(--tertiary)), radial-gradient(farthest-side at 50% 50%,
+      var(--primary),
+      transparent);
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   color: var(--text);
@@ -8,7 +13,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .gradient {
-    animation: shine 4s ease-in-out infinite;
+    animation: shine 10s linear infinite;
     transition: color 300ms ease-in;
     animation-direction: alternate;
 
@@ -20,12 +25,22 @@
 }
 
 @keyframes shine {
-  0% {
-    background-position: left
+
+  0%,
+  100% {
+    background-position: top left;
   }
 
-  100% {
-    background-position: right
+  25% {
+    background-position: top right;
+  }
+
+  50% {
+    background-position: bottom right;
+  }
+
+  75% {
+    background-position: bottom left;
   }
 }
 
@@ -37,11 +52,11 @@
   --x-tertiary: calc(var(--x-primary) * -1);
   --y-tertiary: calc(var(--y-primary) * -1);
   --shadow-primary:
-    var(--x-primary) var(--y-primary) var(--_blur) var(--_primary);
+    var(--x-primary) var(--y-primary) var(--_blur) var(--primary);
   --shadow-secondary:
-    var(--x-secondary) var(--y-secondary) var(--_blur) var(--_secondary);
+    var(--x-secondary) var(--y-secondary) var(--_blur) var(--secondary);
   --shadow-tertiary:
-    var(--x-tertiary) var(--y-tertiary) var(--_blur) var(--_tertiary);
+    var(--x-tertiary) var(--y-tertiary) var(--_blur) var(--tertiary);
 }
 
 .mouseFollow {

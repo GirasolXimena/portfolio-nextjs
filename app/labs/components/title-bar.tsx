@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './title-bar.module.scss'
 import { ReactNode } from 'react'
+
 const fileNametoTitle = (name: string) => name.split('.')[0].split('-').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
 
 function TitleBar({ title, subtitle = '', children }: { title: string, subtitle?: string, children?: ReactNode }) {

@@ -9,8 +9,6 @@ export const size = {
   height: 32,
 }
 
-import OpenProps from 'open-props';
-
 export const contentType = 'image/png'
 
 // Image generation

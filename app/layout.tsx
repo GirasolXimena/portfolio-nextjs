@@ -4,10 +4,9 @@ import {
 } from './fonts'
 import '../styles/global.scss'
 import styles from '../styles/layout.module.scss'
-import { Providers } from './providers'
-import { ReactNode } from 'react'
-import { StrictMode } from 'react'
-import DefaultLayout from '@/components/default-layout'
+import Providers from '../providers'
+import { ReactNode, StrictMode } from 'react'
+import DefaultLayout from 'components/default-layout'
 import { NAME } from 'lib/data'
 
 
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html suppressHydrationWarning className={inter.variable}>
+    <html suppressHydrationWarning className={inter.variable} lang='en-us'>
       <body className={styles.body}>
         <StrictMode>
           <Providers>

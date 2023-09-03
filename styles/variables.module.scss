@@ -1,0 +1,7 @@
+$bg-gradient: linear-gradient(to top, var(--primary), var(--secondary) calc(50% + var(--_mouse-y) * 20%), var(--tertiary));
+$bg-gradient-mirrored: linear-gradient(to top,
+      var(--tertiary)  calc(0% + var(--amp-audio) * 50%),
+      var(--secondary),
+      var(--primary));
+$background: var(--background);
+$text: var(--text);
