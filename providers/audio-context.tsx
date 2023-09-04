@@ -15,7 +15,7 @@ import {
   useTransform
 } from "framer-motion";
 import useAudioControl, { AudioDataType, UseAudioControlReturn } from "hooks/useAudioControl";
-import { useEffectOnce, useIsomorphicLayoutEffect } from "usehooks-ts";
+import { useUpdateEffect } from "usehooks-ts";
 
 type AudioContextType = {
   playing: boolean;
@@ -39,7 +39,6 @@ const setAmpProperty = (value: number, property: string) => {
 
 const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: AudioContextProviderProps) => {
   const dataArrayRef = useRef<Uint8Array | null>(null)
-  const audioWorkerRef = useRef<Worker | null>(null)
   const frameIdRef = useRef<number | null>(null)
   const {
     playing,
@@ -64,30 +63,28 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     // get byte data is faster than get float data
     audioData.current.getByteTimeDomainData(dataArrayRef.current);
 
-    // clone buffer to avoid transferable error
-    const clonedBuffer = dataArrayRef.current.buffer.slice(0);
+    // calculate rms
+    let sumSquares = 0.0;
+    for (const amplitude of dataArrayRef.current) {
+        sumSquares += amplitude * amplitude;
+    }
 
-    // send data to worker
-    audioWorkerRef.current?.postMessage({
-      type: 'GET_AUDIO_DATA',
-      data: clonedBuffer
-    }, [clonedBuffer]);
+    const rms = Math.sqrt(sumSquares / dataArrayRef.current.length);
+    animate(audioLevel, rms, {
+      duration: 0.25,
+      ease: 'easeOut'
+    })
+
 
     // if audio is playing, request next frame
     if (playing && shouldAnimate) {
       frameIdRef.current = requestAnimationFrame(() => audioAnimation(audioData));
     }
 
-  }, [playing, shouldAnimate])
+  }, [playing, shouldAnimate, audioLevel])
 
-
-  useIsomorphicLayoutEffect(() => {
-    // if audio is playing, request frame
-    if (playing && shouldAnimate) {
-      audioAnimation(audioData)
-    }
-
-    return () => {
+  useUpdateEffect(() => {
+    function cleanup() {
       audioLevel.set(0)
       if (frameIdRef.current !== null) {
         // cancel frame with newest id
@@ -95,39 +92,21 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
         frameIdRef.current = null;
       }
     }
-  }, [playing, shouldAnimate, audioAnimation, audioData, audioLevel])
+    if(playing && shouldAnimate) {
+      audioAnimation(audioData)
+    } else {
+      cleanup()
+    }
+
+    return cleanup
+
+  }, [playing])
+
 
   // set audio level property
   // with latest audio level
   useMotionValueEvent(normalizedAudioLevel, 'change',
     (value) => setAmpProperty(value, 'audio'));
-
-
-  useEffectOnce(() => {
-    // set up audio worker when component mounts
-    audioWorkerRef.current = new Worker('/workers/audioWorker.js');
-    audioWorkerRef.current.onmessage = (e) => {
-      const { type, rms } = e.data;
-      // getting root mean square of audio data
-      // good way to visualize single channel audio
-      switch (type) {
-        case 'AUDIO_RMS_DATA':
-          animate(audioLevel, rms, {
-            duration: 0.25,
-            ease: 'easeOut'
-          })
-          break;
-      }
-    }
-
-    return () => {
-      // terminate worker when component unmounts
-      if (audioWorkerRef.current) {
-        audioWorkerRef.current.terminate();
-        audioWorkerRef.current = null;
-      }
-    }
-  });
 
   return (
     <AudioContext.Provider value={{
