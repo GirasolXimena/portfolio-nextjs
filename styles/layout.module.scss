@@ -91,4 +91,7 @@
   min-height: 100%;
   width: 100%;
   flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  justify-items: stretch;
 }
