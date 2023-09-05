@@ -12,7 +12,7 @@ import HeaderControlsButton from "./header-controls-button";
 function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
   const musicType = currentPalette.palette.audio
-  const { playing, startPlaying, stopPlaying } = useAudioContext();
+  const { playing, startPlaying, stopPlaying, loading } = useAudioContext();
   const isClient = useIsClient()
   const willChange = useWillChange()
 
@@ -35,7 +35,7 @@ function AudioPlayer({ segment }) {
     <HeaderControlsButton className={`${styles.container} ${styles[segment]}`}>
       <AnimatePresence>
         {
-          !!musicType && isClient && (
+          !!musicType && isClient && !loading && (
             <motion.button
               initial={{opacity: 0}}
               animate={{ opacity: 1 }}
