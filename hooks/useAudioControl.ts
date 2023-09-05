@@ -6,7 +6,10 @@ export type SpriteMap = {
   [key: string]: [number, number];
 };
 
-export type HookOptions<T = any> = T & {
+
+type HowlOptions = ConstructorParameters<typeof Howl>[0];
+
+export type HookOptions = Omit<HowlOptions, 'src'> & {
   id?: string;
   volume?: number;
   playbackRate?: number;
@@ -25,7 +28,7 @@ export interface PlayOptions {
 export type PlayFunction = (options?: PlayOptions) => void;
 
 export type UseAudioControlProps = {
-  src?: string | string[];
+  src?: HowlOptions['src'];
   options?: HookOptions
 }
 
@@ -40,8 +43,8 @@ export type UseAudioControlReturn = {
   loading: boolean;
 }
 
-function useAudioControl<T = any>(
-  src?: string | string[],
+function useAudioControl(
+  src: HowlOptions['src'],
   {
     id,
     volume = 1,
@@ -50,7 +53,7 @@ function useAudioControl<T = any>(
     interrupt = false,
     onload,
     ...delegated
-  }: HookOptions<T> = {} as HookOptions
+  }: HookOptions
 ) {
   const HowlConstructor = useRef<any | null>(null);
   const HowlerGlobal = useRef<HowlerGlobal | null>(null);
@@ -67,7 +70,7 @@ function useAudioControl<T = any>(
   const dataArrayRef = useRef<Uint8Array | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   
-  const handleLoad = function () {
+  const handleLoad = function (this: Howl) {
     if (typeof onload === 'function') {
       onload.call(this);
     }
