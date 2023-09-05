@@ -1,6 +1,5 @@
 'use client'
 import {
-  MutableRefObject,
   ReactNode,
   createContext,
   useCallback,
@@ -14,19 +13,20 @@ import {
   useMotionValueEvent,
   useTransform
 } from "framer-motion";
-import useAudioControl, { AudioDataType, UseAudioControlReturn } from "hooks/useAudioControl";
+import useAudioControl, { HookOptions, UseAudioControlReturn } from "hooks/useAudioControl";
 import { useUpdateEffect } from "usehooks-ts";
+import usePaletteContext from "hooks/usePaletteContext";
 
 type AudioContextType = {
   playing: boolean;
-  audioData: MutableRefObject<AnalyserNode | null>;
+  audioData: AnalyserNode | null;
   startPlaying: () => void;
   stopPlaying: () => void;
 }
 
 type AudioContextProviderProps = {
   children: ReactNode;
-  audioControlHook?: () => UseAudioControlReturn;
+  audioControlHook?: (src: string | string[], options?: HookOptions) => UseAudioControlReturn;
 }
 
 export const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -40,33 +40,32 @@ const setAmpProperty = (value: number, property: string) => {
 const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: AudioContextProviderProps) => {
   const dataArrayRef = useRef<Uint8Array | null>(null)
   const frameIdRef = useRef<number | null>(null)
-  const {
-    playing,
-    audioData,
-    startPlaying,
-    stopPlaying
-  } = audioControlHook()
+  const { currentPalette } = usePaletteContext()
+  const src = currentPalette.palette.audio || ''
+  const [play, { playing, audioData, pause }] = audioControlHook(src, {
+    interrupt: true,
+  })
   const audioLevel = useMotionValue(0)
 
   const normalizedAudioLevel = useTransform(audioLevel, [120, 140], [0, 1.75])
   const shouldAnimate = !usePrefersReducedMotion()
 
-  const audioAnimation = useCallback((audioData: AudioDataType) => {
+  const audioAnimation = useCallback((audioData) => {
     // need audioData to exist to analyze it
-    if (!audioData.current) return
+    if (!audioData) return
     // create new Uint8Array for audio data if first time
     if (!dataArrayRef.current) {
-      dataArrayRef.current = new Uint8Array(audioData.current.fftSize);
+      dataArrayRef.current = new Uint8Array(audioData.fftSize);
     }
 
 
     // get byte data is faster than get float data
-    audioData.current.getByteTimeDomainData(dataArrayRef.current);
+    audioData.getByteTimeDomainData(dataArrayRef.current);
 
     // calculate rms
     let sumSquares = 0.0;
     for (const amplitude of dataArrayRef.current) {
-        sumSquares += amplitude * amplitude;
+      sumSquares += amplitude * amplitude;
     }
 
     const rms = Math.sqrt(sumSquares / dataArrayRef.current.length);
@@ -92,7 +91,7 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
         frameIdRef.current = null;
       }
     }
-    if(playing && shouldAnimate) {
+    if (playing && shouldAnimate) {
       audioAnimation(audioData)
     } else {
       cleanup()
@@ -111,9 +110,9 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
   return (
     <AudioContext.Provider value={{
       playing,
-      audioData,
-      startPlaying,
-      stopPlaying,
+      audioData: audioData,
+      startPlaying: play,
+      stopPlaying: pause,
     }}>
       {children}
     </AudioContext.Provider>

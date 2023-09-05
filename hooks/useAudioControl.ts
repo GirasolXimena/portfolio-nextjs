@@ -1,157 +1,230 @@
-import { useRef, useCallback, MutableRefObject } from 'react';
-import usePaletteContext from 'hooks/usePaletteContext'
-import { useBoolean, useEffectOnce, useIsClient, useUpdateEffect } from 'usehooks-ts';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { Howler, Howl, HowlerGlobal } from 'howler';
+import { useBoolean, useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
 
-export type AudioDataType = MutableRefObject<AnalyserNode | null>;
-export type AudioDataTypeOption = 'frequency' | 'time' | 'both';
-
-export type UseAudioControlReturn = {
-  playing: boolean;
-  audioData: AudioDataType;
-  frequencyData: MutableRefObject<Uint8Array | null>;
-  timeData: MutableRefObject<Uint8Array>;
-  audioElement: MutableRefObject<HTMLAudioElement | null>;
-  startPlaying: () => void;
-  stopPlaying: () => void;
+export type SpriteMap = {
+  [key: string]: [number, number];
 };
 
-const useAudioControl = (dataType: AudioDataTypeOption = 'both'): UseAudioControlReturn => {
-  const audioElement = useRef<HTMLAudioElement | null>(null);
-  const audioData = useRef<AnalyserNode | null>(null);
+export type HookOptions<T = any> = T & {
+  id?: string;
+  volume?: number;
+  playbackRate?: number;
+  interrupt?: boolean;
+  soundEnabled?: boolean;
+  sprite?: SpriteMap;
+  onload?: () => void;
+};
+
+export interface PlayOptions {
+  id?: string;
+  forceSoundEnabled?: boolean;
+  playbackRate?: number;
+}
+
+export type PlayFunction = (options?: PlayOptions) => void;
+
+
+export type ExposedData = {
+  sound: Howl | null;
+  stop: (id?: string) => void;
+  pause: (id?: string) => void;
+  duration: number | null;
+  ctx?: AudioContext;
+  playing: boolean;
+  audioData: AnalyserNode | null;
+}
+
+export type UseAudioControlReturn = [PlayFunction, ExposedData];
+
+function useAudioControl<T = any>(
+  src: string | string[],
+  {
+    id,
+    volume = 1,
+    playbackRate = 1,
+    soundEnabled = true,
+    interrupt = false,
+    onload,
+    ...delegated
+  }: HookOptions<T> = {} as HookOptions
+) {
+  const HowlConstructor = React.useRef<any | null>(null);
+  const HowlerGlobal = React.useRef<HowlerGlobal | null>(null);
+  const isMounted = React.useRef(false);
   const { value: playing, setTrue: setPlayingTrue, setFalse: setPlayingFalse } = useBoolean(false);
-  const isClient = useIsClient()
-  const { currentPalette } = usePaletteContext();
-  const audioContext = useRef<AudioContext | null>(null);
-  const bufferRef = useRef<AudioBuffer | null>(null);
-  const frequencyData = useRef<Uint8Array>(new Uint8Array(audioData.current?.frequencyBinCount || 0));
-  const timeData = useRef<Uint8Array>(new Uint8Array(audioData.current?.frequencyBinCount || 0));
+  const [duration, setDuration] = React.useState<number | null>(null);
 
-  const initAudio = useCallback(() => {
-    if(!audioContext.current) {
-      console.log('creating new audio context')
-      if (!window.AudioContext) return console.error('AudioContext not supported');
-      audioContext.current = new window.AudioContext();
-      if(!audioElement.current) return console.error('No audio element found');
-      const source = audioContext.current.createMediaElementSource(audioElement.current);
-      const analyzer = audioContext.current.createAnalyser();
-      analyzer.fftSize = 2048;
-      source.connect(audioContext.current.destination);
-      source.connect(analyzer);
-      audioData.current = analyzer;
-      console.log('audio context created', source, analyzer)
+  const [sound, setSound] = React.useState<Howl | null>(null);
+
+  const dataArrayRef = React.useRef<Uint8Array | null>(null);
+  const analyserRef = React.useRef<AnalyserNode | null>(null);
+  const handleLoad = function () {
+    if (typeof onload === 'function') {
+      // @ts-ignore
+      onload.call(this);
     }
-  }, [])
 
-
-  const resumeAudioContext = useCallback(() => {
-    if (audioContext.current && audioContext.current.state === "suspended") {
-      audioContext.current.resume();
+    if (isMounted.current) {
+      // @ts-ignore
+      setDuration(this.duration() * 1000);
     }
-  }, []);
-  
-  const loadAudio = useCallback(() => {
-    console.log('loading audio')
-    if (currentPalette.palette.audio === undefined) return console.error('No audio file found');
-    const request = new XMLHttpRequest();
-    request.open('GET', currentPalette.palette.audio, true);
-    request.responseType = 'arraybuffer';
-    request.onload = () => {
-      console.log('audio loaded', request.response)
-      if (audioContext.current) {
-        audioContext.current.decodeAudioData(request.response, (buffer) => {
-          if (!buffer) {
-            return console.error('Error decoding audio data')
-          }
-          bufferRef.current = buffer;
-          if(!audioElement.current || !audioContext.current) return console.error('No audio element found');
-          const source = audioContext.current.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioContext.current.destination);
-          source.start(0);
-        }, (error) => {
-          console.error('Error decoding audio data: ', error)
+
+    // @ts-ignore
+    setSound(this);
+  };
+
+  // We want to lazy-load Howler, since sounds can't play on load anyway.
+  useEffectOnce(() => {
+    import('howler').then(mod => {
+      if (!isMounted.current) {
+        // Depending on the module system used, `mod` might hold
+        // the export directly, or it might be under `default`.
+        HowlConstructor.current = mod.Howl ?? mod.default.Howl;
+        HowlerGlobal.current = mod.Howler ?? mod.default.Howler;
+
+        isMounted.current = true;
+
+        new HowlConstructor.current({
+          src: Array.isArray(src) ? src : [src],
+          volume,
+          rate: playbackRate,
+          onload: handleLoad,
+          ...delegated,
         });
       }
-    }
-    request.onerror = (error) => {
-      console.error('Error loading audio data: ', currentPalette.palette.audio, error)
-    }
-    request.send();
-    if(!audioElement.current) return console.error('No audio element found');
-    audioElement.current.src = currentPalette.palette.audio;
-
-  }, [currentPalette.palette.audio]);
-
-  const updateAudioData = useCallback(() => {
-    if (!audioData.current) return;
-    if (dataType === 'frequency' || dataType === 'both') {
-      audioData.current.getByteFrequencyData(frequencyData.current);
-    }
-    if (dataType === 'time' || dataType === 'both') {
-      audioData.current.getByteTimeDomainData(timeData.current);
-    }
-  }, [audioData, dataType])
-
-
-
-
-  const togglePlayback = useCallback(() => {
-    console.log('toggle playback', playing)
-    if(!audioElement.current) return console.error('No audio element found');
-    if (!playing) {
-      audioElement.current.pause();
-    } else {
-      console.log('playing audio')
-      audioElement.current.play();
-      requestAnimationFrame(updateAudioData);
-    }
-  }, [updateAudioData, playing]);
-
-  // load audio on palette change
-  useUpdateEffect(() => {
-    if(!isClient) return;
-    loadAudio();
-  }, [currentPalette.palette.audio])
-
-  // toggle playback on play state change
-  useUpdateEffect(() => {
-    if(!isClient) return;
-    togglePlayback();
-  }, [playing])
-
-  // init audio element
-  useEffectOnce(() => {
-    console.log('effect once')
-
-    if (audioElement.current === null) {
-      console.log('creating new audio element in effect once')
-      audioElement.current = new Audio();
-      initAudio()
-    }
+    });
 
     return () => {
-      console.log('cleaning up audio element')
-      if (audioData.current) {
-        audioData.current.disconnect();
-        audioData.current = null;
-      }
-      if (audioContext.current) {
-        audioContext.current.close()
-          .then(() => audioContext.current = null)
-          .catch((error) => console.error('Error closing audio context: ', error))
-      }
-    }
-  })
+      isMounted.current = false;
+    };
+  });
 
-  return {
-    playing,
-    audioData,
-    audioElement,
-    frequencyData,
-    timeData,
-    startPlaying: setPlayingTrue,
-    stopPlaying: setPlayingFalse,
-  };
-};
+  useUpdateEffect(() => {
+    const ctx = HowlerGlobal.current?.ctx;
+    if (!ctx) return;
+    const analyser = ctx?.createAnalyser();
+    HowlerGlobal.current?.masterGain.connect(analyser);
+    dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
+    analyserRef.current = analyser;
+
+
+  }, [HowlerGlobal.current?.ctx])
+
+
+
+  // When the `src` changes, we have to do a whole thing where we recreate
+  // the Howl instance. This is because Howler doesn't expose a way to
+  // tweak the sound
+  React.useEffect(() => {
+    if (HowlConstructor.current && sound) {
+      setSound(
+        new HowlConstructor.current({
+          src: Array.isArray(src) ? src : [src],
+          volume,
+          onload: handleLoad,
+          ...delegated,
+        })
+      );
+    }
+    // The linter wants to run this effect whenever ANYTHING changes,
+    // but very specifically I only want to recreate the Howl instance
+    // when the `src` changes. Other changes should have no effect.
+    // Passing array to the useEffect dependencies list will result in
+    // ifinite loop so we need to stringify it, for more details check
+    // https://github.com/facebook/react/issues/14476#issuecomment-471199055
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(src)]);
+
+  // Whenever volume/playbackRate are changed, change those properties
+  // on the sound instance.
+  React.useEffect(() => {
+    if (sound) {
+      sound.volume(volume);
+      sound.rate(playbackRate);
+    }
+    // A weird bug means that including the `sound` here can trigger an
+    // error on unmount, where the state loses track of the sprites??
+    // No idea, but anyway I don't need to re-run this if only the `sound`
+    // changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [volume, playbackRate]);
+
+  useUpdateEffect(() => {
+    console.log('playing UAC', playing)
+    analyserRef.current?.getByteTimeDomainData(dataArrayRef.current!);
+    console.log('dataArrayRef.current', dataArrayRef.current)
+
+
+  }, [playing])
+
+  useUpdateEffect(() => {
+    console.log('dataArrayRef.current', dataArrayRef.current)
+    analyserRef.current?.getByteTimeDomainData(dataArrayRef.current!);
+  }, [dataArrayRef.current])
+
+  const play: PlayFunction = React.useCallback(
+    (options?: PlayOptions) => {
+      if (typeof options === 'undefined') {
+        options = {};
+      }
+
+      if (!sound || (!soundEnabled && !options.forceSoundEnabled)) {
+        return;
+      }
+
+      if (interrupt) {
+        sound.stop();
+      }
+
+      if (options.playbackRate) {
+        sound.rate(options.playbackRate);
+      }
+
+      sound.play(options.id);
+      setPlayingTrue()
+    },
+    [sound, soundEnabled, interrupt, setPlayingTrue]
+  );
+
+  const stop = React.useCallback(
+    id => {
+      if (!sound) {
+        return;
+      }
+      sound.stop(id);
+      setPlayingFalse()
+    },
+    [sound, setPlayingFalse]
+  );
+
+  const pause = React.useCallback(
+    id => {
+      if (!sound) {
+        return;
+      }
+      sound.pause(id);
+      setPlayingFalse()
+    },
+    [sound, setPlayingFalse]
+  );
+
+  const returnedValue: UseAudioControlReturn = [
+    play,
+    {
+      playing,
+      sound,
+      stop,
+      pause,
+      duration,
+      ctx: HowlerGlobal.current?.ctx,
+      audioData: analyserRef.current,
+    },
+  ];
+
+  return returnedValue;
+}
+
+export { useAudioControl };
 
 export default useAudioControl;
