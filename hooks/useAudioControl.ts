@@ -1,60 +1,24 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { Howl, Howler } from 'howler';
-import { useBoolean } from 'usehooks-ts';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useBoolean, useIsClient } from 'usehooks-ts';
+import BufferLoader from 'lib/util/BufferLoader';
+import { arrayBuffer } from 'node:stream/consumers';
 
-export type SpriteMap = {
-  [key: string]: [number, number];
-};
-
-
-type HowlOptions = ConstructorParameters<typeof Howl>[0];
-
-export type HookOptions = Omit<HowlOptions, 'src'> & {
-  src?: HowlOptions['src'];
+export type HookOptions = {
+  src?: string | string[] | undefined;
   id?: string;
   volume?: number;
   playbackRate?: number;
-  interrupt?: boolean;
-  soundEnabled?: boolean;
-  sprite?: SpriteMap;
   vizType?: 'time' | 'frequency' | 'both';
   vizDataType?: 'Uint8' | 'Float32' | 'both';
   onload?: () => void;
 };
 
-export interface PlayOptions {
-  id?: string;
-  forceSoundEnabled?: boolean;
-  playbackRate?: number;
-}
-
-export type PlayFunction = (options?: PlayOptions) => void;
-
-export type UseAudioControlProps = {
-  src?: HowlOptions['src'];
-  options?: HookOptions
-}
-
-export type UseAudioControlReturn = {
-  play: PlayFunction;
-  sound: Howl | null;
-  stop: (id?: string) => void;
-  pause: (id?: string) => void;
-  duration: number | null;
-  playing: boolean;
-  analyser: AnalyserNode | null;
-  loading: boolean;
-  getCurrentData: () => Uint8Array | Float32Array | null;
-}
-
 function useAudioControl(
-  src: HowlOptions['src'],
+  src: string | string[] | undefined,
   {
     id,
     volume = 1,
     playbackRate = 1,
-    soundEnabled = true,
-    interrupt = false,
     onload,
     vizType = 'time',
     vizDataType = 'Uint8',
@@ -63,179 +27,166 @@ function useAudioControl(
 ) {
   const { value: playing, setTrue: startPlaying, setFalse: stopPlaying } = useBoolean(false);
   const { value: loading, setTrue: startLoading, setFalse: stopLoading } = useBoolean(false);
-  const [duration, setDuration] = useState<number | null>(null);
+  const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
+  const stopSoundRef = useRef<() => void>();
+  const analyserConnected = useRef(false);
+  const [source, setSource] = useState<AudioBufferSourceNode | null>(null);
+  const [startTime, setStartTime] = useState<number | null>(null);
 
-  const [sound, setSound] = useState<Howl | null>(null);
-
-  const soundId = useRef<number | undefined>(undefined);
-  const soundSeek = useRef<number | undefined>(undefined);
-
+  const [pauseTime, setPauseTime] = useState<number | null>(null);
+  
+  const isClient = useIsClient()
   const dataArrayRef = useRef<Uint8Array | Float32Array | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  
-  const handleLoad = useCallback(function (this: Howl) {
-    if(vizType.length) {
-      const ctx = Howler.ctx
-      if (!ctx) return;
-      const analyser = ctx.createAnalyser();
 
+  const context = useMemo(() => {
+    if(!isClient) return null;
+    console.log('create context')
+    return new AudioContext()
+  }, [isClient]);
+
+
+  const getCurrentData = useCallback((vizType, vizDataType) => {
+    if(!source) return console.error('Source node not created');
+    if(!context) return console.error('Context not created');
+    if(!vizType) return console.error('vizType not provided');
+    if(!vizDataType) return console.error('vizDataType not provided');
+    if(!analyserRef.current) {
+      console.log('creating analyser')
+     const analyser = context.createAnalyser();
+      if(!analyser) return console.error('Analyser node not created');
       analyser.fftSize = 2048;
       analyser.smoothingTimeConstant = 1;
-
-      Howler.masterGain.connect(analyser);
-      if(vizDataType === 'Uint8') {
-        dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
-      }
-      if (vizDataType === 'Float32') {
-        dataArrayRef.current = new Float32Array(analyser.frequencyBinCount);
-      }
       analyserRef.current = analyser;
     }
-    if (typeof onload === 'function') {
-      onload.call(this);
+    if (!analyserConnected.current) {
+      console.log('connect analyser')
+      source.connect(analyserRef.current);
+      analyserConnected.current = true;
     }
-    setDuration(this.duration() * 1000);
-    setSound(this);
-    stopLoading();
-  }, [onload, stopLoading, vizType, vizDataType]);
+    if (!dataArrayRef.current) {
+      if (vizDataType === 'Uint8') {
+        dataArrayRef.current = new Uint8Array(analyserRef.current.frequencyBinCount);
+      } else if (vizDataType === 'Float32') {
+        dataArrayRef.current = new Float32Array(analyserRef.current.frequencyBinCount);
+      }
+    }
 
-  const createSound = useCallback((src: string | string[]) => {
-    startLoading();
-    return new Howl({
-      src: Array.isArray(src) ? src : [src],
-      volume,
-      rate: playbackRate,
-      onload: handleLoad,
-      ...delegated,
-      onplayerror: function (e) {
-        console.log('onplayerror', e, arguments)
+    // Logic to fetch the data based on vizType and vizDataType
+    if (vizType === 'time') {
+      if (vizDataType === 'Uint8') {
+        console.log('getByteTimeDomainData')
+        analyserRef.current.getByteTimeDomainData(dataArrayRef.current as Uint8Array);
+      } else if (vizDataType === 'Float32') {
+        analyserRef.current.getFloatTimeDomainData(dataArrayRef.current as Float32Array);
       }
-    });
-  }, [delegated, playbackRate, volume, startLoading, handleLoad]);
+    } else if (vizType === 'frequency') {
+      if (vizDataType === 'Uint8') {
+        analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array);
+      } else if (vizDataType === 'Float32') {
+        analyserRef.current.getFloatFrequencyData(dataArrayRef.current as Float32Array);
+      }
+    }
 
-  const getCurrentData = useCallback(() => {
-    if (!analyserRef.current || !dataArrayRef.current) return null;
-    if(vizType === 'time') {
-      if(dataArrayRef.current instanceof Uint8Array) {
-        analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
-      }
-      if(dataArrayRef.current instanceof Float32Array) {
-        analyserRef.current.getFloatTimeDomainData(dataArrayRef.current);
-      }
-    }
-    if(vizType === 'frequency') {
-      if(dataArrayRef.current instanceof Uint8Array) {
-        analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-      }
-      if(dataArrayRef.current instanceof Float32Array) {
-        analyserRef.current.getFloatFrequencyData(dataArrayRef.current);
-      }
-    }
     return dataArrayRef.current;
-  }, [analyserRef, dataArrayRef, vizType]);
+  }, [analyserRef, dataArrayRef, source, context]);
 
 
-  // When the `src` changes, we have to do a whole thing where we recreate
-  // the Howl instance. This is because Howler doesn't expose a way to
-  // tweak the sound
-  useEffect(() => {
-    if(src && src.length) {
-      if(sound) {
-        sound.stop(soundId.current);
-        soundId.current = undefined;
-      }
-      setSound(createSound(src));
+
+  const playSound = useCallback(() => {
+    if (!buffer || playing || !context) return;
+    console.log('pauseTime', pauseTime);
+    const sourceNode = context.createBufferSource();
+    sourceNode.buffer = buffer;
+    sourceNode.connect(context.destination);
+    sourceNode.start(0, pauseTime || 0);
+    setStartTime(context.currentTime - (pauseTime || 0));  // Note this line
+    setSource(sourceNode);
+    startPlaying();
+  }, [buffer, context, playing, startPlaying, pauseTime]);
+
+  const pauseSound = useCallback(() => {
+    if (!source || !playing || !context) return;
+    source.stop();
+    setPauseTime(context.currentTime - (startTime || 0));  // Note the modification here
+    setSource(null);
+    stopPlaying();
+    analyserConnected.current = false;
+  }, [source, playing, stopPlaying, context, startTime]);
+
+
+  const stopSound = useCallback(() => {
+    if (!source || !playing) return;
+    source.stop();
+
+    if(analyserRef.current) {
+      console.log('disconnect analyser')
+      analyserRef.current.disconnect();
+      analyserConnected.current = false;
     }
-    // The linter wants to run this effect whenever ANYTHING changes,
-    // but very specifically I only want to recreate the Howl instance
-    // when the `src` changes. Other changes should have no effect.
-    // Passing array to the useEffect dependencies list will result in
-    // ifinite loop so we need to stringify it, for more details check
-    // https://github.com/facebook/react/issues/14476#issuecomment-471199055
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src]);
+    setPauseTime(0);
+    setSource(null);
+    stopPlaying();
+  }, [source, playing, stopPlaying]);
 
-  // Whenever volume/playbackRate are changed, change those properties
-  // on the sound instance.
-  useEffect(() => {
-    if (sound) {
-      sound.volume(volume);
-      sound.rate(playbackRate);
+  const loadSounds = useCallback((obj, soundMap, callback) => {
+    if(!context) return;
+    const names = [] as string[];
+    const paths = [] as string[];
+    for (let name in soundMap) {
+      paths.push(soundMap[name]);
+      names.push(name);
     }
-    // A weird bug means that including the `sound` here can trigger an
-    // error on unmount, where the state loses track of the sprites??
-    // No idea, but anyway I don't need to re-run this if only the `sound`
-    // changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [volume, playbackRate]);
-
-
-
-  const play: PlayFunction = useCallback(
-    (options?: PlayOptions) => {
-      if (typeof options === 'undefined') {
-        options = {};
+    const bufferLoader = new BufferLoader(context, paths, (bufferList) => {
+      for (let i = 0; i < bufferList.length; i++) {
+        obj[names[i]] = bufferList[i];
       }
+      callback(bufferList);
+    });
+    bufferLoader.load();
+  }, [context]);
 
-      if (!sound || (!soundEnabled && !options.forceSoundEnabled)) {
-        return;
-      }
+  const seek = useCallback((timeInSeconds) => {
+    if (!buffer) return;
+    if (playing) {
+      stopSound();
+    }
+    setPauseTime(timeInSeconds);
+    playSound();
+  }, [buffer, playing, stopSound, playSound]);
 
-      if (interrupt) {
-        sound.stop();
-      }
+  useEffect(() => {
+    stopSoundRef.current = stopSound;
+  }, [stopSound])
 
-      if (options.playbackRate) {
-        sound.rate(options.playbackRate);
-      }
-      if (!soundId.current) {
-        soundId.current = sound.play();
-      } else {
-        sound.seek(soundSeek.current)
-        sound.play(soundId.current);
-      }
-      startPlaying()
-    },
-    [sound, soundEnabled, interrupt, startPlaying]
-  );
+  useEffect(() => {
+    stopSoundRef.current?.()
+  }, [src])
 
-  const stop = useCallback(
-    id => {
-      if (!sound) {
-        return;
-      }
-      sound.stop(soundId.current);
-      stopPlaying()
-    },
-    [sound, stopPlaying]
-  );
+  useEffect(() => {
+    if (!src) return;
+    setPauseTime(0);
+    startLoading();
+    loadSounds({}, { buffer: src }, (bufferList: AudioBuffer[]) => {
+      setBuffer(bufferList[0]);
+      stopLoading();
+    });
+  }, [src, loadSounds, startLoading, stopLoading]);
 
-  const pause = useCallback(
-    id => {
-      if (!sound) {
-        return;
-      }
-      sound.pause(soundId.current);
-      soundSeek.current = sound.seek();
-      stopPlaying()
-    },
-    [sound, stopPlaying]
-  );
 
-  const returnedValue: UseAudioControlReturn = {
-    play,
+
+
+  return {
     playing,
     loading,
-    sound,
-    stop,
-    pause,
-    duration,
+    seek,
+    startPlaying: playSound,
+    stopPlaying: stopSound,
+    pausePlaying: pauseSound,
     analyser: analyserRef.current,
     getCurrentData,
 
   }
-
-  return returnedValue;
 }
 
 export { useAudioControl };

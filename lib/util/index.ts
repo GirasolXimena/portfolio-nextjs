@@ -1,6 +1,3 @@
-import { animate } from "framer-motion"
-import convert from "color-convert";
-import { PaletteProperties } from "types";
 import palettes from "styles/palettes";
 import { Palette } from "types";
 
@@ -29,66 +26,6 @@ export const getPaletteData = (key: string): { palette: Palette; key: string } =
   palette: palettes[key],
   key: key,
 });
-
-export const applyPaletteAnimation = (
-  sourceProps: PaletteProperties,
-  targetProps: PaletteProperties,
-  element?: HTMLElement
-): Promise<void[]> => {
-  const animations = Object.entries(sourceProps).map(([propertyKey, sourceValue]) => {
-    if (propertyKey === "font") return Promise.resolve();
-    const targetValue = targetProps[propertyKey];
-    return animateColorTransition([sourceValue, targetValue], propertyKey, element);
-  });
-
-  // Return a promise that resolves when all animations have completed
-  return Promise.all(animations);
-};
-
-
-export const animateColorTransition = async (
-  colors: string[],
-  propertyKey: string,
-  element?: HTMLElement
-) => {
-  for (let i = 0; i < colors.length - 1; i++) {
-    const startColor = convert.hex.hsl(colors[i]);
-    const endColor = convert.hex.hsl(colors[i + 1]);
-    const midpoint = [
-      (startColor[0] + endColor[0]) / 2,
-      (startColor[1] + endColor[1]) / 2,
-      (startColor[2] + endColor[2]) / 2,
-    ];
-
-    const startString = `hsl(${startColor.join(", ")})`;
-    const midpointString = `hsl(${midpoint.join(", ")})`;
-    const endString = `hsl(${endColor.join(", ")})`;
-
-    // Animate to the midpoint
-    await animate(startString, midpointString, {
-      duration: 1 / 2,
-      ease: "easeIn",
-      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
-    });
-
-    // Animate from the midpoint to the next color
-    await animate(midpointString, endString, {
-      duration: 1 / 2,
-      ease: "easeOut",
-      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
-    });
-  }
-};
-
-export const animateMultipleColorGroups = async (
-  colorGroups: string[][],
-  propertyKey: string,
-  element?: HTMLElement
-) => {
-  for (let colorArray of colorGroups) {
-    await animateColorTransition(colorArray, propertyKey, element);
-  }
-};
 
 export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
   if(typeof document === "undefined") return {};

@@ -21,23 +21,24 @@ function AudioPlayer({ segment }) {
   const { currentPalette } = usePaletteContext()
   const frameIdRef = useRef<number | null>(null)
   const musicType = currentPalette.palette.audio
-  const { playing, startPlaying, stopPlaying, loading } = useAudioContext();
+  const { playing, startPlaying, pausePlaying, loading } = useAudioContext();
   const isClient = useIsClient()
   const willChange = useWillChange()
   const audioLevel = useMotionValue(0)
   const { getCurrentData } = useAudioContext()
 
-  const normalizedAudioLevel = useTransform(audioLevel, [120, 140], [0, 10])
+  const normalizedAudioLevel = useTransform(audioLevel, [120, 140], [0, 5])
   const shouldAnimate = !usePrefersReducedMotion()
 
 
   const togglePlaying = () => {
+    console.log('playing', playing)
     if (playing) {
       animate(audioLevel, 0, {
         duration: 2.5,
         ease: 'easeIn',
       })
-      stopPlaying()
+      pausePlaying()
     } else if (!playing) {
       startPlaying()
     }
@@ -76,9 +77,9 @@ function AudioPlayer({ segment }) {
 
     const rms = getRMS(data)
 
-    console.log('animating', rms)
+    // console.log('animating', rms)
     animate(audioLevel, rms, {
-      // duration: 0.2,
+      duration: 0.25,
       ease: 'easeOut'
     })
 
@@ -90,11 +91,6 @@ function AudioPlayer({ segment }) {
 
   }, [playing, shouldAnimate, audioLevel, getRMS, getCurrentData])
 
-
-
-  useEffect(() => {
-    stopPlaying()
-  }, [musicType, stopPlaying])
 
     // set audio level property
   // with latest audio level
