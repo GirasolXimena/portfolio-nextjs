@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import type { Howl, HowlerGlobal } from 'howler';
-import { useBoolean, useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
+import { Howl, Howler } from 'howler';
+import { useBoolean } from 'usehooks-ts';
 
 export type SpriteMap = {
   [key: string]: [number, number];
@@ -10,12 +10,15 @@ export type SpriteMap = {
 type HowlOptions = ConstructorParameters<typeof Howl>[0];
 
 export type HookOptions = Omit<HowlOptions, 'src'> & {
+  src?: HowlOptions['src'];
   id?: string;
   volume?: number;
   playbackRate?: number;
   interrupt?: boolean;
   soundEnabled?: boolean;
   sprite?: SpriteMap;
+  vizType?: 'time' | 'frequency' | 'both';
+  vizDataType?: 'Uint8' | 'Float32' | 'both';
   onload?: () => void;
 };
 
@@ -41,6 +44,7 @@ export type UseAudioControlReturn = {
   playing: boolean;
   analyser: AnalyserNode | null;
   loading: boolean;
+  getCurrentData: () => Uint8Array | Float32Array | null;
 }
 
 function useAudioControl(
@@ -52,12 +56,11 @@ function useAudioControl(
     soundEnabled = true,
     interrupt = false,
     onload,
+    vizType = 'time',
+    vizDataType = 'Uint8',
     ...delegated
   }: HookOptions
 ) {
-  const HowlConstructor = useRef<any | null>(null);
-  const HowlerGlobal = useRef<HowlerGlobal | null>(null);
-  const isMounted = useIsMounted();
   const { value: playing, setTrue: startPlaying, setFalse: stopPlaying } = useBoolean(false);
   const { value: loading, setTrue: startLoading, setFalse: stopLoading } = useBoolean(false);
   const [duration, setDuration] = useState<number | null>(null);
@@ -67,74 +70,81 @@ function useAudioControl(
   const soundId = useRef<number | undefined>(undefined);
   const soundSeek = useRef<number | undefined>(undefined);
 
-  const dataArrayRef = useRef<Uint8Array | null>(null);
+  const dataArrayRef = useRef<Uint8Array | Float32Array | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   
-  const handleLoad = function (this: Howl) {
+  const handleLoad = useCallback(function (this: Howl) {
+    if(vizType.length) {
+      const ctx = Howler.ctx
+      if (!ctx) return;
+      const analyser = ctx.createAnalyser();
+
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 1;
+
+      Howler.masterGain.connect(analyser);
+      if(vizDataType === 'Uint8') {
+        dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
+      }
+      if (vizDataType === 'Float32') {
+        dataArrayRef.current = new Float32Array(analyser.frequencyBinCount);
+      }
+      analyserRef.current = analyser;
+    }
     if (typeof onload === 'function') {
       onload.call(this);
     }
-
-    if (isMounted()) {
-      setDuration(this.duration() * 1000);
-    }
+    setDuration(this.duration() * 1000);
     setSound(this);
     stopLoading();
-  };
+  }, [onload, stopLoading, vizType, vizDataType]);
 
-  const createSound = (src: string | string[]) => {
-    if (HowlConstructor.current) {
-      startLoading();
-      return new HowlConstructor.current({
-        src: Array.isArray(src) ? src : [src],
-        volume,
-        rate: playbackRate,
-        onload: handleLoad,
-        ...delegated,
-      });
-    }
-    return null;
-  }
-
-  // We want to lazy-load Howler, since sounds can't play on load anyway.
-  useEffectOnce(() => {
-    import('howler').then(mod => {
-      if (isMounted()) {
-        // Depending on the module system used, `mod` might hold
-        // the export directly, or it might be under `default`.
-        HowlConstructor.current = mod.Howl ?? mod.default.Howl;
-        HowlerGlobal.current = mod.Howler ?? mod.default.Howler;
-
-        if (src) {
-          setSound(createSound(src));
-        }
+  const createSound = useCallback((src: string | string[]) => {
+    startLoading();
+    return new Howl({
+      src: Array.isArray(src) ? src : [src],
+      volume,
+      rate: playbackRate,
+      onload: handleLoad,
+      ...delegated,
+      onplayerror: function (e) {
+        console.log('onplayerror', e, arguments)
       }
     });
-  });
+  }, [delegated, playbackRate, volume, startLoading, handleLoad]);
 
-  useUpdateEffect(() => {
-    const ctx = HowlerGlobal.current?.ctx;
-    if (!ctx) return;
-    const analyser = ctx?.createAnalyser();
-    HowlerGlobal.current?.masterGain.connect(analyser);
-    dataArrayRef.current = new Uint8Array(analyser.frequencyBinCount);
-    analyserRef.current = analyser;
-
-
-  }, [HowlerGlobal.current?.ctx])
-
+  const getCurrentData = useCallback(() => {
+    if (!analyserRef.current || !dataArrayRef.current) return null;
+    if(vizType === 'time') {
+      if(dataArrayRef.current instanceof Uint8Array) {
+        analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
+      }
+      if(dataArrayRef.current instanceof Float32Array) {
+        analyserRef.current.getFloatTimeDomainData(dataArrayRef.current);
+      }
+    }
+    if(vizType === 'frequency') {
+      if(dataArrayRef.current instanceof Uint8Array) {
+        analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+      }
+      if(dataArrayRef.current instanceof Float32Array) {
+        analyserRef.current.getFloatFrequencyData(dataArrayRef.current);
+      }
+    }
+    return dataArrayRef.current;
+  }, [analyserRef, dataArrayRef, vizType]);
 
 
   // When the `src` changes, we have to do a whole thing where we recreate
   // the Howl instance. This is because Howler doesn't expose a way to
   // tweak the sound
   useEffect(() => {
-    if (HowlConstructor.current && sound) {
-      if(src && src.length) {
+    if(src && src.length) {
+      if(sound) {
         sound.stop(soundId.current);
         soundId.current = undefined;
-        setSound(createSound(src));
       }
+      setSound(createSound(src));
     }
     // The linter wants to run this effect whenever ANYTHING changes,
     // but very specifically I only want to recreate the Howl instance
@@ -143,7 +153,7 @@ function useAudioControl(
     // ifinite loop so we need to stringify it, for more details check
     // https://github.com/facebook/react/issues/14476#issuecomment-471199055
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(src)]);
+  }, [src]);
 
   // Whenever volume/playbackRate are changed, change those properties
   // on the sound instance.
@@ -178,7 +188,7 @@ function useAudioControl(
       if (options.playbackRate) {
         sound.rate(options.playbackRate);
       }
-      if(!soundId.current) {
+      if (!soundId.current) {
         soundId.current = sound.play();
       } else {
         sound.seek(soundSeek.current)
@@ -213,14 +223,15 @@ function useAudioControl(
   );
 
   const returnedValue: UseAudioControlReturn = {
-      play,
-      playing,
-      loading,
-      sound,
-      stop,
-      pause,
-      duration,
-      analyser: analyserRef.current,
+    play,
+    playing,
+    loading,
+    sound,
+    stop,
+    pause,
+    duration,
+    analyser: analyserRef.current,
+    getCurrentData,
 
   }
 
