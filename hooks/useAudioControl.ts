@@ -1,7 +1,9 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { useBoolean, useIsClient } from 'usehooks-ts';
 import BufferLoader from 'lib/util/BufferLoader';
-import { arrayBuffer } from 'node:stream/consumers';
+
+type VizTypeType = 'time' | 'frequency'
+type VizDataTypeType = 'Uint8' | 'Float32'
 
 export type HookOptions = {
   src?: string | string[] | undefined;
@@ -12,6 +14,23 @@ export type HookOptions = {
   vizDataType?: 'Uint8' | 'Float32' | 'both';
   onload?: () => void;
 };
+
+type getCurrentDataProps = {
+  vizType: VizTypeType;
+  vizDataType: VizDataTypeType;
+}
+
+export type getCurrentDataType = (props: getCurrentDataProps) => Uint8Array | Float32Array | null
+
+export type UseAudioControlReturn = {
+  playing: boolean;
+  loading: boolean;
+  seek: (timeInSeconds: number) => void;
+  startPlaying: () => void;
+  stopPlaying: () => void;
+  pausePlaying: () => void;
+  getCurrentData: getCurrentDataType;
+}
 
 function useAudioControl(
   src: string | string[] | undefined,
@@ -24,7 +43,7 @@ function useAudioControl(
     vizDataType = 'Uint8',
     ...delegated
   }: HookOptions
-) {
+): UseAudioControlReturn {
   const { value: playing, setTrue: startPlaying, setFalse: stopPlaying } = useBoolean(false);
   const { value: loading, setTrue: startLoading, setFalse: stopLoading } = useBoolean(false);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
@@ -46,15 +65,21 @@ function useAudioControl(
   }, [isClient]);
 
 
-  const getCurrentData = useCallback((vizType, vizDataType) => {
-    if(!source) return console.error('Source node not created');
-    if(!context) return console.error('Context not created');
-    if(!vizType) return console.error('vizType not provided');
-    if(!vizDataType) return console.error('vizDataType not provided');
+  const getCurrentData = useCallback(({vizType = 'time', vizDataType = 'Uint8'}: getCurrentDataProps) => {
+    if(!source || !context || !vizType || !vizDataType) {
+      if (!source) console.log('source not created');
+      if (!context) console.log('context not created');
+      if (!vizType) console.log('vizType not provided');
+      if (!vizDataType) console.log('vizDataType not provided');
+      return null;
+    }
     if(!analyserRef.current) {
       console.log('creating analyser')
      const analyser = context.createAnalyser();
-      if(!analyser) return console.error('Analyser node not created');
+      if(!analyser) {
+        console.error('Analyser node not created');
+        return null
+      }
       analyser.fftSize = 2048;
       analyser.smoothingTimeConstant = 1;
       analyserRef.current = analyser;
@@ -183,9 +208,7 @@ function useAudioControl(
     startPlaying: playSound,
     stopPlaying: stopSound,
     pausePlaying: pauseSound,
-    analyser: analyserRef.current,
     getCurrentData,
-
   }
 }
 

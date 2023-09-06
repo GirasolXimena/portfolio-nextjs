@@ -26,8 +26,8 @@ class BufferLoader {
     request.responseType = 'arraybuffer';
     
 
-    request.onload = function () {
-      const decodeSuccess = (buffer) => {
+    request.onload = function (): void {
+      const decodeSuccess = (buffer: AudioBuffer | null): void => {
         if (!buffer) {
           alert('error decoding file data: ' + url);
           return;
@@ -37,7 +37,7 @@ class BufferLoader {
           loader.onloadCallback(loader.bufferList);
       }
 
-      const decodeFail = (error) => {
+      const decodeFail = (error: DOMException): void => {
         console.error('decodeAudioData error', error);
       }
 
@@ -48,14 +48,14 @@ class BufferLoader {
       );
     }
 
-    request.onerror = function () {
+    request.onerror = function (): void {
       alert('BufferLoader: XHR error');
     }
 
     request.send();
   }
 
-  load() {
+  load(): void {
     for (let i = 0; i < this.urlList.length; ++i)
       this.loadBuffer(this.urlList[i], i);
   }

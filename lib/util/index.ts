@@ -1,12 +1,7 @@
 import palettes from "styles/palettes";
 import { Palette } from "types";
 
-type InputCoords = {
-  x?: number;
-  y?: number;
-};
-
-type ConvertedCoords = {
+type Coords = {
   x?: number;
   y?: number;
 };
@@ -27,13 +22,13 @@ export const getPaletteData = (key: string): { palette: Palette; key: string } =
   key: key,
 });
 
-export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
-  if(typeof document === "undefined") return {};
+export const toCartesianCoords = ({ x, y }: Coords): Coords => {
+  if (typeof document === "undefined") return {};
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
 
-  let result: ConvertedCoords = {};
+  let result: Coords = {};
 
   if (typeof x !== "undefined") {
     const xPos = x - halfWidth;
@@ -48,12 +43,12 @@ export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
   return result;
 };
 
-export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
+export const toPolarCoords = ({ x, y }: Coords): Partial<{ distance: number; angle: number }> => {
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
 
-  let result: PolarCoords = {};
+  let result: Partial<{ distance: number; angle: number }> = {};
 
   // If both x and y are provided, compute both distance and angle.
   if (typeof x !== "undefined" && typeof y !== "undefined") {
@@ -85,17 +80,13 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
 
 export const setCustomProperties = (
   properties: Record<string, string>,
-  element?: HTMLElement
-) => {
-  const targetElement = element || document.documentElement;
+  element: HTMLElement = document.documentElement
+) => Object.entries(properties).forEach(([key, value]) => {
+  const formattedKey = key.startsWith('--') ? key : `--${key}`;
+  element.style.setProperty(formattedKey, value);
+});
 
-  Object.entries(properties).forEach(([key, value]) => {
-    const formattedKey = key.startsWith('--') ? key : `--${key}`;
-    targetElement.style.setProperty(formattedKey, value);
-  });
-}
-
-export const getCustomProperty = (property: string, element?: HTMLElement) => {
+export const getCustomProperty = (property: string, element: HTMLElement = document.documentElement) => {
   const targetElement = element || document.documentElement;
   return getComputedStyle(targetElement).getPropertyValue(property);
 }

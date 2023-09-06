@@ -1,6 +1,5 @@
 'use client'
-import { useCallback, useEffect, useRef } from "react";
-
+import { useCallback, useRef, FC } from "react";
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
@@ -17,7 +16,11 @@ const setAmpProperty = (value: number, property: string) => {
   })
 }
 
-function AudioPlayer({ segment }) {
+type AudioPlayerProps = {
+  segment: string
+}
+
+const AudioPlayer: FC<AudioPlayerProps> = ({ segment }) => {
   const { currentPalette } = usePaletteContext()
   const frameIdRef = useRef<number | null>(null)
   const musicType = currentPalette.palette.audio
@@ -72,7 +75,10 @@ function AudioPlayer({ segment }) {
   }, [])
 
   const audioAnimation = useCallback(() => {
-    const data = getCurrentData()
+    const data = getCurrentData({
+      vizType: 'time',
+      vizDataType: 'Uint8'
+    })
     if (!data || !(data instanceof Uint8Array)) return
 
     const rms = getRMS(data)
