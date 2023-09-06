@@ -20,7 +20,7 @@ const palettes: Palettes = {
       tertiary: '#FF1493',
       font: 'Noto Sans'
     },
-    audio: '/audio/raingurl.mp3'
+    audio: 'https://assets.codepen.io/3862739/raingurl.mp3'
   },
   doom: {
     properties: {
@@ -31,7 +31,7 @@ const palettes: Palettes = {
       dark: '#A2AFC0',
       font: 'Doom'
     },    
-    audio: '/audio/doom.mp3'
+    audio: 'https://assets.codepen.io/3862739/doom.mp3'
   },
   vaporwave: {
     properties: {
@@ -42,7 +42,7 @@ const palettes: Palettes = {
       tertiary: '#00b8ff',
       font: 'Vaporwave'
     },
-    audio: '/audio/vaporwave.mp3'
+    audio: 'https://assets.codepen.io/3862739/vaporwave.mp3'
   },
   pride: {
     properties: {
@@ -53,7 +53,7 @@ const palettes: Palettes = {
       tertiary: '#12B8FF',
       font: 'Noto Sans'
     },
-    audio: '/audio/pride.mp3'
+    audio: 'https://assets.codepen.io/3862739/pride.mp3'
   },
   shrek: {
     properties: {
@@ -64,7 +64,7 @@ const palettes: Palettes = {
       tertiary: '#7a9244',
       font: 'Shrek'
     },
-    audio: '/audio/shrek.mp3'
+    audio: 'https://assets.codepen.io/3862739/shrek.mp3'
   },
   grayscale: {
     properties: {
