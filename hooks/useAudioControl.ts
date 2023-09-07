@@ -29,7 +29,7 @@ export type UseAudioControlReturn = {
   startPlaying: () => void;
   stopPlaying: () => void;
   pausePlaying: () => void;
-  getCurrentData: getCurrentDataType;
+  audioNode?: AudioBufferSourceNode | null;
 }
 
 function useAudioControl(
@@ -208,7 +208,7 @@ function useAudioControl(
     startPlaying: playSound,
     stopPlaying: stopSound,
     pausePlaying: pauseSound,
-    getCurrentData,
+    audioNode: source,
   }
 }
 
