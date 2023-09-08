@@ -31,9 +31,10 @@
   }
   
   .title {
+    display: flex;
+    display: none;
     border-radius: var(--radius-5);
     flex-grow: 1;
-    display: flex;
     justify-content: center;
     flex-direction: column;
     background-image: linear-gradient(var(--background), var(--background)), var(--noise-5);
