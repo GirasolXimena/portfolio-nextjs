@@ -10,6 +10,8 @@ import { mergeRefs } from 'react-merge-refs'
 import usePaletteContext from 'hooks/usePaletteContext'
 import convert from 'color-convert'
 import { PaletteProperties } from 'types'
+import { motion } from 'framer-motion'
+import { hi } from 'date-fns/locale'
 type HSLEntries = {
   [K in keyof PaletteProperties]: number[];
 };
@@ -131,34 +133,34 @@ export default function Hero({ name }: { name: string }) {
           overlay: true,
           showBgColor: false,
           onCanvasDraw: () => {
-            const currentTime = performance.now();
-            frameCount.current++;
+            // const currentTime = performance.now();
+            // frameCount.current++;
 
-            // Check if a second has passed
-            if (currentTime - lastTime.current >= 1000) {
-              console.log(`FPS: ${frameCount.current}`);
-              frameCount.current = 0;
-              lastTime.current = currentTime;
-            }
-            if (motionAnalyzerRef.current && canvasRef.current) {
+            // // Check if a second has passed
+            // if (currentTime - lastTime.current >= 1000) {
+            //   console.log(`FPS: ${frameCount.current}`);
+            //   frameCount.current = 0;
+            //   lastTime.current = currentTime;
+            // }
+            // if (motionAnalyzerRef.current && canvasRef.current) {
 
-              const ctx = canvasRef.current.getContext('2d')
-              if (!ctx) return console.error('no context')
-              ctx.globalCompositeOperation = 'xor'
-              const { width, height } = canvasRef.current
-              ctx.clearRect(0, 0, width, height)
-              const instance = motionAnalyzerRef.current
-              const energies = ['bass', 'mid', 'treble'].map((band) => instance.getEnergy(band as EnergyPreset))
-              // console.log('energies', energies)
-              const colors = [primary, secondary, tertiary].map((color, index) => {
-                const energy = energies[index]
-                const [h, s, l] = color
-                const adjustedSaturation = s * (2/3 + energy * 1/3);
-                const adjustedLightness = l * (2/3 + energy * 1/3);
-                return toColorString([h, adjustedSaturation, adjustedLightness])
-              })
-              drawGradients(ctx, width, height, colors)
-            }
+            //   const ctx = canvasRef.current.getContext('2d')
+            //   if (!ctx) return console.error('no context')
+            //   ctx.globalCompositeOperation = 'xor'
+            //   const { width, height } = canvasRef.current
+            //   ctx.clearRect(0, 0, width, height)
+            //   const instance = motionAnalyzerRef.current
+            //   const energies = ['bass', 'mid', 'treble'].map((band) => instance.getEnergy(band as EnergyPreset))
+            //   // console.log('energies', energies)
+            //   const colors = [primary, secondary, tertiary].map((color, index) => {
+            //     const energy = energies[index]
+            //     const [h, s, l] = color
+            //     const adjustedSaturation = s * (2/3 + energy * 1/3);
+            //     const adjustedLightness = l * (2/3 + energy * 1/3);
+            //     return toColorString([h, adjustedSaturation, adjustedLightness])
+            //   })
+            //   drawGradients(ctx, width, height, colors)
+            // }
           }
         })
 
@@ -184,16 +186,62 @@ export default function Hero({ name }: { name: string }) {
     }
   }, [width, height])
   return (
-    <div className={styles.hero} ref={mergeRefs([sizeRef, containerRef])}>
+    <div className={styles.hero} ref={mergeRefs([containerRef])}>
       <div className={styles.title}>
         <h1 id="name">
           {name}
         </h1>
-        <Navbar segment='home' />
+        <div ref={sizeRef} className={styles.illustration}>
+          {/* {width} x {height} */}
+          <motion.svg
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+          // initial="hidden"
+          // animate="visible"
+          >
+
+            <motion.polygon
+              points={`0,0 0,${height} ${width * 3 / 4},0`}
+              fill="var(--tertiary)"
+            />
+            <motion.circle
+              cx={width * 3 / 4}
+              cy={height * 3 / 4}
+              r={width / 2}
+              fill="var(--primary)"
+            />
+            {
+              Array.from({ length: 10 }).map((_, index) => {
+                const x = Math.random() * width
+                const y = Math.random() * height
+                const r = Math.random() * 100
+                return (
+                  <motion.circle
+                    key={index}
+                    cx={x}
+                    cy={y}
+                    r={r}
+                    fill="var(--secondary)"
+                  />
+                )
+              })
+            }
+            <motion.line
+              x1="220"
+              y1="30"
+              x2="360"
+              y2="170"
+              stroke="var(--secondary)"
+            />
+          </motion.svg>
+
+        </div>
+        {/* <Navbar segment='home' /> */}
       </div>
-      <canvas
+      {/* <canvas
         ref={canvasRef}
-      ></canvas>
+      ></canvas> */}
     </div>
   )
 }
