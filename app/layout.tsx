@@ -13,6 +13,12 @@ import { NAME } from 'lib/data'
 export const metadata: Metadata = {
   title: NAME,
   description: `${NAME} is a software engineer and designer based in Minneapolis, MN.`,
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    minimumScale: 1,
+    viewportFit: 'cover',
+  }
 }
 
 const RootLayout = ({ children }: { children: ReactNode }) => {

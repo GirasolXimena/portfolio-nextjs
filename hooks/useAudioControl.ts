@@ -1,96 +1,173 @@
-import { useRef, useCallback, MutableRefObject } from 'react';
-import usePaletteContext from 'hooks/usePaletteContext'
-import { useBoolean, useEffectOnce, useIsClient, useUpdateEffect } from 'usehooks-ts';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useBoolean, useIsClient } from 'usehooks-ts';
+import BufferLoader from 'lib/util/BufferLoader';
 
-export type AudioDataType = MutableRefObject<AnalyserNode | null>;
+type VizTypeType = 'time' | 'frequency'
+type VizDataTypeType = 'Uint8' | 'Float32'
+
+export type HookOptions = {
+  src?: string | string[] | undefined;
+  id?: string;
+  volume?: number;
+  playbackRate?: number;
+  vizType?: 'time' | 'frequency' | 'both';
+  vizDataType?: 'Uint8' | 'Float32' | 'both';
+  onload?: () => void;
+};
+
+type getCurrentDataProps = {
+  vizType: VizTypeType;
+  vizDataType: VizDataTypeType;
+}
+
+export type getCurrentDataType = (props: getCurrentDataProps) => Uint8Array | Float32Array | null
 
 export type UseAudioControlReturn = {
   playing: boolean;
-  audioData: AudioDataType;
-  audioElement: MutableRefObject<HTMLAudioElement | null>;
+  loading: boolean;
+  seek: (timeInSeconds: number) => void;
   startPlaying: () => void;
   stopPlaying: () => void;
-};
+  pausePlaying: () => void;
+  audioNode?: AudioBufferSourceNode;
+  gainNode?: GainNode;
+}
 
-const useAudioControl = (): UseAudioControlReturn => {
+function useAudioControl(
+  src: string | string[] | undefined,
+  {
+    id,
+    onload,
+    vizType = 'time',
+    vizDataType = 'Uint8',
+    ...delegated
+  }: HookOptions
+): UseAudioControlReturn {
+  const { value: playing, setTrue: startPlaying, setFalse: stopPlaying } = useBoolean(false);
+  const { value: loading, setTrue: startLoading, setFalse: stopLoading } = useBoolean(false);
+  const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
+  const stopSoundRef = useRef<() => void>();
+  const analyserConnected = useRef(false);
+  const [source, setSource] = useState<AudioBufferSourceNode | undefined>(undefined);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [volume, setVolume] = useState<number>(1);
+  const gainNode = useRef<GainNode | undefined>(undefined);
+  // const [playbackRate, setPlaybackRate] = useState<number>(1);
+
+  const [pauseTime, setPauseTime] = useState<number | null>(null);
+  
   const isClient = useIsClient()
-  const { currentPalette } = usePaletteContext();
-  const audioElement = useRef<HTMLAudioElement | null>(null);
-  const audioData = useRef<AnalyserNode | null>(null);
-  const { value: playing, setTrue: setPlayingTrue, setFalse: setPlayingFalse } = useBoolean(false);
-  const audioContext = useRef<AudioContext | null>(null);
+  const dataArrayRef = useRef<Uint8Array | Float32Array | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
 
-  const setMusicType = useCallback((src: string) => {
-    if (audioElement.current) audioElement.current.src = src;
-  }, []);
+  
+  const context = useMemo(() => {
+    if(!isClient) return null;
+    console.log('create context')
+    const context = new AudioContext()
+    return context;
+  }, [isClient]);
 
-  const startPlaying = useCallback(() => {
-    if(!audioElement.current) {
-      audioElement.current = new Audio();
-      audioElement.current.src = currentPalette.palette.audio || ''
+  const playSound = useCallback(() => {
+    if (!buffer || playing || !context) return;
+    console.log('pauseTime', pauseTime);
+    const sourceNode = context.createBufferSource();
+    const gNode = context.createGain();
+    sourceNode.buffer = buffer;
+    sourceNode.connect(gNode);
+    gNode.connect(context.destination);
+    gainNode.current = gNode;
+    sourceNode.start(0, pauseTime || 0);
+    setStartTime(context.currentTime - (pauseTime || 0));  // Note this line
+    setSource(sourceNode);
+    startPlaying();
+  }, [buffer, context, playing, startPlaying, pauseTime]);
+
+  const pauseSound = useCallback(() => {
+    if (!source || !playing || !context) return;
+    source.stop();
+    setPauseTime(context.currentTime - (startTime || 0));  // Note the modification here
+    setSource(undefined);
+    stopPlaying();
+    analyserConnected.current = false;
+  }, [source, playing, stopPlaying, context, startTime]);
+
+
+  const stopSound = useCallback(() => {
+    if (!source || !playing) return;
+    source.stop();
+
+    if(analyserRef.current) {
+      console.log('disconnect analyser')
+      analyserRef.current.disconnect();
+      analyserConnected.current = false;
     }
-    if (playing || !audioElement.current.src) return;
+    setPauseTime(0);
+    setSource(undefined);
+    stopPlaying();
+  }, [source, playing, stopPlaying]);
 
-    if (!audioContext.current) {
-      if (!window.AudioContext) return console.error('AudioContext not supported');
-      audioContext.current = new window.AudioContext();
-      const source = audioContext.current.createMediaElementSource(audioElement.current);
-      const analyzer = audioContext.current.createAnalyser();
-      analyzer.fftSize = 2048;
-      source.connect(audioContext.current.destination);
-      source.connect(analyzer);
-      audioData.current = analyzer;
+  const loadSounds = useCallback((obj, soundMap, callback) => {
+    if(!context) return;
+    const names = [] as string[];
+    const paths = [] as string[];
+    for (let name in soundMap) {
+      paths.push(soundMap[name]);
+      names.push(name);
     }
-
-    if (audioElement.current) {
-      try {
-        audioElement.current.play();
-        setPlayingTrue()
-      } catch (error) {
-        console.error('Error playing audio: ', error)
+    const bufferLoader = new BufferLoader(context, paths, (bufferList) => {
+      for (let i = 0; i < bufferList.length; i++) {
+        obj[names[i]] = bufferList[i];
       }
+      callback(bufferList);
+    });
+    bufferLoader.load();
+  }, [context]);
+
+  const seek = useCallback((timeInSeconds) => {
+    if (!buffer) return;
+    if (playing) {
+      stopSound();
     }
-  }, [playing, setPlayingTrue, currentPalette.palette.audio]);
+    setPauseTime(timeInSeconds);
+    playSound();
+  }, [buffer, playing, stopSound, playSound]);
 
-  const stopPlaying = useCallback(() => {
-    if (audioElement.current) {
-      audioElement.current.pause();
-      setPlayingFalse()
-    }
-  }, [setPlayingFalse]);
+  useEffect(() => {
+    stopSoundRef.current = stopSound;
+  }, [stopSound])
 
-  useUpdateEffect(() => {
-    if (!isClient) return;
+  useEffect(() => {
+    stopSoundRef.current?.()
+  }, [src])
 
-    if(audioElement.current === null) {
-      audioElement.current = new Audio();
-    }
+  useEffect(() => {
+    if (!src) return;
+    setPauseTime(0);
+    startLoading();
+    loadSounds({}, { buffer: src }, (bufferList: AudioBuffer[]) => {
+      setBuffer(bufferList[0]);
+      stopLoading();
+    });
+  }, [src, loadSounds, startLoading, stopLoading]);
 
-    const musicType = currentPalette.palette.audio || ''
-    setMusicType(musicType)
-  }, [currentPalette, setMusicType])
 
-  useEffectOnce(() => {
-    return () => {
-      if (audioData.current) {
-        audioData.current.disconnect();
-        audioData.current = null;
-      }
-      if (audioContext.current) {
-        audioContext.current.close()
-          .then(() => audioContext.current = null)
-          .catch((error) => console.error('Error closing audio context: ', error))
-      }
-    }
-  })
+
 
   return {
     playing,
-    audioData,
-    audioElement,
-    startPlaying,
-    stopPlaying
-  };
-};
+    loading,
+    seek,
+    startPlaying: playSound,
+    stopPlaying: stopSound,
+    pausePlaying: pauseSound,
+    audioNode: source,
+    gainNode: gainNode.current,
+    // playbackRate,
+    // setPlaybackRate,
+  }
+}
+
+export { useAudioControl };
 
 export default useAudioControl;

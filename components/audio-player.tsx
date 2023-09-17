@@ -1,6 +1,5 @@
 'use client'
-import { useEffect } from "react";
-
+import { FC } from "react";
 import SoundIcon from "./mute-icon";
 import styles from "../styles/audio-player.module.scss"
 import useAudioContext from "hooks/useAudioContext";
@@ -8,17 +7,33 @@ import usePaletteContext from "hooks/usePaletteContext";
 import { useIsClient } from "usehooks-ts";
 import { AnimatePresence, motion, useWillChange } from "framer-motion";
 import HeaderControlsButton from "./header-controls-button";
+import { setCustomProperties } from "lib/util";
 
-function AudioPlayer({ segment }) {
+const setAmpProperty = (value: number, property: string) => {
+  setCustomProperties({
+    [`amp-${property}`]: String(value),
+  })
+}
+
+type AudioPlayerProps = {
+  segment: string
+}
+
+const AudioPlayer: FC<AudioPlayerProps> = ({ segment }) => {
   const { currentPalette } = usePaletteContext()
+
   const musicType = currentPalette.palette.audio
-  const { playing, startPlaying, stopPlaying } = useAudioContext();
+  const { playing, startPlaying, pausePlaying, loading } = useAudioContext();
   const isClient = useIsClient()
   const willChange = useWillChange()
 
+
+
+
+
   const togglePlaying = () => {
     if (playing) {
-      stopPlaying()
+      pausePlaying()
     } else if (!playing) {
       startPlaying()
     }
@@ -26,16 +41,11 @@ function AudioPlayer({ segment }) {
 
 
 
-
-  useEffect(() => {
-    stopPlaying()
-  }, [musicType, stopPlaying])
-
   return (
     <HeaderControlsButton className={`${styles.container} ${styles[segment]}`}>
       <AnimatePresence>
         {
-          !!musicType && isClient && (
+          !!musicType && isClient && !loading && (
             <motion.button
               initial={{opacity: 0}}
               animate={{ opacity: 1 }}

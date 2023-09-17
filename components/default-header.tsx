@@ -4,7 +4,7 @@ import HeaderControls from "./header-controls";
 function DefaultHeader({ segment}: { segment: string}) {
   return (
     <>
-      {segment !== 'home' && <Navbar segment={segment} />}
+      <Navbar segment={segment} />
       <HeaderControls segment={segment} />
     </>
   )

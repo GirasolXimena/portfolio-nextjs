@@ -1,11 +1,18 @@
 @import "utils.module.scss";
+
 .content {
-  min-height: 100%;
-  flex-grow: 1;
+  // background-color: darksalmon;
   width: 100%;
+  max-width: calc(100vh * var(--ratio-golden) - 33vh);
+  aspect-ratio: var(--ratio-golden);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // border: 2px solid var(--text);
+  @media(max-width: 768px) {
+    aspect-ratio: calc(1 / var(--ratio-golden)); 
+  }
 }
 
 .header {
@@ -47,12 +54,19 @@
 
 .container {
   position: relative;
-  min-height: 100vh;
+  // min-height: 100vh;
+  height: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
+  // background-color: peru;
+  // aspect-ratio: var(--ratio-golden);
+  // justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
 
   &::before, &::after {
-    content: "";
+    // content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -73,17 +87,17 @@
   }
 
   &:has(header) { 
-    gap: var(--size-3);
+    // gap: var(--size-3);
     @media(min-width: 768px) {
-      gap: var(--size-10);
+      // gap: var(--size-10);
     }
   }
 
   @media(min-width: 360px) {
-    padding: var(--size-fluid-4) var(--size-fluid-2);
+    // padding: var(--size-fluid-4) var(--size-fluid-2);
   }
   @media(min-width: 768px) {
-    padding: var(--size-fluid-3) var(--size-fluid-4);
+    // padding: var(--size-fluid-3) var(--size-fluid-4);
   }
 }
 

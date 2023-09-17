@@ -5,20 +5,12 @@ import DefaultHeader from './default-header'
 import HeaderControls from './header-controls';
 
 function DefaultLayout({ children }) {
-  const segment = useSelectedLayoutSegment();
-  function Header() {
-    return segment ? (
+  const segment = useSelectedLayoutSegment() || ''
+  return (
+    <div className={styles.container}>
       <header className={styles.header} id="header">
         <DefaultHeader segment={segment} />
       </header>
-    ) : (
-      <HeaderControls segment={'home'} />
-    )
-
-  }
-  return (
-    <div className={styles.container}>
-      <Header />
       <main className={styles.content} id="main-content">
         {children}
       </main>

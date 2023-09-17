@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../components/hero";
+import Hero from "../components/hero/hero";
 import styles from '../styles/hero.module.scss'
 import { NAME } from "lib/data";
 
