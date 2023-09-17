@@ -29,15 +29,14 @@ export type UseAudioControlReturn = {
   startPlaying: () => void;
   stopPlaying: () => void;
   pausePlaying: () => void;
-  audioNode?: AudioBufferSourceNode | null;
+  audioNode?: AudioBufferSourceNode;
+  gainNode?: GainNode;
 }
 
 function useAudioControl(
   src: string | string[] | undefined,
   {
     id,
-    volume = 1,
-    playbackRate = 1,
     onload,
     vizType = 'time',
     vizDataType = 'Uint8',
@@ -49,8 +48,11 @@ function useAudioControl(
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
   const stopSoundRef = useRef<() => void>();
   const analyserConnected = useRef(false);
-  const [source, setSource] = useState<AudioBufferSourceNode | null>(null);
+  const [source, setSource] = useState<AudioBufferSourceNode | undefined>(undefined);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [volume, setVolume] = useState<number>(1);
+  const gainNode = useRef<GainNode | undefined>(undefined);
+  // const [playbackRate, setPlaybackRate] = useState<number>(1);
 
   const [pauseTime, setPauseTime] = useState<number | null>(null);
   
@@ -58,72 +60,23 @@ function useAudioControl(
   const dataArrayRef = useRef<Uint8Array | Float32Array | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
 
+  
   const context = useMemo(() => {
     if(!isClient) return null;
     console.log('create context')
-    return new AudioContext()
+    const context = new AudioContext()
+    return context;
   }, [isClient]);
-
-
-  const getCurrentData = useCallback(({vizType = 'time', vizDataType = 'Uint8'}: getCurrentDataProps) => {
-    if(!source || !context || !vizType || !vizDataType) {
-      if (!source) console.log('source not created');
-      if (!context) console.log('context not created');
-      if (!vizType) console.log('vizType not provided');
-      if (!vizDataType) console.log('vizDataType not provided');
-      return null;
-    }
-    if(!analyserRef.current) {
-      console.log('creating analyser')
-     const analyser = context.createAnalyser();
-      if(!analyser) {
-        console.error('Analyser node not created');
-        return null
-      }
-      analyser.fftSize = 2048;
-      analyser.smoothingTimeConstant = 1;
-      analyserRef.current = analyser;
-    }
-    if (!analyserConnected.current) {
-      console.log('connect analyser')
-      source.connect(analyserRef.current);
-      analyserConnected.current = true;
-    }
-    if (!dataArrayRef.current) {
-      if (vizDataType === 'Uint8') {
-        dataArrayRef.current = new Uint8Array(analyserRef.current.frequencyBinCount);
-      } else if (vizDataType === 'Float32') {
-        dataArrayRef.current = new Float32Array(analyserRef.current.frequencyBinCount);
-      }
-    }
-
-    // Logic to fetch the data based on vizType and vizDataType
-    if (vizType === 'time') {
-      if (vizDataType === 'Uint8') {
-        console.log('getByteTimeDomainData')
-        analyserRef.current.getByteTimeDomainData(dataArrayRef.current as Uint8Array);
-      } else if (vizDataType === 'Float32') {
-        analyserRef.current.getFloatTimeDomainData(dataArrayRef.current as Float32Array);
-      }
-    } else if (vizType === 'frequency') {
-      if (vizDataType === 'Uint8') {
-        analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array);
-      } else if (vizDataType === 'Float32') {
-        analyserRef.current.getFloatFrequencyData(dataArrayRef.current as Float32Array);
-      }
-    }
-
-    return dataArrayRef.current;
-  }, [analyserRef, dataArrayRef, source, context]);
-
-
 
   const playSound = useCallback(() => {
     if (!buffer || playing || !context) return;
     console.log('pauseTime', pauseTime);
     const sourceNode = context.createBufferSource();
+    const gNode = context.createGain();
     sourceNode.buffer = buffer;
-    sourceNode.connect(context.destination);
+    sourceNode.connect(gNode);
+    gNode.connect(context.destination);
+    gainNode.current = gNode;
     sourceNode.start(0, pauseTime || 0);
     setStartTime(context.currentTime - (pauseTime || 0));  // Note this line
     setSource(sourceNode);
@@ -134,7 +87,7 @@ function useAudioControl(
     if (!source || !playing || !context) return;
     source.stop();
     setPauseTime(context.currentTime - (startTime || 0));  // Note the modification here
-    setSource(null);
+    setSource(undefined);
     stopPlaying();
     analyserConnected.current = false;
   }, [source, playing, stopPlaying, context, startTime]);
@@ -150,7 +103,7 @@ function useAudioControl(
       analyserConnected.current = false;
     }
     setPauseTime(0);
-    setSource(null);
+    setSource(undefined);
     stopPlaying();
   }, [source, playing, stopPlaying]);
 
@@ -209,6 +162,9 @@ function useAudioControl(
     stopPlaying: stopSound,
     pausePlaying: pauseSound,
     audioNode: source,
+    gainNode: gainNode.current,
+    // playbackRate,
+    // setPlaybackRate,
   }
 }
 
