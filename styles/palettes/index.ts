@@ -10,6 +10,18 @@ const palettes: Palettes = {
       tertiary: '#00FFFF',
       font: 'noto_sans'
     },
+    audio: 'https://assets.codepen.io/3862739/imagination.mp3'
+  },
+  goth: {
+    properties: {
+      light: '#F7F7F7',
+      dark: '#1A1A1A',
+      primary: '#FFC0CB',
+      secondary: '#FF69B4',
+      tertiary: '#FF1493',
+      font: 'Noto Sans'
+  },
+    audio: 'https://assets.codepen.io/3862739/goth.mp3'
   },
   raingurl: {
     properties: {
