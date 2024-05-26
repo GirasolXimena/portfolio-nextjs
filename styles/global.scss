@@ -89,6 +89,10 @@ img {
   }
 }
 
+#transition-context {
+  height: 100%;
+}
+
 @media
  (prefers-reduced-motion: no-preference) {
   .button:focus {
