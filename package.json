@@ -8,7 +8,7 @@
   "dependencies": {
     "audiomotion-analyzer": "^4.5.0",
     "color-convert": "^2.0.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.6.0",
     "framer-motion": "^10.18.0",
     "gray-matter": "^4.0.3",
     "next": "^14.2.3",
