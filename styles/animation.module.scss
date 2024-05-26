@@ -1,10 +1,14 @@
-.gradient {
+.bg-gradient {
   --primary: var(--_primary);
   --secondary: var(--_secondary);
   --tertiary: var(--_tertiary);
   background: var(--noise-1), linear-gradient(to right, var(--secondary), transparent, var(--tertiary)), radial-gradient(farthest-side at 50% 50%,
       var(--primary),
       transparent);
+
+}
+.gradient {
+  @extend .bg-gradient;
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;

@@ -11,13 +11,13 @@ export default function Navbar({ segment }) {
   return (
     <nav id="nav-bar" className={`${styles.nav} ${utilStyles[segment]} ${styles[segment]}`}>
       <ul>
-        {segment !== 'home' && (
+        {/* {segment !== 'home' && (
           <li className={styles.key}>
             <Link href="/">
                 Home
             </Link>
           </li>
-        )}
+        )} */}
         <li className={styles.cyan}>
           <a href={url} download={url}>
             Resume
