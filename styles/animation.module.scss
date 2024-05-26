@@ -2,9 +2,9 @@
   --primary: var(--_primary);
   --secondary: var(--_secondary);
   --tertiary: var(--_tertiary);
-  background: var(--noise-1), linear-gradient(to right, var(--secondary), transparent, var(--tertiary)), radial-gradient(farthest-side at 50% 50%,
-      var(--primary),
-      transparent);
+  background: var(--noise-1),
+    linear-gradient(to right, var(--secondary), transparent, var(--tertiary)),
+    radial-gradient(farthest-side at 50% 50%, var(--primary), transparent);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -25,7 +25,6 @@
 }
 
 @keyframes shine {
-
   0%,
   100% {
     background-position: top left;
@@ -51,12 +50,12 @@
   --y-secondary: calc(var(--x-secondary) * -1);
   --x-tertiary: calc(var(--x-primary) * -1);
   --y-tertiary: calc(var(--y-primary) * -1);
-  --shadow-primary:
-    var(--x-primary) var(--y-primary) var(--_blur) var(--primary);
-  --shadow-secondary:
-    var(--x-secondary) var(--y-secondary) var(--_blur) var(--secondary);
-  --shadow-tertiary:
-    var(--x-tertiary) var(--y-tertiary) var(--_blur) var(--tertiary);
+  --shadow-primary: var(--x-primary) var(--y-primary) var(--_blur)
+    var(--primary);
+  --shadow-secondary: var(--x-secondary) var(--y-secondary) var(--_blur)
+    var(--secondary);
+  --shadow-tertiary: var(--x-tertiary) var(--y-tertiary) var(--_blur)
+    var(--tertiary);
 }
 
 .mouseFollow {
@@ -69,17 +68,13 @@
 .textShadowMouse {
   @extend .shadows;
   @extend .mouseFollow;
-  text-shadow:
-    var(--shadow-primary),
-    var(--shadow-secondary),
+  text-shadow: var(--shadow-primary), var(--shadow-secondary),
     var(--shadow-tertiary);
 }
 
 .boxShadowMouse {
   @extend .shadows;
   @extend .mouseFollow;
-  box-shadow:
-    var(--shadow-primary),
-    var(--shadow-secondary),
+  box-shadow: var(--shadow-primary), var(--shadow-secondary),
     var(--shadow-tertiary);
 }

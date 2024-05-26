@@ -1,7 +1,6 @@
 @import "animation.module.scss";
 // @import "buttons.module.scss";
 
-
 .nav {
   ul {
     display: flex;
@@ -27,15 +26,24 @@
 
     &:has(> :nth-child(3):last-child) {
       &:first-child a:hover {
-        text-shadow: 0 2px 2px var(--_primary), -2px -2px 2px var(--_secondary), 2px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          -2px -2px 2px var(--_secondary),
+          2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_tertiary);
       }
       &:nth-child(2) a:hover {
-        text-shadow: 0 2px 2px var(--_primary), 1px -2px 2px var(--_secondary), -1px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          1px -2px 2px var(--_secondary),
+          -1px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_secondary);
       }
       &:nth-child(3) a:hover {
-        text-shadow: 0 2px 2px var(--_primary), 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          2px -2px 2px var(--_secondary),
+          -2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_primary);
       }
     }
@@ -45,19 +53,26 @@
         transition: none;
       }
       &:nth-child(2) a:hover {
-        text-shadow: 0 2px 2px var(--_primary), -2px -2px 2px var(--_secondary), 2px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          -2px -2px 2px var(--_secondary),
+          2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_tertiary);
       }
       &:nth-child(3) a:hover {
-        text-shadow: 0 2px 2px var(--_primary), 1px -2px 2px var(--_secondary), -1px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          1px -2px 2px var(--_secondary),
+          -1px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_secondary);
       }
       &:nth-child(4) a:hover {
-
-        text-shadow: 0 2px 2px var(--_primary), 2px -2px 2px var(--_secondary), -2px -2px 2px var(--_tertiary);
+        text-shadow:
+          0 2px 2px var(--_primary),
+          2px -2px 2px var(--_secondary),
+          -2px -2px 2px var(--_tertiary);
         text-decoration-color: var(--_primary);
       }
-
     }
   }
   li {
@@ -67,10 +82,11 @@
       font-size: var(--font-size-4);
     }
     font-weight: var(--font-weight-5);
-    
 
     a {
-      transition: text-shadow 1250ms ease, text-decoration-color 1250ms ease;
+      transition:
+        text-shadow 1250ms ease,
+        text-decoration-color 1250ms ease;
     }
   }
 }
@@ -79,14 +95,13 @@
     li {
       font-size: var(--font-size-fluid-0);
 
-      @media(min-width: 480px) {
+      @media (min-width: 480px) {
         font-size: var(--font-size-fluid-1);
       }
 
-      @media(min-width: 768px) {
+      @media (min-width: 768px) {
         font-size: var(--font-size-fluid-2);
       }
-
     }
   }
 }
@@ -99,7 +114,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    @media(max-width: 480px) {
+    @media (max-width: 480px) {
       justify-content: space-evenly;
     }
   }

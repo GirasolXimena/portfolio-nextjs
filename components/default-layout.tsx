@@ -1,8 +1,8 @@
-'use client'
-import { useSelectedLayoutSegment } from 'next/navigation'
-import styles from '../styles/layout.module.scss'
-import DefaultHeader from './default-header'
-import HeaderControls from './header-controls';
+"use client";
+import { useSelectedLayoutSegment } from "next/navigation";
+import styles from "../styles/layout.module.scss";
+import DefaultHeader from "./default-header";
+import HeaderControls from "./header-controls";
 
 function DefaultLayout({ children }) {
   const segment = useSelectedLayoutSegment();
@@ -12,9 +12,8 @@ function DefaultLayout({ children }) {
         <DefaultHeader segment={segment} />
       </header>
     ) : (
-      <HeaderControls segment={'home'} />
-    )
-
+      <HeaderControls segment={"home"} />
+    );
   }
   return (
     <div className={styles.container}>
@@ -23,7 +22,7 @@ function DefaultLayout({ children }) {
         {children}
       </main>
     </div>
-  )
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;

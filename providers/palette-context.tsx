@@ -24,24 +24,30 @@ type PaletteContextType = {
 };
 
 export const PaletteContext = createContext<PaletteContextType | undefined>(
-  undefined
+  undefined,
 );
 
 const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
   const [palette, setPalette] = useLocalStorage("user-palette", "default");
-  const nextPaletteKey = useMemo(() => getNextPaletteKey(palette, 1), [palette]);
-  const nextNextPaletteKey = useMemo(() => getNextPaletteKey(palette, 2), [palette]);
+  const nextPaletteKey = useMemo(
+    () => getNextPaletteKey(palette, 1),
+    [palette],
+  );
+  const nextNextPaletteKey = useMemo(
+    () => getNextPaletteKey(palette, 2),
+    [palette],
+  );
 
   const nextPalette = useMemo(
     () => getPaletteData(nextPaletteKey),
-    [nextPaletteKey]
+    [nextPaletteKey],
   );
   const nextNextPalette = useMemo(
     () => getPaletteData(nextNextPaletteKey),
-    [nextNextPaletteKey]
+    [nextNextPaletteKey],
   );
 
-  const currentPalette = {palette: palettes[palette], key: palette};
+  const currentPalette = { palette: palettes[palette], key: palette };
 
   return (
     <PaletteContext.Provider

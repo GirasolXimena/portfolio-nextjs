@@ -1,14 +1,14 @@
-import { cProgrammingLanguageContent, eloquentJSContent } from "../api/github"
+import { cProgrammingLanguageContent, eloquentJSContent } from "../api/github";
 
 export const activeProjects = [
   {
-    name: 'c-programming-language',
+    name: "c-programming-language",
     content: cProgrammingLanguageContent,
-    baseDir: '',
+    baseDir: "",
   },
   {
-    name: 'eloquent-js-exercises',
+    name: "eloquent-js-exercises",
     content: eloquentJSContent,
-    baseDir: 'src',
-  }
-]
+    baseDir: "src",
+  },
+];

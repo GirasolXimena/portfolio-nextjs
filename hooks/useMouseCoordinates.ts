@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 
-function useMouseCoordinates(cartesian = false, prefersReducedMotion = false, causesRerender = true) {
+function useMouseCoordinates(
+  cartesian = false,
+  prefersReducedMotion = false,
+  causesRerender = true,
+) {
   const mouseCoordinatesRef = useRef({ x: 0, y: 0 });
-  const [mouseCoordinatesState, setMouseCoordinatesState] = useState({ x: 0, y: 0 });
+  const [mouseCoordinatesState, setMouseCoordinatesState] = useState({
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
-
     const handleMouseMove = (event) => {
       let newCoordinates;
 
       if (cartesian) {
         newCoordinates = {
-          x: (event.clientX - (window.innerWidth / 2)) / (window.innerWidth / 2),
-          y: (event.clientY - (window.innerHeight / 2)) / (window.innerHeight / 2)
+          x: (event.clientX - window.innerWidth / 2) / (window.innerWidth / 2),
+          y:
+            (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2),
         };
       } else {
         newCoordinates = {
           x: event.clientX,
-          y: event.clientY
+          y: event.clientY,
         };
       }
 

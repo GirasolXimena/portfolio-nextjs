@@ -1,4 +1,4 @@
-import { animate } from "framer-motion"
+import { animate } from "framer-motion";
 import convert from "color-convert";
 import { PaletteProperties } from "types";
 import palettes from "styles/palettes";
@@ -25,7 +25,9 @@ export const getNextPaletteKey = (current: string, offset: number): string => {
   return paletteNames[(currentIndex + offset) % paletteNames.length];
 };
 
-export const getPaletteData = (key: string): { palette: Palette; key: string } => ({
+export const getPaletteData = (
+  key: string,
+): { palette: Palette; key: string } => ({
   palette: palettes[key],
   key: key,
 });
@@ -33,23 +35,28 @@ export const getPaletteData = (key: string): { palette: Palette; key: string } =
 export const applyPaletteAnimation = (
   sourceProps: PaletteProperties,
   targetProps: PaletteProperties,
-  element?: HTMLElement
+  element?: HTMLElement,
 ): Promise<void[]> => {
-  const animations = Object.entries(sourceProps).map(([propertyKey, sourceValue]) => {
-    if (propertyKey === "font") return Promise.resolve();
-    const targetValue = targetProps[propertyKey];
-    return animateColorTransition([sourceValue, targetValue], propertyKey, element);
-  });
+  const animations = Object.entries(sourceProps).map(
+    ([propertyKey, sourceValue]) => {
+      if (propertyKey === "font") return Promise.resolve();
+      const targetValue = targetProps[propertyKey];
+      return animateColorTransition(
+        [sourceValue, targetValue],
+        propertyKey,
+        element,
+      );
+    },
+  );
 
   // Return a promise that resolves when all animations have completed
   return Promise.all(animations);
 };
 
-
 export const animateColorTransition = async (
   colors: string[],
   propertyKey: string,
-  element?: HTMLElement
+  element?: HTMLElement,
 ) => {
   for (let i = 0; i < colors.length - 1; i++) {
     const startColor = convert.hex.hsl(colors[i]);
@@ -68,14 +75,16 @@ export const animateColorTransition = async (
     await animate(startString, midpointString, {
       duration: 1 / 2,
       ease: "easeIn",
-      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
+      onUpdate: (latest) =>
+        setCustomProperties({ [propertyKey]: latest }, element),
     });
 
     // Animate from the midpoint to the next color
     await animate(midpointString, endString, {
       duration: 1 / 2,
       ease: "easeOut",
-      onUpdate: (latest) => setCustomProperties({ [propertyKey]: latest }, element),
+      onUpdate: (latest) =>
+        setCustomProperties({ [propertyKey]: latest }, element),
     });
   }
 };
@@ -83,7 +92,7 @@ export const animateColorTransition = async (
 export const animateMultipleColorGroups = async (
   colorGroups: string[][],
   propertyKey: string,
-  element?: HTMLElement
+  element?: HTMLElement,
 ) => {
   for (let colorArray of colorGroups) {
     await animateColorTransition(colorArray, propertyKey, element);
@@ -91,7 +100,7 @@ export const animateMultipleColorGroups = async (
 };
 
 export const toCartesianCoords = ({ x, y }: InputCoords): ConvertedCoords => {
-  if(typeof document === "undefined") return {};
+  if (typeof document === "undefined") return {};
   const { width, height } = document.documentElement.getBoundingClientRect();
   const halfWidth = width / 2;
   const halfHeight = height / 2;
@@ -126,7 +135,7 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
     const angle = Math.atan2(yPos, xPos);
     result = {
       distance: distance / Math.min(width, height),
-      angle
+      angle,
     };
   }
   // If only x is provided, compute its related polar coordinate.
@@ -145,29 +154,28 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
   return result;
 };
 
-
 export const setCustomProperties = (
   properties: Record<string, string>,
-  element?: HTMLElement
+  element?: HTMLElement,
 ) => {
   const targetElement = element || document.documentElement;
 
   Object.entries(properties).forEach(([key, value]) => {
-    const formattedKey = key.startsWith('--') ? key : `--${key}`;
+    const formattedKey = key.startsWith("--") ? key : `--${key}`;
     targetElement.style.setProperty(formattedKey, value);
   });
-}
+};
 
 export const getCustomProperty = (property: string, element?: HTMLElement) => {
   const targetElement = element || document.documentElement;
   return getComputedStyle(targetElement).getPropertyValue(property);
-}
+};
 
 export const utilities = {
   toCartesianCoords,
   toPolarCoords,
   setCustomProperties,
   getCustomProperty,
-}
+};
 
-export default utilities
+export default utilities;

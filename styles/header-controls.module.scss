@@ -1,7 +1,7 @@
 $height: 36px;
 $width: $height;
 $scale: 1.15;
-$transition: calc(.25s * 1) ease-in-out;
+$transition: calc(0.25s * 1) ease-in-out;
 
 .buttonBase {
   display: block;
@@ -39,16 +39,16 @@ $transition: calc(.25s * 1) ease-in-out;
     }
   }
 
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     --offset: 2px;
     --offset-negative: calc(var(--offset) * -1);
     --blur: calc(var(--offset) * 2);
     --shadow-primary: 0 var(--offset-negative) var(--blur) var(--primary);
-    --shadow-secondary: var(--offset-negative) var(--offset) var(--blur) var(--secondary);
+    --shadow-secondary: var(--offset-negative) var(--offset) var(--blur)
+      var(--secondary);
     --shadow-tertiary: var(--offset) var(--offset) var(--blur) var(--tertiary);
-    box-shadow:
-      var(--shadow-primary),
-      var(--shadow-secondary),
+    box-shadow: var(--shadow-primary), var(--shadow-secondary),
       var(--shadow-tertiary);
   }
 }

@@ -1,4 +1,5 @@
-.hide, .print-only {
+.hide,
+.print-only {
   display: none;
 }
 
@@ -13,9 +14,9 @@
     "experience experience experience experience"
     "education skills skills contact";
 
-    @media print {
-      padding: 0;
-    }
+  @media print {
+    padding: 0;
+  }
 
   details summary,
   ul {
@@ -36,7 +37,6 @@
   place-self: start;
   display: flex;
   flex-direction: column-reverse;
-
 }
 
 h1.name {
@@ -50,12 +50,13 @@ h2.job-title {
   font-size: 1.75em;
 }
 
-h3.heading { 
+h3.heading {
   font-size: 1.25em;
-  margin-block-end: .5em;
+  margin-block-end: 0.5em;
 }
 
-h4.job-title, h4.degree {
+h4.job-title,
+h4.degree {
   font-size: 1.1em;
   font-weight: bold;
   margin-top: 0;
@@ -71,7 +72,10 @@ h5.organization {
   font-weight: normal;
 }
 
-h6.date, .date, .skills h6, h6.link {
+h6.date,
+.date,
+.skills h6,
+h6.link {
   font-size: 0.85em;
   color: darkslategray;
   font-style: italic;
@@ -96,7 +100,7 @@ h6.date, .date, .skills h6, h6.link {
 }
 
 section .heading,
-.objective p, 
+.objective p,
 .experience > *,
 .education > *,
 .skills > *,
@@ -118,7 +122,8 @@ section .heading,
     justify-content: end;
   }
 
-  p, ul {
+  p,
+  ul {
     display: none;
   }
 }
@@ -131,15 +136,15 @@ section .heading,
   .experience-list {
     margin-top: 1em;
     overflow: auto;
-    h6{ 
+    h6 {
       margin: 0;
       display: inline;
       margin-left: auto;
-      font-size: .75em;
+      font-size: 0.75em;
       text-transform: uppercase;
       &::after {
-        content: ': ';
-        margin-right: .5em;
+        content: ": ";
+        margin-right: 0.5em;
       }
     }
     p {
@@ -148,8 +153,8 @@ section .heading,
   }
 }
 
-
-.experience-list summary, .education summary {
+.experience-list summary,
+.education summary {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -161,7 +166,6 @@ section .heading,
 
 .experience-list,
 .education {
-
   summary time {
     order: -1;
     flex-basis: 100%;
@@ -185,7 +189,7 @@ section .heading,
 
       &:not(:last-child) {
         &:after {
-          content: ',';
+          content: ",";
         }
       }
     }

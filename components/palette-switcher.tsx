@@ -10,24 +10,23 @@ function PaletteSwitcher({ segment }: { segment: string }) {
   const { transitioning } = useTransitionContext();
   const { setPalette, nextPalette } = usePaletteContext();
 
-
   const handleClick = async (): Promise<void> => {
     setPalette(nextPalette.key);
   };
 
   return (
-    <HeaderControlsButton
-      className={`${styles.container} ${styles[segment]}`}
-    >
+    <HeaderControlsButton className={`${styles.container} ${styles[segment]}`}>
       <motion.button
-        animate={{
-          '--primary': nextPalette.palette.properties.primary,
-          '--secondary': nextPalette.palette.properties.secondary,
-          '--tertiary': nextPalette.palette.properties.tertiary,
-        } as any}
+        animate={
+          {
+            "--primary": nextPalette.palette.properties.primary,
+            "--secondary": nextPalette.palette.properties.secondary,
+            "--tertiary": nextPalette.palette.properties.tertiary,
+          } as any
+        }
         transition={{
           duration: 2,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
         type="button"
         disabled={transitioning}

@@ -64,7 +64,6 @@
   initial-value: 0%;
 }
 
-
 :root {
   --_amp: var(--amp, 1);
   --amp-audio: 0;
@@ -75,8 +74,8 @@
   --_tertiary: var(--tertiary, hsl(85 3% 75%));
   --_factor-x: calc(var(--factor-x, calc(1em / 16)) * var(--amp-audio));
   --_factor-y: var(--factor-y, calc(1em / 8) * var(--amp-audio));
-  --_mouse-x: var(--mouse-x, calc(1/4));
-  --_mouse-y: var(--mouse-y, calc(1/4));
+  --_mouse-x: var(--mouse-x, calc(1 / 4));
+  --_mouse-y: var(--mouse-y, calc(1 / 4));
   --_blur: var(--blur, calc(1em / 64));
   // since mouse-[x-y] are [-1, 1],
   // dividing by --f will give us a range that is a percentage of the screen
@@ -92,8 +91,6 @@
   --secondary-y: calc(0% * var(--y));
   --tertiary-x: calc(50% * var(--x));
   --tertiary-y: calc(100% * var(--y));
-
-
 
   --primary-stop: calc(0% + var(--amp-primary) * 66%);
   --secondary-stop: calc(33% + var(--amp-secondary) * 66%);
@@ -112,4 +109,3 @@
   --background: var(--_dark);
   --text: var(--_light);
 }
-

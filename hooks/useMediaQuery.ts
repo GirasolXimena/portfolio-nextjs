@@ -9,10 +9,10 @@ function useMediaQuery(query) {
       setQuery(mediaQuery.matches);
     };
 
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
     setQuery(mediaQuery.matches);
 
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, [query]);
 
   return isQuery;
