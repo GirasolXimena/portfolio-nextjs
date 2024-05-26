@@ -1,8 +1,14 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
-const ExerciseLayout = ({ children, project }: { children: React.ReactNode, project: string }) => (
- <div className='eloquent-exercise'>
+const ExerciseLayout = ({
+  children,
+  project,
+}: {
+  children: React.ReactNode;
+  project: string;
+}) => (
+  <div className="eloquent-exercise">
     <nav>
       <ul>
         <li>
@@ -11,7 +17,7 @@ const ExerciseLayout = ({ children, project }: { children: React.ReactNode, proj
       </ul>
     </nav>
     {children}
- </div>
-)
+  </div>
+);
 
-export default ExerciseLayout
+export default ExerciseLayout;

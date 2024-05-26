@@ -14,12 +14,14 @@
   @extend .contentBackground;
 }
 
-.title, .link, .link:visited {
+.title,
+.link,
+.link:visited {
   color: var(--text);
 }
 
 .container > *:is(:last-child) {
-  align-self: flex-start;  
+  align-self: flex-start;
 }
 
 .title {

@@ -6,9 +6,8 @@
   }
 }
 
-
-
-.item, .item:visited:not(:hover) {
+.item,
+.item:visited:not(:hover) {
   color: var(--text);
   text-decoration-color: var(--text);
 }
@@ -27,4 +26,3 @@
 .section {
   text-transform: uppercase;
 }
-

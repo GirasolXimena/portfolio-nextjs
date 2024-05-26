@@ -1,19 +1,19 @@
 const decoder = {
   base64(content: string) {
-    return atob(content)
+    return atob(content);
   },
   language: {
     ts: {
-      name: 'typescript',
-      ext: 'ts',
-      prismName: 'javascript',
+      name: "typescript",
+      ext: "ts",
+      prismName: "javascript",
     },
     c: {
-      name: 'c',
-      ext: 'c',
-      prismName: 'clike',
-    }
-  }
-}
+      name: "c",
+      ext: "c",
+      prismName: "clike",
+    },
+  },
+};
 
-export default decoder
+export default decoder;

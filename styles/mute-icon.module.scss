@@ -1,33 +1,28 @@
-
-// shoutouts to chris cubellis 
+// shoutouts to chris cubellis
 // for animation inspiration
 // https://codepen.io/chrscblls/pen/oNBbGba
 $spinAmount: 90deg; // has to be in units of 90deg
 $speed: 1; // higher speed is slower lol
-  
-
 
 // svg
 
 svg.soundIcon {
   display: block;
   fill: var(--background);
-  transition: calc(.25s * #{$speed}) ease-in-out;
-
+  transition: calc(0.25s * #{$speed}) ease-in-out;
 
   .mute {
     opacity: 1;
     transform: rotate(90deg);
     transform-origin: 80px 55px;
-    animation: muteEntrance calc(.5s * #{$speed}) ease-in-out 1 forwards;
+    animation: muteEntrance calc(0.5s * #{$speed}) ease-in-out 1 forwards;
     fill: var(--background);
   }
   .speaker {
     fill: var(--background);
-    
   }
   .decibels {
-    animation: decibelsExit calc(.5s * #{$speed}) ease-out 1 forwards;
+    animation: decibelsExit calc(0.5s * #{$speed}) ease-out 1 forwards;
     transform-origin: 0 30px;
     opacity: 0;
     fill: var(--background);
@@ -37,7 +32,7 @@ svg.soundIcon {
       // animation: muteEntrance calc(.5s * #{$speed}) ease-in-out 1s forwards;
       animation-duration: 0.3s;
       // animation: none;
-    transform: rotate(calc(#{$spinAmount} + #{$spinAmount})) scale(1)
+      transform: rotate(calc(#{$spinAmount} + #{$spinAmount})) scale(1);
     }
     .decibels {
       display: none;
@@ -45,23 +40,27 @@ svg.soundIcon {
   }
   &.playing {
     .mute {
-      animation: muteExit calc(.5s * #{$speed}) ease-in-out 1 forwards;
+      animation: muteExit calc(0.5s * #{$speed}) ease-in-out 1 forwards;
     }
     .decibels {
-      animation: decibelsEntrance calc(.75s * #{$speed}) ease-in-out 1 forwards;
+      animation: decibelsEntrance calc(0.75s * #{$speed}) ease-in-out 1 forwards;
       .one {
         animation: colorPop calc(2s * #{$speed}) 1 forwards;
-        animation-delay: calc(.75s * #{$speed});
+        animation-delay: calc(0.75s * #{$speed});
       }
-      
+
       .two {
-        animation: deciblePop calc(.25s * #{$speed}) ease-in-out 1 forwards, colorPop calc(2s * #{$speed}) 1 forwards;
-        animation-delay: calc(.75s * #{$speed}), calc(1s * #{$speed});
+        animation:
+          deciblePop calc(0.25s * #{$speed}) ease-in-out 1 forwards,
+          colorPop calc(2s * #{$speed}) 1 forwards;
+        animation-delay: calc(0.75s * #{$speed}), calc(1s * #{$speed});
         opacity: 0;
       }
-      
+
       .three {
-        animation: deciblePop calc(.25s * #{$speed}) ease-in-out 1 forwards, colorPop calc(2s * #{$speed}) 1 forwards;
+        animation:
+          deciblePop calc(0.25s * #{$speed}) ease-in-out 1 forwards,
+          colorPop calc(2s * #{$speed}) 1 forwards;
         animation-delay: calc(1s * #{$speed}), calc(1.25s * #{$speed});
         opacity: 0;
       }
@@ -71,10 +70,9 @@ svg.soundIcon {
 
 // HERE LIE KEYFRAMES
 
-
 // 1. the mute x disappears
 
-@keyframes muteExit { 
+@keyframes muteExit {
   0% {
     transform: rotate(0) scale(1);
   }
@@ -86,9 +84,9 @@ svg.soundIcon {
 
 // 2. the lil decibels slide & scale in from the left
 
-@keyframes decibelsEntrance { 
+@keyframes decibelsEntrance {
   0% {
-    transform: translate(30px, 31px) scale(.33);
+    transform: translate(30px, 31px) scale(0.33);
     opacity: 0;
   }
   100% {
@@ -100,10 +98,10 @@ svg.soundIcon {
 // 3. the second and third decibels flash in with delays
 
 @keyframes deciblePop {
-  0%{
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }
@@ -117,11 +115,11 @@ svg.soundIcon {
   33% {
     fill: var(--secondary);
   }
-  
+
   66% {
     fill: var(--tertiary);
   }
-  
+
   100% {
     fill: var(--background);
   }
@@ -129,7 +127,7 @@ svg.soundIcon {
 
 // 5. the decibels exit to the right
 
-@keyframes decibelsExit { 
+@keyframes decibelsExit {
   0% {
     transform: translate(65px, 31px) scale(1);
     opacity: 1;
@@ -142,12 +140,12 @@ svg.soundIcon {
 
 // 6. the mute x popps back in, is a loop
 
-@keyframes muteEntrance { 
+@keyframes muteEntrance {
   0% {
     transform: rotate($spinAmount) scale(0);
   }
 
   100% {
-    transform: rotate(calc(#{$spinAmount} + #{$spinAmount})) scale(1)
+    transform: rotate(calc(#{$spinAmount} + #{$spinAmount})) scale(1);
   }
 }

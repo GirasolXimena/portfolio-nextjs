@@ -4,7 +4,7 @@
   line-height: initial;
   font-size: initial;
   overflow-y: auto;
-  
+
   @media print {
     height: auto !important;
   }
@@ -41,7 +41,8 @@
     text-transform: uppercase;
   }
 
-  p, details {
+  p,
+  details {
     margin-left: 1em;
   }
 
@@ -49,10 +50,10 @@
     font-size: 0.85em;
     font-style: italic;
     &::before {
-      content: '(';
+      content: "(";
     }
     &::after {
-      content: ')';
+      content: ")";
     }
   }
 
@@ -75,7 +76,6 @@
   }
 
   .contact {
-
     h3 {
       font-style: normal;
     }
@@ -83,8 +83,8 @@
       display: inline-block;
       text-transform: none;
       &:after {
-        content: ': ';
-        margin-right: .5em;
+        content: ": ";
+        margin-right: 0.5em;
       }
     }
   }

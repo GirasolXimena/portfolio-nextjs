@@ -1,6 +1,11 @@
-import { useRef, useCallback, MutableRefObject } from 'react';
-import usePaletteContext from 'hooks/usePaletteContext'
-import { useBoolean, useEffectOnce, useIsClient, useUpdateEffect } from 'usehooks-ts';
+import { useRef, useCallback, MutableRefObject } from "react";
+import usePaletteContext from "hooks/usePaletteContext";
+import {
+  useBoolean,
+  useEffectOnce,
+  useIsClient,
+  useUpdateEffect,
+} from "usehooks-ts";
 
 export type AudioDataType = MutableRefObject<AnalyserNode | null>;
 
@@ -13,11 +18,15 @@ export type UseAudioControlReturn = {
 };
 
 const useAudioControl = (): UseAudioControlReturn => {
-  const isClient = useIsClient()
+  const isClient = useIsClient();
   const { currentPalette } = usePaletteContext();
   const audioElement = useRef<HTMLAudioElement | null>(null);
   const audioData = useRef<AnalyserNode | null>(null);
-  const { value: playing, setTrue: setPlayingTrue, setFalse: setPlayingFalse } = useBoolean(false);
+  const {
+    value: playing,
+    setTrue: setPlayingTrue,
+    setFalse: setPlayingFalse,
+  } = useBoolean(false);
   const audioContext = useRef<AudioContext | null>(null);
 
   const setMusicType = useCallback((src: string) => {
@@ -25,16 +34,19 @@ const useAudioControl = (): UseAudioControlReturn => {
   }, []);
 
   const startPlaying = useCallback(() => {
-    if(!audioElement.current) {
+    if (!audioElement.current) {
       audioElement.current = new Audio();
-      audioElement.current.src = currentPalette.palette.audio || ''
+      audioElement.current.src = currentPalette.palette.audio || "";
     }
     if (playing || !audioElement.current.src) return;
 
     if (!audioContext.current) {
-      if (!window.AudioContext) return console.error('AudioContext not supported');
+      if (!window.AudioContext)
+        return console.error("AudioContext not supported");
       audioContext.current = new window.AudioContext();
-      const source = audioContext.current.createMediaElementSource(audioElement.current);
+      const source = audioContext.current.createMediaElementSource(
+        audioElement.current,
+      );
       const analyzer = audioContext.current.createAnalyser();
       analyzer.fftSize = 2048;
       source.connect(audioContext.current.destination);
@@ -45,9 +57,9 @@ const useAudioControl = (): UseAudioControlReturn => {
     if (audioElement.current) {
       try {
         audioElement.current.play();
-        setPlayingTrue()
+        setPlayingTrue();
       } catch (error) {
-        console.error('Error playing audio: ', error)
+        console.error("Error playing audio: ", error);
       }
     }
   }, [playing, setPlayingTrue, currentPalette.palette.audio]);
@@ -55,20 +67,20 @@ const useAudioControl = (): UseAudioControlReturn => {
   const stopPlaying = useCallback(() => {
     if (audioElement.current) {
       audioElement.current.pause();
-      setPlayingFalse()
+      setPlayingFalse();
     }
   }, [setPlayingFalse]);
 
   useUpdateEffect(() => {
     if (!isClient) return;
 
-    if(audioElement.current === null) {
+    if (audioElement.current === null) {
       audioElement.current = new Audio();
     }
 
-    const musicType = currentPalette.palette.audio || ''
-    setMusicType(musicType)
-  }, [currentPalette, setMusicType])
+    const musicType = currentPalette.palette.audio || "";
+    setMusicType(musicType);
+  }, [currentPalette, setMusicType]);
 
   useEffectOnce(() => {
     return () => {
@@ -77,19 +89,22 @@ const useAudioControl = (): UseAudioControlReturn => {
         audioData.current = null;
       }
       if (audioContext.current) {
-        audioContext.current.close()
-          .then(() => audioContext.current = null)
-          .catch((error) => console.error('Error closing audio context: ', error))
+        audioContext.current
+          .close()
+          .then(() => (audioContext.current = null))
+          .catch((error) =>
+            console.error("Error closing audio context: ", error),
+          );
       }
-    }
-  })
+    };
+  });
 
   return {
     playing,
     audioData,
     audioElement,
     startPlaying,
-    stopPlaying
+    stopPlaying,
   };
 };
 

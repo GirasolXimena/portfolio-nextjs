@@ -1,16 +1,16 @@
-'use client'
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+"use client";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
 type HeaderControlsProps = {
   children: ReactNode;
   className: string;
-}
+};
 function HeaderControlsButton({ children, className }: HeaderControlsProps) {
   return (
     <motion.div
       className={className}
       initial={{
-        opacity: 2 / 3
+        opacity: 2 / 3,
       }}
       whileHover={{
         scale: 1.15,
@@ -24,10 +24,10 @@ function HeaderControlsButton({ children, className }: HeaderControlsProps) {
         duration: 0.25,
         ease: "easeInOut",
       }}
-      >
-       {children} 
-      </motion.div>
-  )
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 export default HeaderControlsButton;

@@ -17,7 +17,7 @@ const CompositeProvider = ({ children }: { children: ReactNode }) => {
     (kids, { provider: CurrentProvider, props }) => (
       <CurrentProvider {...props}>{kids}</CurrentProvider>
     ),
-    children
+    children,
   );
 };
 
