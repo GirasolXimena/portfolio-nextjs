@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import {
   inter
 } from './fonts'
@@ -19,6 +19,14 @@ export const metadata: Metadata = {
     minimumScale: 1,
     viewportFit: 'cover',
   }
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  viewportFit: 'cover',
+  themeColor: 'cyan'
 }
 
 const RootLayout = ({ children }: { children: ReactNode }) => {

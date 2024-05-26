@@ -21,11 +21,16 @@ type TransitionContextType = {
 type TransitionContextProviderProps = {
   children: ReactNode;
   transitionKey?: string | number;
-}
+};
 
-export const TransitionContext = createContext<TransitionContextType | undefined>(undefined)
+export const TransitionContext = createContext<
+  TransitionContextType | undefined
+>(undefined);
 
-const TransitionContextProvider = ({ children, transitionKey }: TransitionContextProviderProps) => {
+const TransitionContextProvider = ({
+  children,
+  transitionKey,
+}: TransitionContextProviderProps) => {
   const { currentPalette } = usePaletteContext();
   const { resolvedTheme } = useTheme()
   const { value: transitioning, setTrue: startTransition, setFalse: endTransition } = useBoolean(false)
@@ -56,7 +61,7 @@ const TransitionContextProvider = ({ children, transitionKey }: TransitionContex
         } as any}
         transition={{
           duration: 1,
-          ease: 'easeInOut',
+          ease: "easeInOut",
         }}
         onAnimationStart={startTransition}
         onUpdate={onUpdate.current}
@@ -66,7 +71,6 @@ const TransitionContextProvider = ({ children, transitionKey }: TransitionContex
       </motion.div>
     </TransitionContext.Provider>
   );
-}
-
+};
 
 export default TransitionContextProvider;

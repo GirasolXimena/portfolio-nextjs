@@ -1,46 +1,47 @@
-import { ImageResponse } from 'next/server'
- 
+import { NAME } from "lib/data";
+import { ImageResponse } from "next/og";
+
 // Route segment config
-export const runtime = 'edge'
- 
+// export const runtime = "edge";
+
 // Image metadata
 export const size = {
   width: 32,
   height: 32,
-}
+};
 
-export const contentType = 'image/png'
+export const contentType = "image/png";
 
 // Image generation
 export default function Icon() {
-  const name = process.env?.NAME ? process.env.NAME : 'Loba Andrade'
-  const firstInitial = name.split(' ')[0][0]
-  const lastInitial = name.split(' ')[1][0]
+  const name = NAME;
+  const firstInitial = name.split(" ")[0][0];
+  const lastInitial = name.split(" ")[1][0];
   return new ImageResponse(
     (
       // ImageResponse JSX element
       <div
         style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#323313',
-          borderRadius: '25%',
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#323313",
+          borderRadius: "25%",
           fontSize: 24,
         }}
-        >
+      >
         <span
           style={{
-            color: 'magenta',
+            color: "magenta",
           }}
         >
           {firstInitial}
         </span>
         <span
           style={{
-            color: 'cyan',
+            color: "cyan",
           }}
         >
           {lastInitial}
@@ -53,5 +54,5 @@ export default function Icon() {
       // config to also set the ImageResponse's width and height.
       ...size,
     }
-  )
+  );
 }

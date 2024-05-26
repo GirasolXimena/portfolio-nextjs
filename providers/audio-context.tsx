@@ -26,7 +26,7 @@ const AudioContextProvider = ({ children, audioControlHook = useAudioControl }: 
     <AudioContext.Provider value={audioControls}>
       {children}
     </AudioContext.Provider>
-  )
-}
+  );
+};
 
 export default AudioContextProvider;
