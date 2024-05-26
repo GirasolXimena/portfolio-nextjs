@@ -4,7 +4,8 @@
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "pretty": "prettier . --write"
   },
   "overrides": {
     "uri-js": "npm:uri-js-replace"
@@ -35,6 +36,7 @@
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.8.0",
     "eslint-config-next": "^13.5.6",
+    "prettier": "^3.2.5",
     "typescript": "5.3.3"
   }
 }
