@@ -147,7 +147,7 @@ export default function Hero({ name }: { name: string }) {
   ]
   const imageRef = useRef<HTMLImageElement | undefined>(undefined)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [sizeRef, { width, height }] = useElementSize()
+  const [sizeRef, { width = 0, height = 0 }] = useElementSize()
   const light = useRef(toColorString(convert.hex.hsl(currentPalette.palette.properties.light)))
   const dark = useRef(toColorString(convert.hex.hsl(currentPalette.palette.properties.dark)))
   const primary = useRef(toColorString(convert.hex.hsl(currentPalette.palette.properties.primary)))

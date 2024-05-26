@@ -1,6 +1,6 @@
 import { hslStringToArray, isHexColor } from "lib/util/color"
 import { PaletteProperties } from "types"
-import { convert } from "color-convert"
+import { hsl } from "color-convert"
 import { MutableRefObject, useRef } from "react"
 import { motion } from "framer-motion"
 import { setCustomProperties } from "lib/util"
@@ -65,7 +65,7 @@ const ColorPicker = ({
           if (!pickedColor.current) return
           const color = isHexColor(pickedColor.current as string) ?
             pickedColor.current :
-            `#${convert.hsl.hex(hslStringToArray(pickedColor.current))}`
+            `#${hsl.hex(hslStringToArray(pickedColor.current))}`
           setCustomPalette((prev) => {
             return {
               ...prev,

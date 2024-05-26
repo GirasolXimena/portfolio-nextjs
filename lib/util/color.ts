@@ -1,4 +1,4 @@
-import { convert } from 'color-convert';
+import { hex, rgb } from 'color-convert';
 import { PaletteProperties } from 'types';
 
 export function hslStringToArray(hslStr) {
@@ -20,9 +20,9 @@ export function isHexColor(value: string): boolean {
   return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value);
 }
 
-export const hexToHsl = (hex: string): number[] => {
-  const [r, g, b] = convert.hex.rgb(hex)
-  const [h, s, l] = convert.rgb.hsl(r, g, b)
+export const hexToHsl = (hexString: string): number[] => {
+  const [r, g, b] = hex.rgb(hexString)
+  const [h, s, l] = rgb.hsl(r, g, b)
   return [h, s, l]
 }
 
