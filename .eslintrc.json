@@ -1,6 +1,7 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "no-extra-semi": 1
+    "no-extra-semi": 1,
+    "sort-imports": 1
   }
 }
