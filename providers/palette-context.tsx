@@ -1,10 +1,9 @@
-'use client'
+"use client";
 import {
   Dispatch,
   ReactNode,
   SetStateAction,
   createContext,
-  useRef,
   useMemo,
 } from "react";
 import palettes from "styles/palettes";
@@ -24,15 +23,23 @@ type PaletteContextType = {
   setPalette: Dispatch<SetStateAction<string>>;
 };
 
-export const PaletteContext = createContext<PaletteContextType | undefined>(undefined);
+export const PaletteContext = createContext<PaletteContextType | undefined>(
+  undefined
+);
 
 const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
   const [palette, setPalette] = useLocalStorage("user-palette", "default");
   const nextPaletteKey = useMemo(() => getNextPaletteKey(palette, 1), [palette]);
   const nextNextPaletteKey = useMemo(() => getNextPaletteKey(palette, 2), [palette]);
 
-  const nextPalette = useMemo(() => getPaletteData(nextPaletteKey), [nextPaletteKey]);
-  const nextNextPalette = useMemo(() => getPaletteData(nextNextPaletteKey), [nextNextPaletteKey]);
+  const nextPalette = useMemo(
+    () => getPaletteData(nextPaletteKey),
+    [nextPaletteKey]
+  );
+  const nextNextPalette = useMemo(
+    () => getPaletteData(nextNextPaletteKey),
+    [nextNextPaletteKey]
+  );
 
   const currentPalette = {palette: palettes[palette], key: palette};
 
@@ -46,7 +53,7 @@ const PaletteContextProvider = ({ children }: PaletteContextProviderProps) => {
         setPalette,
       }}
     >
-        {children}
+      {children}
     </PaletteContext.Provider>
   );
 };
