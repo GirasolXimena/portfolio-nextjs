@@ -1,1 +1,1 @@
-export const NAME = process.env.NAME || 'Loba Andrade';
+export const NAME = process.env.NAME || "Loba Girasol";
