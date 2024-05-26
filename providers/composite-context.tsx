@@ -1,8 +1,7 @@
-'use client'
-import { ThemeProvider } from "next-themes"
-import PaletteContextProvider from 'providers/palette-context';
-import AudioContextProvider from 'providers/audio-context';
-import FrozenRouterContextProvider from 'providers/frozen-router-context';
+"use client";
+import { ThemeProvider } from "next-themes";
+import PaletteContextProvider from "providers/palette-context";
+import AudioContextProvider from "providers/audio-context";
 import { ReactNode } from "react";
 import TransitionContext from "./transition-context";
 
@@ -11,8 +10,7 @@ const providers = [
   { provider: PaletteContextProvider, props: {} },
   { provider: TransitionContext, props: {} },
   { provider: AudioContextProvider, props: {} },
-  { provider: FrozenRouterContextProvider, props: {} },
-]
+];
 
 const CompositeProvider = ({ children }: { children: ReactNode }) => {
   return providers.reduceRight(
@@ -21,6 +19,6 @@ const CompositeProvider = ({ children }: { children: ReactNode }) => {
     ),
     children
   );
-}
+};
 
 export default CompositeProvider;

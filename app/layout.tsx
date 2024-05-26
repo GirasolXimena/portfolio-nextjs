@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import {
   inter
 } from './fonts'
@@ -13,6 +13,14 @@ import { NAME } from 'lib/data'
 export const metadata: Metadata = {
   title: NAME,
   description: `${NAME} is a software engineer and designer based in Minneapolis, MN.`,
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  viewportFit: 'cover',
+  themeColor: 'cyan'
 }
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
