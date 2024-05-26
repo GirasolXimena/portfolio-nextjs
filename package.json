@@ -5,6 +5,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "overrides": {
+    "uri-js": "npm:uri-js-replace"
+  },
   "dependencies": {
     "audiomotion-analyzer": "^4.5.0",
     "color-convert": "^2.0.1",
