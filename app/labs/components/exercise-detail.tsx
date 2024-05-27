@@ -11,15 +11,15 @@ function ExerciseDetailPage({
   title,
   content,
   type,
-  // subtitle,
+  subtitle,
   prismName,
-  // github_link,
+  github_link,
 }) {
   const theme = "tomorrow-night-eighties";
   if (type !== "file") {
     return (
       <div>
-        <h1>Not a file</h1>
+        <h1> {subtitle} Not a file {github_link}</h1>
       </div>
     );
   }

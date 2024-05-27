@@ -7,7 +7,7 @@ type ThreeStateCheckboxProps = Omit<
   children: ReactNode;
   checked: boolean | null;
   label: string;
-  onChange: (newChecked: boolean | null) => void;
+  onChange: any;
 };
 
 const updateInput = (ref, checked) => {

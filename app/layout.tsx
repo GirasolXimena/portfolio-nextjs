@@ -1,6 +1,6 @@
+import "../styles/global.scss";
 import { Metadata, Viewport } from "next";
 import { inter } from "./fonts";
-import "../styles/global.scss";
 import styles from "../styles/layout.module.scss";
 import Providers from "../providers";
 import { ReactNode, StrictMode } from "react";
