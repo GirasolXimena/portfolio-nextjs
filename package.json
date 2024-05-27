@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "audiomotion-analyzer": "^4.5.0",
+    "clsx": "^2.1.1",
     "color-convert": "^2.0.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.2.6",
@@ -26,6 +27,7 @@
     "remark": "^14.0.3",
     "remark-html": "^15.0.2",
     "sass": "^1.77.2",
+    "tailwind-merge": "^2.3.0",
     "usehooks-ts": "^2.16.0"
   },
   "devDependencies": {
