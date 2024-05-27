@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./tailwind.css";
 
 /* the props */
 @import "open-props/style";
@@ -15,7 +13,7 @@ body {
   font-size: 18px;
   min-height: 100%;
   width: 100%;
-  // transition: opacity 1250ms ease, color 1250ms ease, background-color 1250ms ease;
+  /* transition: opacity 1250ms ease, color 1250ms ease, background-color 1250ms ease; */
 }
 
 html {
