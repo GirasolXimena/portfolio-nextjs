@@ -1,4 +1,5 @@
 export default function Test({ postData }) {
+  console.log(postData)
   return (
     <iframe
       height="1024"

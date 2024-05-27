@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./list-exercises.module.scss";
 import animation from "styles/animation.module.scss";
 
-type ListItems = {
+type ListItemsProps = {
   path: string;
   title: string;
   section: string;
@@ -12,7 +12,7 @@ type ListItems = {
 // This is a Client Component. It receives data as props and
 // has access to state and effects just like Page components
 // in the `pages` directory.
-function ListItems({ items }: { items: ListItems }) {
+function ListItems({ items }: { items: ListItemsProps }) {
   return (
     <div className={styles.container}>
       <ol className={styles.list}>

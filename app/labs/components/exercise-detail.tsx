@@ -11,9 +11,9 @@ function ExerciseDetailPage({
   title,
   content,
   type,
-  subtitle,
+  // subtitle,
   prismName,
-  github_link,
+  // github_link,
 }) {
   const theme = "tomorrow-night-eighties";
   if (type !== "file") {

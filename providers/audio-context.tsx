@@ -78,7 +78,7 @@ const AudioContextProvider = ({
 
   const shouldAnimate = !usePrefersReducedMotion() && animating;
   useAnimationFrame((time) => {
-    if (!shouldAnimate) return;
+    if (!shouldAnimate || !time) return;
     if (playing) {
       audioAnimation(audioData);
     } else {

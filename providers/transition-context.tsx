@@ -1,5 +1,5 @@
 "use client";
-import { FC, ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext } from "react";
 import { motion } from "framer-motion";
 import usePaletteContext from "hooks/usePaletteContext";
 import palettes from "styles/palettes";
@@ -21,7 +21,7 @@ export const TransitionContext = createContext<
 
 const TransitionContextProvider = ({
   children,
-  transitionKey,
+  // transitionKey,
 }: TransitionContextProviderProps) => {
   const { currentPalette } = usePaletteContext();
   const { resolvedTheme } = useTheme();

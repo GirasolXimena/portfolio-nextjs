@@ -3,9 +3,11 @@ import styles from "../../styles/particle.module.scss";
 import rain from "../../lib/filters/rain";
 
 export default function Rain({ postData }) {
+  console.log(postData)
   useEffect(() => {
     const canvas = document.getElementById(styles.canvas1);
     const ctx = canvas.getContext("2d");
+    console.log(ctx)
     canvas.width = 800;
     canvas.height = 450;
 
