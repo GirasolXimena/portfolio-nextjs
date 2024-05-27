@@ -23,7 +23,9 @@
         "GitHub.vscode-pull-request-github",
         "bierner.markdown-checkbox",
         "maattdd.gitless",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "csstools.postcss"
       ]
     }
   }
