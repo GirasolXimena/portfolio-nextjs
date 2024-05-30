@@ -1,0 +1,38 @@
+.aurora {
+  --white-gradient: repeating-linear-gradient(100deg, var(--white) 0%, var(--white) 7%, var(--transparent) 10%, var(--transparent) 12%, var(--white) 16%);
+  --dark-gradient: repeating-linear-gradient(100deg, var(--black) 0%, var(--black) 7%, var(--transparent) 10%, var(--transparent) 12%, var(--black) 16%);
+  --aurora: repeating-linear-gradient(100deg, var(--blue-500) 10%, var(--indigo-300) 15%, var(--blue-300) 20%, var(--violet-200) 25%, var(--blue-400) 30%);
+
+  inset: -10px;
+  opacity: 50%;
+  background-image: var(--white-gradient), var(--aurora);
+  will-change: transform;
+  position: inherit;
+  /* pointer-events: none; */
+  background-size: 300%,
+    200%;
+  background-position: 50% 50%,
+    50% 50%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-image: var(--white-gradient), var(--aurora);
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+    background-size: 200%, 100%;
+    inset: 0;
+  }
+}
+
+[data-theme="dark"] .aurora {
+  background-image: var(--dark-gradient), var(--aurora);
+
+  &:after {
+    background-image: var(--dark-gradient), var(--aurora);
+  }
+}
+
+.gradient {
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, var(--transparent) 70%);
+}
