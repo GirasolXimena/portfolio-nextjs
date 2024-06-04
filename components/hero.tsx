@@ -1,12 +1,17 @@
 "use client";
 import { motion } from "framer-motion";
 
-import { HeroHighlight, Highlight } from "./ui/hero-highlight";
+import { Highlight } from "./ui/hero-highlight";
 import { SparklesCore } from "./ui/sparkles";
+import { WavyBackground } from "./ui/wavy-background";
 
 export default function Hero({ name }: { name: string }) {
   return (
-    <HeroHighlight className="flex flex-col gap-4">
+    <WavyBackground
+      containerClassName="grow flex"
+      className="flex flex-col gap-4 justify-center"
+      speed="slow"
+    >
       <motion.h1
         whileHover={{
           scale: 1.2,
@@ -64,6 +69,6 @@ export default function Hero({ name }: { name: string }) {
           />
         </div>
       </div>
-    </HeroHighlight>
+    </WavyBackground>
   );
 }

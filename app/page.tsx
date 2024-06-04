@@ -5,7 +5,7 @@ import { NAME } from "lib/data";
 
 export default function Page() {
   return (
-    <article id="home" className={`${styles.container}`}>
+    <article id="home" className={`${styles.container} relative`}>
       <Hero name={NAME} />
     </article>
   );

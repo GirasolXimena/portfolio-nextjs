@@ -2,10 +2,10 @@
 @import "variables.module.scss";
 
 .container {
+  flex-grow: 1;
   display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
-  min-height: 100%;
-  perspective: 1000px;
 }
 .hero {
   display: flex;
