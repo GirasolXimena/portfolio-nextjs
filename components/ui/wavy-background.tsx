@@ -1,24 +1,18 @@
 "use client";
 import clsx from "clsx";
 import { cn } from "../../lib/util/cn";
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { useResizeObserver } from "usehooks-ts";
 import { WavyBackgroundAnimation } from "./wavy-background.helper";
-import { useResizeObserver } from "usehooks-ts";
-
-
+import { useDebounceCallback, useResizeObserver } from "usehooks-ts";
 
 export const WavyBackground = ({
   children,
   className,
   containerClassName,
-  colors,
-  waveWidth,
-  backgroundFill,
+  colors = ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"],
+  waveWidth = 50,
+  backgroundFill = "Black",
   blur = 10,
   speed = "fast",
   waveOpacity = 0.5,
@@ -41,25 +35,25 @@ export const WavyBackground = ({
   useEffect(() => {
     if (!canvasRef.current || !!animationRef.current) return;
     animationRef.current = new WavyBackgroundAnimation({
-      canvas: canvasRef.current,
-      waveOpacity,
-      waveWidth,
-      colors,
-      backgroundFill,
-      speed
+      canvas: canvasRef.current
     });
-    animationRef.current.setup()
+    animationRef.current.setup();
 
     return () => {
       animationRef.current?.destroy();
     };
-  }, [
-    waveOpacity,
-    waveWidth,
-    colors,
-    backgroundFill,
-    speed
-  ]);
+  }, []);
+
+
+  useEffect(() => {
+    if(!animationRef.current) return
+    console.log('setting stuff')
+    animationRef.current.waveOpacity = waveOpacity
+    animationRef.current.waveWidth = waveWidth
+    animationRef.current.colors = colors
+    animationRef.current.backgroundFill = backgroundFill
+    animationRef.current.speed = speed
+  }, [backgroundFill, colors, speed, waveOpacity, waveWidth])
 
   const [isSafari, setIsSafari] = useState(false);
 
@@ -72,14 +66,15 @@ export const WavyBackground = ({
     );
   }, []);
 
+  const onResize = ({ height = 0, width = 0 }) => {
+    if (!animationRef.current) return;
+    animationRef.current.height = height;
+    animationRef.current.width = width;
+    animationRef.current.setup();
+  };
   useResizeObserver({
     ref: containerRef,
-    onResize: ({ height = 0, width = 0 }) => {
-      if (!animationRef.current) return;
-      animationRef.current.height = height
-      animationRef.current.width = width
-      animationRef.current.setup()
-    },
+    onResize: useDebounceCallback(onResize, 100),
   });
 
   return (

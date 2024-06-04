@@ -24,6 +24,8 @@ const getSpeed = (speed: string) => {
   }
 };
 
+export const defaultWaveColors = ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"]
+
 export class WavyBackgroundAnimation {
   ctx: CanvasRenderingContext2D;
   backgroundFill: string;
@@ -59,7 +61,6 @@ export class WavyBackgroundAnimation {
     this.waveWidth = waveWidth;
     this.animationId = 0;
     this.blur = blur;
-    () => this.setup();
   }
 
   drawWave = () => {
@@ -78,27 +79,31 @@ export class WavyBackgroundAnimation {
   };
 
   animate = () => {
-    console.log("animate", this.ctx);
+    // console.log("animate", this.animationId);
     this.ctx.fillStyle = this.backgroundFill;
     this.ctx.globalAlpha = this.waveOpacity;
     this.ctx.fillRect(0, 0, this.width, this.height);
     this.drawWave();
-    this.animationId = window.requestAnimationFrame(this.animate);
+    this.animationId = requestAnimationFrame(this.animate);
   };
 
   resize = () => {
     this.ctx.canvas.width = this.width;
     this.ctx.canvas.height = this.height;
-    this.ctx.filter = `blur(${this.blur}px)`;
-    this.animate();
   };
 
   setup = () => {
     this.resize();
+    this.ctx.filter = `blur(${this.blur}px)`;
+    if(this.animationId === 0) {
+      console.log('start anim')      
+      this.animate();
+    }
   };
 
   destroy = () => {
     console.log("destroy", this.animationId);
-    window.cancelAnimationFrame(this.animationId);
+    cancelAnimationFrame(this.animationId);
+    this.animationId = 0
   };
 }
