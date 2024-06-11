@@ -154,6 +154,8 @@ export const toPolarCoords = ({ x, y }: InputCoords): PolarCoords => {
   return result;
 };
 
+export const formatCssCustomPropertyKey = (key: string) => key.startsWith("--") ? key : `--${key}`;
+
 export const setCustomProperties = (
   properties: Record<string, string>,
   element?: HTMLElement,
@@ -161,14 +163,15 @@ export const setCustomProperties = (
   const targetElement = element || document.documentElement;
 
   Object.entries(properties).forEach(([key, value]) => {
-    const formattedKey = key.startsWith("--") ? key : `--${key}`;
+    const formattedKey = formatCssCustomPropertyKey(key);
     targetElement.style.setProperty(formattedKey, value);
   });
 };
 
 export const getCustomProperty = (property: string, element?: HTMLElement) => {
+  const key = formatCssCustomPropertyKey(property)
   const targetElement = element || document.documentElement;
-  return getComputedStyle(targetElement).getPropertyValue(property);
+  return getComputedStyle(targetElement).getPropertyValue(key);
 };
 
 export const utilities = {
