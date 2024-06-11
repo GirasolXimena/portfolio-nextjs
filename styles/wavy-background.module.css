@@ -8,13 +8,12 @@
   display: grid;
   place-items: center;
   pointer-events: none;
-
 }
 
-  .canvas {
-    position: absolute;
-    height: 100%;
-    width: 125%;
-    top: 0;
-    left: -12.5%;
-  }
+.canvas {
+  position: absolute;
+  height: 100%;
+  width: 125%;
+  top: 0;
+  left: -12.5%;
+}

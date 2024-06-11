@@ -9,7 +9,7 @@ import { PaletteProperties } from "types";
 
 type TransitionContextType = {
   transitioning: boolean;
-  currentThemeColorsRef: MutableRefObject<PaletteProperties>
+  currentThemeColorsRef: MutableRefObject<PaletteProperties>;
 };
 
 type TransitionContextProviderProps = {
@@ -38,25 +38,25 @@ const TransitionContextProvider = ({
     tertiary: palettes.grayscale.properties.tertiary,
     light: palettes.grayscale.properties.text as string,
     dark: palettes.grayscale.properties.background as string,
-    font: palettes.grayscale.properties.font
-  })
+    font: palettes.grayscale.properties.font,
+  });
 
-  const onUpdate =(latest) => {
+  const onUpdate = (latest) => {
     currentThemeColorsRef.current = {
-      primary: latest['--primary'],
-      secondary: latest['--secondary'],
-      tertiary: latest['--tertiary'],
-      light: latest['--text'] as string,
-      dark: latest['--background'] as string,
-      font: ''
-    }
-  }
+      primary: latest["--primary"],
+      secondary: latest["--secondary"],
+      tertiary: latest["--tertiary"],
+      light: latest["--text"] as string,
+      dark: latest["--background"] as string,
+      font: "",
+    };
+  };
 
   return (
     <TransitionContext.Provider
       value={{
         transitioning,
-        currentThemeColorsRef
+        currentThemeColorsRef,
       }}
     >
       <motion.div
@@ -68,7 +68,7 @@ const TransitionContextProvider = ({
             "--secondary": palettes.grayscale.properties.secondary,
             "--tertiary": palettes.grayscale.properties.tertiary,
             "--background": palettes.grayscale.properties.background as string,
-            "--text": palettes.grayscale.properties.text as string
+            "--text": palettes.grayscale.properties.text as string,
           } as any
         }
         animate={

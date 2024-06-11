@@ -60,14 +60,12 @@ export const WavyBackground = ({
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&
-        !navigator.userAgent.includes("Chrome")
+        !navigator.userAgent.includes("Chrome"),
     );
   }, []);
 
   const onResize = ({ height = 0, width = 0 }) => {
-    console.log("resized");
     if (!canvasRef.current) return;
-    console.log("resized 2");
     canvasRef.current.height = window.innerHeight;
     canvasRef.current.width = window.innerWidth;
     if (!ctx) return;
