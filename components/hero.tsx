@@ -6,7 +6,7 @@ import Navbar from "./navbar";
 export default function Hero({ name }: { name: string }) {
   useMouseInput();
   return (
-    <div className={styles.hero}>
+    <div className={styles.heffro}>
       <h1 id="name">{name}</h1>
       <Navbar segment="home" />
     </div>
