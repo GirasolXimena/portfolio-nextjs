@@ -3,6 +3,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import styles from "../styles/layout.module.scss";
 import DefaultHeader from "./default-header";
 import HeaderControls from "./header-controls";
+import { WavyBackground } from "./wavy-background";
 
 function DefaultLayout({ children }) {
   const segment = useSelectedLayoutSegment();
@@ -17,6 +18,7 @@ function DefaultLayout({ children }) {
   }
   return (
     <div className={styles.container}>
+      <WavyBackground />
       <Header />
       <main className={styles.content} id="main-content">
         {children}
