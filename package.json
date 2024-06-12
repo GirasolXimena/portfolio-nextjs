@@ -11,6 +11,7 @@
     "uri-js": "npm:uri-js-replace"
   },
   "dependencies": {
+    "@react-aria/example-theme": "^1.0.3",
     "audiomotion-analyzer": "^4.5.0",
     "color-convert": "^2.0.1",
     "date-fns": "^3.6.0",
