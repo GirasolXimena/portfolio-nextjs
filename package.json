@@ -5,7 +5,9 @@
     "lint": "next lint",
     "build": "next build",
     "start": "next start",
-    "pretty": "prettier . --write"
+    "pretty": "prettier . --write",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "overrides": {
     "uri-js": "npm:uri-js-replace"
@@ -31,6 +33,15 @@
     "usehooks-ts": "^2.16.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.5.0",
+    "@storybook/addon-essentials": "^8.1.7",
+    "@storybook/addon-interactions": "^8.1.7",
+    "@storybook/addon-links": "^8.1.7",
+    "@storybook/addon-onboarding": "^8.1.7",
+    "@storybook/blocks": "^8.1.7",
+    "@storybook/nextjs": "^8.1.7",
+    "@storybook/react": "^8.1.7",
+    "@storybook/test": "^8.1.7",
     "@types/color-convert": "^2.0.3",
     "@types/node": "^20.12.12",
     "@types/prismjs": "^1.26.4",
@@ -38,7 +49,9 @@
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.8.0",
     "eslint-config-next": "^13.5.6",
+    "eslint-plugin-storybook": "^0.8.0",
     "prettier": "^3.2.5",
+    "storybook": "^8.1.7",
     "typescript": "5.3.3"
   }
 }
