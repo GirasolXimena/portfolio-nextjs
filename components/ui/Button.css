@@ -1,6 +1,0 @@
-/*
-  Recommended: For components with multiple contexts available, if you
-  want access to all contexts, load the index.css file, which includes
-  all contexts and component variables.
-*/
-@import "node_modules/@spectrum-css/button/dist/index.css";

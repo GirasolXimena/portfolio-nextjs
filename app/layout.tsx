@@ -6,6 +6,7 @@ import Providers from "../providers";
 import { ReactNode, StrictMode } from "react";
 import DefaultLayout from "components/default-layout";
 import { NAME } from "lib/data";
+import clsx from 'clsx'
 
 export const metadata: Metadata = {
   title: NAME,
@@ -22,7 +23,7 @@ export const viewport: Viewport = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html suppressHydrationWarning className={inter.variable} lang="en-us">
+    <html suppressHydrationWarning className={clsx(inter.variable, 'spectrum spectrum--light spectrum--large')} lang="en-us">
       <body className={styles.body}>
         <StrictMode>
           <Providers>
