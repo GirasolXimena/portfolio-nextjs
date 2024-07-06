@@ -13,6 +13,8 @@
     "uri-js": "npm:uri-js-replace"
   },
   "dependencies": {
+    "@mantine/core": "^7.11.1",
+    "@mantine/hooks": "^7.11.1",
     "@react-aria/example-theme": "^1.0.3",
     "@spectrum-css/button": "^13.1.1",
     "@spectrum-css/icon": "^7.1.1",
@@ -56,6 +58,10 @@
     "eslint": "^8.8.0",
     "eslint-config-next": "^13.5.6",
     "eslint-plugin-storybook": "^0.8.0",
+    "postcss": "^8.4.39",
+    "postcss-preset-env": "^9.5.14",
+    "postcss-preset-mantine": "^1.15.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.2.5",
     "storybook": "^8.1.7",
     "typescript": "5.3.3"

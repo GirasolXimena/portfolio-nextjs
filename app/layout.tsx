@@ -7,6 +7,9 @@ import { ReactNode, StrictMode } from "react";
 import DefaultLayout from "components/default-layout";
 import { NAME } from "lib/data";
 import clsx from 'clsx'
+import '@mantine/core/styles.css';
+
+import { ColorSchemeScript } from "@mantine/core";
 
 export const metadata: Metadata = {
   title: NAME,
@@ -24,6 +27,9 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html suppressHydrationWarning className={clsx(inter.variable, 'spectrum spectrum--light spectrum--large')} lang="en-us">
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={styles.body}>
         <StrictMode>
           <Providers>
