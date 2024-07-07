@@ -1,4 +1,4 @@
-export const NAME = process.env.NAME || "Loba Girasol";
+export const NAME = process.env.NAME || "Ximena Girasol";
 export const CODEPEN_URL = process.env.CODEPEN_URL || "https://codepen.io/abstract_code"
 export const RESUME_URL = process.env.RESUME_URL || "assets/Ximena-Girasol-resume.pdf"
 export const GITHUB_URL = process.env.GITHUB_URL || "https://github.com/GirasolXimena"
