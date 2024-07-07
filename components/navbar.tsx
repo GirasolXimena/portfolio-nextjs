@@ -1,13 +1,9 @@
 import Link from "next/link";
 import styles from "../styles/navbar.module.scss";
 import utilStyles from "../styles/utils.module.scss";
-import { NAME } from "lib/data";
-import { useIsClient } from "usehooks-ts";
+import { CODEPEN_URL, GITHUB_URL, RESUME_URL } from "lib/data";
 
 export default function Navbar({ segment }) {
-  const isClient = useIsClient();
-  const variant = NAME.split(" ").join("-");
-  const url = isClient ? `assets/${variant}-resume.pdf` : "";
   return (
     <nav
       id="nav-bar"
@@ -20,15 +16,15 @@ export default function Navbar({ segment }) {
           </li>
         )}
         <li className={styles.cyan}>
-          <a href={url} download={url}>
+          <a href={RESUME_URL} download={RESUME_URL}>
             Resume
           </a>
         </li>
         <li className={styles.magenta}>
-          <a href="https://codepen.io/abstract_code">Labs</a>
+          <a href={CODEPEN_URL}>Labs</a>
         </li>
         <li className={styles.yellow}>
-          <a href="https://github.com/RobertAndradeJr">Code</a>
+          <a href={GITHUB_URL}>Code</a>
         </li>
       </ul>
     </nav>

@@ -1,6 +1,7 @@
 import utilStyles from "../styles/utils.module.scss";
 import prettyStyles from "../styles/resume/pretty.module.scss";
 import machineStyles from "../styles/resume/machine.module.scss";
+import { GITHUB_URL, LINKEDIN_URL, TWITTER_URL } from "lib/data";
 
 export default function ResumeTemplate({ pretty }) {
   const styles = pretty ? prettyStyles : machineStyles;
@@ -338,18 +339,18 @@ export default function ResumeTemplate({ pretty }) {
               </a>
             </li>
             <li>
-              <a href="https://github.com/RobertAndradeJr" itemProp="sameAs">
+              <a href={GITHUB_URL} itemProp="sameAs">
                 <h6 className={styles.link}>GitHub</h6>RobertAndradeJr
               </a>
             </li>
             <li>
-              <a href="https://twitter.com/abstract_coding" itemProp="sameAs">
+              <a href={TWITTER_URL} itemProp="sameAs">
                 <h6 className={styles.link}>Twitter</h6>abstract_coding
               </a>
             </li>
             <li>
               <a
-                href="https://www.linkedin.com/in/srobertandrade"
+                href={LINKEDIN_URL}
                 itemProp="sameAs"
               >
                 <h6 className={styles.link}>LinkedIn</h6>SRobertAndrade

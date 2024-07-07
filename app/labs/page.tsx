@@ -1,5 +1,6 @@
 import TitleBar from "./components/title-bar";
 import ListExercises from "./components/list-exercises";
+import { CODEPEN_URL } from "lib/data";
 
 let links = [
   {
@@ -8,7 +9,7 @@ let links = [
     section: "📝",
   },
   {
-    path: "https://codepen.io/abstract_code",
+    path: CODEPEN_URL,
     title: "Codepen",
     section: "🔗",
   },

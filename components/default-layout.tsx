@@ -6,7 +6,7 @@ import HeaderControls from "./header-controls";
 import { Anchor, AppShell, Burger, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
-import { NAME } from "lib/data";
+import { CODEPEN_URL, NAME, RESUME_URL } from "lib/data";
 
 function DefaultLayout({ children }) {
   const segment = useSelectedLayoutSegment();
@@ -21,7 +21,6 @@ function DefaultLayout({ children }) {
     );
   }
 
-  const resumeLink = `${NAME.split(' ').join('-')}-resume.pdf`
   return (
     <AppShell header={{ height: 60 }} navbar={{
       width: 150,
@@ -42,11 +41,11 @@ function DefaultLayout({ children }) {
       }}>
         <Burger opened={opened} onClick={toggle} size={'sm'} />
         <div>XG</div>
-        <Anchor href="https://codepen.io/abstract_cod" >Labs</Anchor>
-        <Button href={'assets/Ximena-Girasol-resume.pdf'} component={Link}>Resume</Button>
+        <Anchor href={CODEPEN_URL} >Labs</Anchor>
+        <Button href={RESUME_URL} component={Link}>Resume</Button>
         <HeaderControls segment={'h'} />
       </AppShell.Header>
-    <AppShell.Navbar p={'md'}>{resumeLink}</AppShell.Navbar>
+    <AppShell.Navbar p={'md'}>{'resumeLink'}</AppShell.Navbar>
     <AppShell.Main>{children}</AppShell.Main>
     {/* <div className={styles.container}>
       <Header />
