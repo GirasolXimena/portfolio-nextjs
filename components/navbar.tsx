@@ -7,7 +7,7 @@ import { useIsClient } from "usehooks-ts";
 export default function Navbar({ segment }) {
   const isClient = useIsClient();
   const variant = NAME.split(" ").join("-");
-  const url = isClient ? `assets/${variant}-resume.pdf` : "";
+  const url = isClient ? `assets/ximena-girasol-resume.pdf` : "";
   return (
     <nav
       id="nav-bar"
@@ -28,7 +28,7 @@ export default function Navbar({ segment }) {
           <a href="https://codepen.io/abstract_code">Labs</a>
         </li>
         <li className={styles.yellow}>
-          <a href="https://github.com/RobertAndradeJr">Code</a>
+          <a href="https://github.com/girasolximena">Code</a>
         </li>
       </ul>
     </nav>

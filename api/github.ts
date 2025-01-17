@@ -29,7 +29,7 @@ class GithubRepo {
 }
 
 // repo specific functions
-const EloquentJS = new GithubRepo("RobertAndradeJr", "eloquent-js-exercises");
+const EloquentJS = new GithubRepo("ximenagirasol", "eloquent-js-exercises");
 export const eloquentJSRepo = async () => await EloquentJS.getRepo();
 export const eloquentJSContent = async (path: string) =>
   await EloquentJS.getContent(path);
@@ -37,7 +37,7 @@ export const eloquentJSFile = async (path: string) =>
   await EloquentJS.getContent(`src/${path}`);
 
 const CProgrammingLanguage = new GithubRepo(
-  "RobertAndradeJr",
+  "ximenagirasol",
   "c-programming-language",
 );
 export const cProgrammingLanguageRepo = async () =>

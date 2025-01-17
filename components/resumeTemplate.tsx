@@ -15,13 +15,13 @@ export default function ResumeTemplate({ pretty }) {
     >
       <header className={styles.title}>
         <h1 itemProp="name" className={styles.name}>
-          S. Roberto{breakIfPretty}Andrade
+          S. ximenao{breakIfPretty}girasol
         </h1>
         <h2 itemProp="jobTitle" className={styles["job-title"]}>
           Creative Technologist
         </h2>
-        <meta itemProp="alternateName" content="Robert Andrade" />
-        <meta itemProp="alternateName" content="Sergio Andrade" />
+        <meta itemProp="alternateName" content="ximena girasol" />
+        <meta itemProp="alternateName" content="Sergio girasol" />
         <meta itemProp="gender" content="Non-binary" />
         <meta itemProp="pronouns" content="he/her/theirs" />
       </header>
@@ -317,29 +317,29 @@ export default function ResumeTemplate({ pretty }) {
             </li>
             <li>
               <a
-                href="https://robertandradejr.dev/"
+                href="https://ximenagirasol.dev/"
                 target="_blank"
                 rel="noreferrer"
                 itemProp="url"
               >
                 {!pretty && <h6 className={styles.link}>website</h6>}
-                robertandradejr.dev/
+                ximenagirasol.dev/
               </a>
             </li>
             <li>
               <a
-                href="mailto:ROBERT.ANDRADE.DEVELOPER@GMAIL.COM"
+                href="mailto:ximena.girasol.DEVELOPER@GMAIL.COM"
                 target="_blank"
                 rel="noreferrer"
                 itemProp="email"
               >
-                <h6 className={styles.link}>email</h6>robert.andrade.developer
+                <h6 className={styles.link}>email</h6>ximena.girasol.developer
                 {pretty ? <br /> : ""}@gmail.com
               </a>
             </li>
             <li>
-              <a href="https://github.com/RobertAndradeJr" itemProp="sameAs">
-                <h6 className={styles.link}>GitHub</h6>RobertAndradeJr
+              <a href="https://github.com/ximenagirasol" itemProp="sameAs">
+                <h6 className={styles.link}>GitHub</h6>ximenagirasol
               </a>
             </li>
             <li>
@@ -349,10 +349,10 @@ export default function ResumeTemplate({ pretty }) {
             </li>
             <li>
               <a
-                href="https://www.linkedin.com/in/srobertandrade"
+                href="https://www.linkedin.com/in/sximenagirasol"
                 itemProp="sameAs"
               >
-                <h6 className={styles.link}>LinkedIn</h6>SRobertAndrade
+                <h6 className={styles.link}>LinkedIn</h6>Sximenagirasol
               </a>
             </li>
           </ul>

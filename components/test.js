@@ -5,18 +5,18 @@ export default function Test({ postData }) {
       style={{ width: "1024px" }}
       scrolling="no"
       title="Random Unicode Noise"
-      src="https://codepen.io/robertandradejr/embed/wvrRvLz?default-tab=result"
+      src="https://codepen.io/ximenagirasol/embed/wvrRvLz?default-tab=result"
       frameBorder="no"
       loading="lazy"
       allowtransparency="true"
       allowFullScreen="true"
     >
       See the Pen{" "}
-      <a href="https://codepen.io/robertandradejr/pen/wvrRvLz">
+      <a href="https://codepen.io/ximenagirasol/pen/wvrRvLz">
         Random Unicode Noise
       </a>{" "}
-      by Robert Andrade (
-      <a href="https://codepen.io/robertandradejr">@robertandradejr</a>) on{" "}
+      by ximena girasol (
+      <a href="https://codepen.io/ximenagirasol">@ximenagirasol</a>) on{" "}
       <a href="https://codepen.io">CodePen</a>.
     </iframe>
   );
