@@ -13,7 +13,7 @@ export async function generateStaticParams({ params }) {
   const url = `${baseDir ? `${baseDir}/` : ""}`;
   const dirs = await (
     await getContent(url)
-  ).filter(({ name, type }) => !name.startsWith(".") && type === "dir");
+  ).filter(({ name, type }) => !name?.startsWith(".") && type === "dir");
   const files = await Promise.all(
     dirs.map(async (dir) => {
       const file = await getContent(`${url}${dir.name}`);

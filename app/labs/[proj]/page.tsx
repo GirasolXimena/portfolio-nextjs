@@ -13,7 +13,7 @@ async function ProjectIndexPage({ params }: { params: { proj: string } }) {
   if (!getContent) throw new Error("no content function");
   const url = baseDir;
   const chapters = (await getContent(url)).filter(
-    ({ name, type }) => !name.startsWith(".") && type === "dir",
+    ({ name, type }) => !name?.startsWith(".") && type === "dir",
   );
   const chapterContent = await Promise.all(
     chapters.map(async (chapter) => {
